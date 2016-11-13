@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo -n "Name your migration: "
+
+read filename
+
+knex --env local --knexfile db/config.js migrate:make "$filename"

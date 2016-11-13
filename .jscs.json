@@ -1,0 +1,25 @@
+{
+    "requireCurlyBraces": [ "if", "else", "for", "while", "do" ],
+    "requireSpaceAfterKeywords": [ "if", "else", "for", "while", "do", "switch", "return" ],
+    "requireSpacesInFunctionExpression": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "disallowSpacesInFunctionExpression": {
+        "beforeOpeningRoundBrace": true
+    },
+    "disallowMultipleVarDecl": true,
+    "requireSpacesInsideObjectBrackets": "all",
+    "requireSpacesInsideArrayBrackets": "all",
+    "requireSpaceBeforeBinaryOperators": ["+", "-", "/", "*", "=", "==", "===", "!=", "!=="],
+    "disallowSpaceAfterPrefixUnaryOperators": ["++", "--", "+", "-"],
+    "disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
+    "disallowKeywords": [ "with" ],
+    "disallowMultipleLineBreaks": true,
+    "disallowKeywordsOnNewLine": [ "else" ],
+    "requireLineFeedAtFileEnd": true,
+    "disallowSpaceAfterObjectKeys": true,
+    "disallowQuotedKeysInObjects": "allButReserved",
+    "requireCommaBeforeLineBreak": true,
+    "validateLineBreaks": "LF",
+    "excludeFiles": ["node_modules/**", "db/schema.js", "public/**"]
+}

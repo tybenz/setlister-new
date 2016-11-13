@@ -1,0 +1,53 @@
+<html>
+<head>
+{{# fonts }}
+  {{# src }}
+  <script type="text/javascript" charset="utf-8" src="{{{ src }}}"></script>
+  {{/ src }}
+  {{# inline }}
+  <script type="text/javascript" charset="utf-8">{{{ inline }}}</script>
+  {{/ inline }}
+  {{# href }}
+    <link rel="stylesheet" type="text/css" href="{{{ href }}}">
+  {{/ href }}
+{{/ fonts }}
+{{# stylesheets }}
+<link rel="stylesheet" type="text/css" href="{{{ . }}}">
+{{/ stylesheets }}
+
+{{# metatags }}
+<meta {{# property }}property="{{ property }}" {{/ property }}{{# name }}name="{{ name }}" {{/ name }}{{# content }}content="{{ content }}" {{/ content }}>
+{{/ metatags }}
+</head>
+<body>
+<header>
+  <nav>
+    <ul>
+      <li><a class="logo" href="{{ root_url }}">Setlister</a></li>
+      <li><a href="{{ routes.songs }}">Songs</a></li>
+      <li><a href="{{ routes.setlists }}">Setlists</a></li>
+    </ul>
+  </nav>
+</header>
+  {{# messages.info }}
+  <div class="info flash">{{ . }}</div>
+  {{/ messages.info }}
+  {{# messages.error }}
+  <div class="error flash">{{ . }}</div>
+  {{/ messages.error }}
+  {{# messages.warning }}
+  <div class="warning flash">{{ . }}</div>
+  {{/ messages.warning }}
+<section>
+  {{{ yield }}}
+</section>
+{{# templates }}
+<script type="text/mustache" id="{{ id }}">
+{{{ text }}}</script>
+{{/ templates }}
+
+{{# javascripts }}
+<script type="text/javascript" charset="utf-8" src="{{{ . }}}"></script>
+{{/ javascripts }}
+</body>
+</html>

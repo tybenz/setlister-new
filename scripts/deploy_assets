@@ -1,0 +1,13 @@
+#!/bin/bash
+
+version=`cat dist/version`
+bucket="s3://adobe-luca-${SERVER_ENV-dev}-${SERVER_REGION-ue1}-assets"
+
+PARAMS=''
+if [ ! -z "$PROFILE" ]; then
+  PARAMS="--profile $PROFILE"
+fi
+
+echo "aws s3 cp $PARAMS --recursive --acl public-read \"dist/$version\" \"$bucket/$version\""
+aws s3 cp $PARAMS --recursive --acl public-read --exclude "*.gz.*" "dist/$version" "$bucket/$version"
+aws s3 cp $PARAMS --recursive --acl public-read --content-encoding gzip --exclude "*" --include "*.gz.*" "dist/$version" "$bucket/$version"

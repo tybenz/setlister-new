@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+require( '../src/autoload.js' );
+var Promise = require( 'bluebird' );
+
+// Database schema is in flux for now. Seed does nothing
+console.log( 'Seed finished' );
+process.exit();

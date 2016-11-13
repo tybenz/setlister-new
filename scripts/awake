@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+var request = require( 'request' );
+var Settings = require( '../src/settings' );
+
+request( 'http://' + Settings.host.heroku );

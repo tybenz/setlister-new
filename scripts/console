@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+var repl = require( 'repl' );
+var fs = require( 'fs' );
+var inflect = require( 'i' )();
+
+require( '../src/autoload' );
+
+global.exit = process.exit;
+
+repl.start( { useGlobal: true } );

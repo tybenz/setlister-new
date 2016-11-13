@@ -1,0 +1,3 @@
+[submodule "src/marvel-experiments"]
+	path = src/marvel-experiments
+	url = git@git.corp.adobe.com:project-marvel/marvel-experiments.git
