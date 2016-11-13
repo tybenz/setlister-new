@@ -12,6 +12,4 @@ setlister
 5. Start the server `npm start`
   * If you get an error that it can't find `sass`, set the environment variable
     `SASS_PATH` to your `sass` executable. Or add `sass` to your `PATH`.
-6. You should get a "Not Found" message at [https://localhost:4567/](https://localhost:4567/)
-
-To run tests, run `npm test`
+6. You should see the home page at [https://localhost:4567/](https://localhost:4567/)
