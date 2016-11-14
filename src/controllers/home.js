@@ -1,8 +1,4 @@
 var ApplicationController = require( './application' );
-var Settings = require( '../settings' );
-var Utils = require( '../utils' );
-var passport = require( 'passport' );
-var moment = require( 'moment' );
 
 var HomeController = ApplicationController.extend({
     index: function( req, res, next ) {

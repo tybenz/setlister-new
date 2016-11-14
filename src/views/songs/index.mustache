@@ -1,0 +1,26 @@
+<h2 class="page-header">Songs</h2>
+<div class="builder">
+  <div class="builder-inner">
+    <table>
+      <tr>
+        <th width="50"></th>
+        <th width="510">Name</th>
+        <th width="500">Key</th>
+        <th width="210">Actions</th>
+      </tr>
+      {{# songs }}
+      <tr>
+        <td>{{ num }}.</td>
+        <td class="song-name">{{ title }}</td>
+        <td class="key-selector" data-key="{{ data_key }}" data-song="">{{ data_key }}</td>
+        <td class="actions">
+          <!-- <%= link_to("", song_path(song), :class => "icon-eye-open") %> -->
+          <!-- <%= link_to("", edit_song_path(song), :class => "icon-pencil") %> -->
+          <!-- <%= link_to("", song_path(song), :class => "icon-trash", :method => "delete", :confirm => "Are you sure?") %> -->
+          <!-- <%= link_to("", "#", :class => "icon-plus-sign add-to-setlist-link", :"data-id" => song.id, :"data-key" => song.key) %> -->
+        </td>
+      </tr>
+      {{/ songs }}
+    </table>
+  </div>
+</div>

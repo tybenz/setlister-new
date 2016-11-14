@@ -15,7 +15,7 @@
   "dependencies": {
     "bluebird": "^2.1.2",
     "body-parser": "^1.4.3",
-    "bookshelf": "^0.7.9",
+    "bookshelf": "^0.10.2",
     "browserify-middleware": "^3.0.1",
     "class.extend": "^0.9.1",
     "connect-redis": "^3.1.0",

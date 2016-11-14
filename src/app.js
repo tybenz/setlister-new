@@ -320,8 +320,8 @@ var server;
 if ( !process.env.NODE_ENV || process.env.NODE_ENV == 'local' ) {
     server = https.createServer(
         {
-            key: fs.readFileSync( path.join( __dirname, '..', 'ssl', 'nginx.key' ) ),
-            cert: fs.readFileSync( path.join( __dirname, '..', 'ssl', 'nginx.crt' ) )
+            key: fs.readFileSync( path.join( __dirname, '..', 'ssl', 'ssl.key' ) ),
+            cert: fs.readFileSync( path.join( __dirname, '..', 'ssl', 'ssl.crt' ) )
         },
         app
     );

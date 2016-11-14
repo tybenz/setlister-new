@@ -48,10 +48,8 @@ var ApplicationController = Class.extend({
     },
 
     locals: function( res, obj ) {
-        console.log( res.locals );
         res.locals = _.extend( res.locals, this.defaultLocals(), obj );
         res.locals.templates = _.map( res.locals.templates, Utils.clientSideTemplate );
-        console.log( res.locals );
 
         if ( process.env.NODE_ENV && process.env.NODE_ENV != 'local' ) {
             res.locals.javascripts = res.locals.javascripts.map( function( script ) {
@@ -81,7 +79,6 @@ var ApplicationController = Class.extend({
     },
 
     render: function( res, viewPath, locals, options ) {
-        console.log( res.locals );
         this.locals( res, locals );
         var viewFolder = viewPath.replace( /\/[^\/]*$/, '' );
         var fileList = fs.readdirSync( path.join( __dirname, '..', 'views', viewFolder ) );

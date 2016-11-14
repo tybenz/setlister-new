@@ -4,6 +4,7 @@ module.exports = function( router ) {
     router.post( '/sign_in', 'susi#signIn', { as: 'signIn' } );
     router.get( '/sign_out', 'susi#signOut', { as: 'signOut' } );
 
+    router.get( '/songs', 'songs#index', { as: 'songs' } );
     router.get( '/setlists', 'setlists#index', { as: 'setlists' } );
 
 };
