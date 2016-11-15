@@ -1,0 +1,49 @@
+<div class="builder">
+  <h2>
+    Setlist: {{ setlist_title }}
+  </h2>
+  <div class="builder-inner">
+    <table>
+      <tr class="header">
+        <th width="50"></th>
+        <th width="510">Name</th>
+        <th width="500">Key</th>
+        <th width="60">Capo</th>
+        <th width="200">Actions</th>
+      </tr>
+      {{# songs }}
+      <tr data-old-pos="{{ position }}" data-pos="{{ position }}">
+        <td><input disabled="disabled" type="text" value="{{ num }}" class="order-field" size="1" style="text-align: right"></td>
+        <td class="song-name">
+          <a href="#">{{ title }}</a>
+        </td>
+        <td class="key-selector" data-start="{{ start_key }}" data-key="{{ data_key }}" data-song=""></td>
+        <td>
+          <select value="{{ capo }}" class="capo-selector" id="" name="" data-song="">
+            <option value="0">--</option>
+          </select>
+        </td>
+        <td class="actions">
+          <a href="{{ path }}" class="icon-eye-open"></a>
+          <a href="{{ edit_path }}" class="icon-pencil"></a>
+          <a href="#" class="icon-trash"></a>
+          <a href="#" class="icon-headphones"></a>
+        </td>
+      </tr>
+      {{/ songs }}
+    </table>
+  </div>
+</div>
+
+{{# songs }}
+<div class="song">
+  <h2 data-header="">
+    {{ title }}
+  </h2>
+  <pre id="">{{ text }}</pre>
+  <div class="meta">
+    {{ artist }}
+    <span class="license">{{ license }}</span>
+  </div>
+</div>
+{{/ songs }}

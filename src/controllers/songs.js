@@ -1,14 +1,16 @@
 var ApplicationController = require( './application' );
 var Song = require( '../models/song' );
+var Setlist = require( '../models/setlist' );
 
 var SongsController = ApplicationController.extend({
     index: function( req, res, next ) {
+        var songsJSON;
         new Song()
         .orderBy('title', 'ASC')
         .fetchAll()
         .then(function (songs) {
             var i = 0;
-            var songsJSON = songs.map(function (song) {
+            songsJSON = songs.map(function (song) {
                 var id = song.get('id');
                 i++;
                 return _.extend({}, song.attributes, {
@@ -17,9 +19,14 @@ var SongsController = ApplicationController.extend({
                     edit_path: router.editSongPath(id)
                 });
             });
+
+            return new Setlist().orderBy('created_at', 'ASC').fetchAll();
+        })
+        .then(function (setlists) {
             this.render( res, 'songs/index', {
                 songs: songsJSON,
                 new_song_path: router.newSongPath(),
+                setlists: setlists.toJSON(),
                 javascripts: ['/js/setlists.js']
             }, {layout: 'layouts/application'} );
         }.bind(this))

@@ -1,0 +1,31 @@
+<h2 class="page-header">
+  Setlists
+  <a href="{{ new_setlist_path }}" class="add button js-add-setlist-button">Add</a>
+</h2>
+<div class="builder">
+  <div class="builder-inner">
+    <table>
+      <tr>
+        <th width="50"></th>
+        <th width="1000">Name</th>
+        <th width="149">Actions</th>
+      </tr>
+      {{# setlists }}
+      <tr>
+        <td>{{ num }}.</td>
+        <td class="setlist-name"><a href="{{ path }}">{{ title }}</a></td>
+        <td class="actions">
+          <a href="{{ path }}" class="icon-eye-open"></a>
+          <a href="{{ edit_path }}" class="icon-pencil"></a>
+          <a href="{{ path }}" data-method="delete" class="icon-trash" data-confirm="Are you sure?"></a>
+          <a href="#" class="icon-plus-sign add-to-setlist-link" data-id="{{ id }}" data-key="{{ data_key }}"></a>
+          <!-- <%= link_to("", setlist_path(setlist), :class => "icon-eye-open") %> -->
+          <!-- <%= link_to("", edit_setlist_path(setlist), :class => "icon-pencil") %> -->
+          <!-- <%= link_to("", setlist_path(setlist), :class => "icon-trash", :method => "delete", :confirm => "Are you sure?") %> -->
+          <!-- <%= link_to("", "#", :class => "icon-plus-sign add-to-setlist-link", :"data-id" => setlist.id, :"data-key" => setlist.key) %> -->
+        </td>
+      </tr>
+      {{/ setlists }}
+    </table>
+  </div>
+</div>

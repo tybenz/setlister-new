@@ -21063,6 +21063,7 @@
 	                $( document ).on( self.options.hideEvent, self._handleGlobalEvent );
 	            } else if ( $previousTrigger[0] != this.$activeTrigger[0] && this.options.positionAround ) {
 	                this._positionDisplay();
+                    this.trigger( 'wp-display-before-show', this.$activeTrigger );
 	            } else {
 	                if ( this.options.toggle ) {
 	                    this._hideDisplay();

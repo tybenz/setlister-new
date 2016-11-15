@@ -1,11 +1,7 @@
 var BaseModel = require( './model' );
 
 var Song = BaseModel.extend({
-    tableName: 'songs',
-
-    setlists: function() {
-        return this.belongsToMany( Setlist ).through( SetlistSong );
-    }
+    tableName: 'songs'
 });
 
 module.exports = Song;
