@@ -8,19 +8,11 @@ var ApplicationController = Class.extend({
     init: function() {},
 
     defaultLocals: function() {
-        var routes = {};
-        for ( var member in router ) {
-            if ( router.hasOwnProperty( member ) ) {
-                var value = router[ member ];
-                if (member.search('Path') != -1) {
-                    routes[member.replace(/Path$/, '')] = value();
-                }
-            }
-        }
         return {
-            page_title: 'Setlister',
-            routes: routes,
+            site_title: 'Setlister',
             root_url: '/',
+            songs_path: router.songsPath(),
+            setlists_path: router.setlistsPath(),
             metatags: [],
             fonts: this.fonts(),
             stylesheets: this.stylesheets(),

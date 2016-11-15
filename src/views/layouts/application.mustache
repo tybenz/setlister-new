@@ -1,5 +1,6 @@
 <html>
 <head>
+  <title>{{ page_title }}{{# page_title }} &mdash; {{/ page_title }}{{ site_title }}</title>
 {{# fonts }}
   {{# src }}
   <script type="text/javascript" charset="utf-8" src="{{{ src }}}"></script>
@@ -24,8 +25,8 @@
   <nav>
     <ul>
       <li><a class="logo" href="{{ root_url }}">Setlister</a></li>
-      <li><a href="{{ routes.songs }}">Songs</a></li>
-      <li><a href="{{ routes.setlists }}">Setlists</a></li>
+      <li><a href="{{ songs_path }}">Songs</a></li>
+      <li><a href="{{ setlists_path }}">Setlists</a></li>
     </ul>
   </nav>
 </header>

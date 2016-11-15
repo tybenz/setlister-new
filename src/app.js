@@ -173,6 +173,9 @@ if ( !process.env.NODE_ENV || process.env.NODE_ENV == 'local' ) {
 app.use( '/img', express.static( path.join( __dirname, 'assets', 'images' ) ) );
 app.use( haltOnTimedout );
 
+app.use( '/font', express.static( path.join( __dirname, 'assets', 'font' ) ) );
+app.use( haltOnTimedout );
+
 app.use( bodyParser.urlencoded( { extended: true } ) );
 app.use( haltOnTimedout );
 app.use( bodyParser.json() );

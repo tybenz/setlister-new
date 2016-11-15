@@ -1,0 +1,35 @@
+<form action="{{ submit_path }}" method="POST">
+<h2 class="page-header">Edit Song <input type="submit" value="Save" class="add button"></h2>
+
+  <div class="field">
+    <input value="{{ song_title }}" type="text" name="title" placeholder="Title" autofocus="true">
+  </div>
+
+  <div class="field">
+    <input value="{{ artist }}" type="text" name="artist" placeholder="Artist">
+  </div>
+
+  <div class="field">
+    <input value="{{ year }}" type="text" name="year" placeholder="Year">
+  </div>
+
+  <div class="field">
+    <input value="{{ data_key }}" type="text" name="data_key" placeholder="Key">
+  </div>
+  <br />
+  <br />
+
+  <div class="field full">
+    <input value="{{ info }}" type="text" name="info" placeholder="Info">
+  </div>
+  <br />
+  <br />
+
+  <div class="song-wrapper">
+    <div class="field textarea">
+      <textarea name="text" placeholder="Chords">{{ text }}</textarea>
+    </div>
+    <br />
+    <br />
+  </div>
+</form>

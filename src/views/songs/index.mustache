@@ -1,19 +1,26 @@
-<h2 class="page-header">Songs</h2>
+<h2 class="page-header">
+  Songs
+  <a href="{{ new_song_path }}" class="add button js-add-song-button">Add</a>
+</h2>
 <div class="builder">
   <div class="builder-inner">
     <table>
       <tr>
         <th width="50"></th>
-        <th width="510">Name</th>
-        <th width="500">Key</th>
+        <th width="1200">Name</th>
+        <th>Key</th>
         <th width="210">Actions</th>
       </tr>
       {{# songs }}
       <tr>
         <td>{{ num }}.</td>
-        <td class="song-name">{{ title }}</td>
+        <td class="song-name"><a href="{{ path }}">{{ title }}</a></td>
         <td class="key-selector" data-key="{{ data_key }}" data-song="">{{ data_key }}</td>
         <td class="actions">
+          <a href="{{ path }}" class="icon-eye-open"></a>
+          <a href="{{ edit_path }}" class="icon-pencil"></a>
+          <a href="{{ path }}" data-method="delete" class="icon-trash" data-confirm="Are you sure?"></a>
+          <a href="#" class="icon-plus-sign add-to-setlist-link" data-id="{{ id }}" data-key="{{ data_key }}"></a>
           <!-- <%= link_to("", song_path(song), :class => "icon-eye-open") %> -->
           <!-- <%= link_to("", edit_song_path(song), :class => "icon-pencil") %> -->
           <!-- <%= link_to("", song_path(song), :class => "icon-trash", :method => "delete", :confirm => "Are you sure?") %> -->
@@ -23,4 +30,7 @@
       {{/ songs }}
     </table>
   </div>
+</div>
+
+<div class="flyout add-to-setlist">
 </div>
