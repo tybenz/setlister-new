@@ -37,7 +37,6 @@ var SongsController = ApplicationController.extend({
         new Song({id: req.params.id})
         .fetch()
         .then(function (song) {
-            console.log( song.get('title') );
             this.render( res, 'songs/show', {
                 page_title: song.get( 'title' ),
                 song_title: song.get( 'title' ),

@@ -36,7 +36,6 @@ var SusiController = ApplicationController.extend({
                 return next( err );
             }
             if ( !user ) {
-                console.log( info.message );
                 req.flash( 'error', info.message );
                 return res.redirect( router.signInPath() );
             }

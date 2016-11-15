@@ -84,7 +84,6 @@ var SetlistsController = ApplicationController.extend({
         new Setlist({id: id})
         .fetch()
         .then(function (setlist) {
-            console.log( setlist.get('title') );
             this.render( res, 'setlists/edit', {
                 submit_path: router.setlistPath(id),
                 page_title: setlist.get( 'title' ),
