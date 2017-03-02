@@ -30,6 +30,7 @@
     </ul>
   </nav>
 </header>
+<section>
   {{# messages.info }}
   <div class="info flash">{{ . }}</div>
   {{/ messages.info }}
@@ -39,6 +40,7 @@
   {{# messages.warning }}
   <div class="warning flash">{{ . }}</div>
   {{/ messages.warning }}
+</section>
 <section>
   {{{ yield }}}
 </section>

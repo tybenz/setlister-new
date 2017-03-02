@@ -2,6 +2,11 @@ require('./application');
 var $ = require('jquery');
 var Mustache = require('mustache');
 require('./display');
+require( './key_selector' );
+
+function authError() {
+    window.location = '/auth_error';
+}
 
 $(function() {
     var $flyout = $('.add-to-setlist.flyout');
@@ -38,6 +43,7 @@ $(function() {
             beforeSend: function() {
                 $spinner.addClass( 'show' );
             },
+            error: authError,
             success: function ( data ) {
                 $spinner.removeClass( 'show' );
                 $ok.addClass( 'show' );
@@ -117,8 +123,8 @@ $(function() {
             flyoutContentID = $trigger.data( 'info' ),
             $flyoutContent = $this.find( '#' + flyoutContentID + '-info' );
 
-            $this.find( '.song-info-content' ).hide();
-            $flyoutContent.show();
+        $this.find( '.song-info-content' ).hide();
+        $flyoutContent.show();
     });
 
     var numbers = { 'Ab': 11, 'A': 0, 'A#': 1, 'Bb': 1, 'B': 2, 'C': 3, 'C#': 4, 'Db': 4, 'D': 5, 'D#': 6, 'Eb': 6, 'E': 7, 'F': 8, 'F#': 9, 'Gb': 9, 'G': 10, 'G#': 11 },
@@ -127,62 +133,62 @@ $(function() {
             flats: [ 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab' ]
         };
 
-        $( '.print-setlist' ).on( 'click', function( evt ) {
-            evt.preventDefault();
-            window.print();
+    $( '.print-setlist' ).on( 'click', function( evt ) {
+        evt.preventDefault();
+        window.print();
+    });
+
+    $( '.print-setlist-without-capo' ).on( 'click', function( evt ) {
+        evt.preventDefault();
+
+        var backup = {};
+        $builder.find( 'tr:not(.header)' ).each( function() {
+            var $this = $( this ),
+                position = $this.data( 'pos' ),
+                $key = $this.find( '.key-selector a.active ' ),
+                key = $key.text(),
+                $keys = $this.find( '.key-selector a' ),
+                currentIndex = numbers[ key ],
+                capo = parseInt( $this.find( '.capo-selector' ).val() ),
+                newIndex = ( currentIndex + capo ) % 12,
+                newKey = notes.sharps[ newIndex ];
+
+                $keys.each(function() {
+                    if ( $(this).text() == newKey ) {
+                        $(this).click();
+                        return false;
+                    }
+                });
+
+                $( '.capo' ).hide();
+
+                backup[ position ] =  { key: key, capo: capo };
         });
 
-        $( '.print-setlist-without-capo' ).on( 'click', function( evt ) {
-            evt.preventDefault();
+        window.print();
 
-            var backup = {};
-            $builder.find( 'tr:not(.header)' ).each( function() {
-                var $this = $( this ),
-                    position = $this.data( 'pos' ),
-                    $key = $this.find( '.key-selector a.active ' ),
-                    key = $key.text(),
-                    $keys = $this.find( '.key-selector a' ),
-                    currentIndex = numbers[ key ],
-                    capo = parseInt( $this.find( '.capo-selector' ).val() ),
-                    newIndex = ( currentIndex + capo ) % 12,
-                    newKey = notes.sharps[ newIndex ];
+        $builder.find( 'tr:not(.header)' ).each( function() {
+            var $this = $( this ),
+                song = backup[ $this.data( 'pos' ) ],
+                key = song.key,
+                $keys = $this.find( '.key-selector a' );
 
-                    $keys.each(function() {
-                        if ( $(this).text() == newKey ) {
-                            $(this).click();
-                            return false;
-                        }
-                    });
+                $keys.each(function() {
+                    if ( $(this).text() == key ) {
+                        $(this).click();
+                        return false;
+                    }
+                });
 
-                    $( '.capo' ).hide();
-
-                    backup[ position ] =  { key: key, capo: capo };
-            });
-
-            window.print();
-
-            $builder.find( 'tr:not(.header)' ).each( function() {
-                var $this = $( this ),
-                    song = backup[ $this.data( 'pos' ) ],
-                    key = song.key,
-                    $keys = $this.find( '.key-selector a' );
-
-                    $keys.each(function() {
-                        if ( $(this).text() == key ) {
-                            $(this).click();
-                            return false;
-                        }
-                    });
-
-                    $( '.capo' ).show();
-            });
+                $( '.capo' ).show();
         });
+    });
 
-        $( '.song-shortcut' ).click( function( evt ) {
-            evt.preventDefault();
-            var id = $( this ).attr( 'href' );
+    $( '.song-shortcut' ).click( function( evt ) {
+        evt.preventDefault();
+        var id = $( this ).attr( 'href' );
 
-            console.log(id);
-            window.scroll( 0, $( id ).offset().top - 160 );
-        });
+        console.log(id);
+        window.scroll( 0, $( id ).offset().top - 160 );
+    });
 });

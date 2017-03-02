@@ -2,7 +2,7 @@ var ApplicationController = require( './application' );
 
 var HomeController = ApplicationController.extend({
     index: function( req, res, next ) {
-        this.render( res, 'home/index', {
+        this.render( req, res, 'home/index', {
             sign_in_or_sign_out: req.user ? router.signOutPath() : router.signInFormPath()
         }, {layout: 'layouts/application'} );
     },
@@ -13,7 +13,7 @@ var HomeController = ApplicationController.extend({
             return;
         }
 
-        this.render( res, 'home/sign_in', {
+        this.render( req, res, 'home/sign_in', {
             name: 'Tyler',
             signIn: true,
             signInUrl: router.signInPath(),

@@ -3,6 +3,19 @@ var SetlistSong = require( '../models/setlist_song' );
 var Setlist = require( '../models/setlist' );
 
 var SetlistSongsController = ApplicationController.extend({
+    before: [
+        { name: 'authorize' }
+    ],
+
+    authorize: function ( req, res, next ) {
+        if ( req.user ) {
+            next();
+        } else {
+            req.flash( 'error', 'Not authorized' );
+            res.send( 401 );
+        }
+    },
+
     create: function( req, res, next ) {
         new Setlist(req.body.setlist_id)
         .fetch({withRelated: ['setlist_songs', {

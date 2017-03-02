@@ -24,7 +24,7 @@ var SetlistsController = ApplicationController.extend({
                     edit_path: router.editSetlistPath(id)
                 });
             });
-            this.render( res, 'setlists/index', {
+            this.render( req, res, 'setlists/index', {
                 setlists: setlistsJSON,
                 new_setlist_path: router.newSetlistPath()
             }, {layout: 'layouts/application'} );
@@ -51,21 +51,24 @@ var SetlistsController = ApplicationController.extend({
                 songData.song_id = songData.id;
                 songData.path = router.songPath(songData.id);
                 songData.edit_path = router.editSongPath(songData.id);
+                songData.delete_path = router.deleteSetlistSongPath(setlistSong.id);
+                songData.title_dashes = songData.title.replace(/ /g, '-');
                 songData.num = i;
                 return songData;
             });
-            this.render( res, 'setlists/show', {
+            this.render( req, res, 'setlists/show', {
                 page_title: setlist.get( 'title' ),
                 setlist_title: setlist.get( 'title' ),
                 setlist_songs: setlistSongs.toJSON(),
-                songs: songs
+                songs: songs,
+                javascripts: ['/js/setlists.js', '/js/setlists_show.js']
             }, {layout: 'layouts/application'});
         }.bind(this))
         .done();
     },
 
     new: function( req, res, next ) {
-        this.render( res, 'setlists/edit', {
+        this.render( req, res, 'setlists/edit', {
             submit_path: router.setlistsPath()
         }, {layout: 'layouts/application'});
     },
@@ -84,7 +87,7 @@ var SetlistsController = ApplicationController.extend({
         new Setlist({id: id})
         .fetch()
         .then(function (setlist) {
-            this.render( res, 'setlists/edit', {
+            this.render( req, res, 'setlists/edit', {
                 submit_path: router.setlistPath(id),
                 page_title: setlist.get( 'title' ),
             }, {layout: 'layouts/application'});

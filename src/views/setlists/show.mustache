@@ -17,7 +17,7 @@
         <td class="song-name">
           <a href="#">{{ title }}</a>
         </td>
-        <td class="key-selector" data-start="{{ start_key }}" data-key="{{ data_key }}" data-song=""></td>
+        <td class="key-selector" data-start="{{ start_key }}" data-key="{{ data_key }}" data-song="{{ title_dashes }}"></td>
         <td>
           <select value="{{ capo }}" class="capo-selector" id="" name="" data-song="">
             <option value="0">--</option>
@@ -26,7 +26,7 @@
         <td class="actions">
           <a href="{{ path }}" class="icon-eye-open"></a>
           <a href="{{ edit_path }}" class="icon-pencil"></a>
-          <a href="#" class="icon-trash"></a>
+          <a href="{{ delete_path }}" data-method="delete" data-confirm="Are you sure?" class="icon-trash"></a>
           <a href="#" class="icon-headphones"></a>
         </td>
       </tr>
@@ -37,7 +37,7 @@
 
 {{# songs }}
 <div class="song">
-  <h2 data-header="">
+  <h2 data-header="{{ title_dashes }}">
     {{ title }}
   </h2>
   <pre id="">{{ text }}</pre>

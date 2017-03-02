@@ -3,6 +3,19 @@ var Song = require( '../models/song' );
 var Setlist = require( '../models/setlist' );
 
 var SongsController = ApplicationController.extend({
+    before: [
+        { name: 'authorize', except: [ 'index', 'show' ] }
+    ],
+
+    authorize: function ( req, res, next ) {
+        if ( req.user ) {
+            next();
+        } else {
+            req.flash( 'error', 'Not authorized' );
+            res.redirect( router.rootPath() );
+        }
+    },
+
     index: function( req, res, next ) {
         var songsJSON;
         new Song()
@@ -23,7 +36,7 @@ var SongsController = ApplicationController.extend({
             return new Setlist().orderBy('created_at', 'ASC').fetchAll();
         })
         .then(function (setlists) {
-            this.render( res, 'songs/index', {
+            this.render( req, res, 'songs/index', {
                 songs: songsJSON,
                 new_song_path: router.newSongPath(),
                 setlists: setlists.toJSON(),
@@ -37,7 +50,7 @@ var SongsController = ApplicationController.extend({
         new Song({id: req.params.id})
         .fetch()
         .then(function (song) {
-            this.render( res, 'songs/show', {
+            this.render( req, res, 'songs/show', {
                 page_title: song.get( 'title' ),
                 song_title: song.get( 'title' ),
                 text: song.get( 'text' ),
@@ -50,7 +63,7 @@ var SongsController = ApplicationController.extend({
     },
 
     new: function( req, res, next ) {
-        this.render( res, 'songs/edit', {
+        this.render( req, res, 'songs/edit', {
             submit_path: router.songsPath()
         }, {layout: 'layouts/application'});
     },
@@ -70,7 +83,7 @@ var SongsController = ApplicationController.extend({
         .fetch()
         .then(function (song) {
             console.log( song.get('title') );
-            this.render( res, 'songs/edit', {
+            this.render( req, res, 'songs/edit', {
                 submit_path: router.songPath(id),
                 page_title: song.get( 'title' ),
                 song_title: song.get( 'title' ),

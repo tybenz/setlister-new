@@ -7,12 +7,13 @@ var Settings = require( '../settings' );
 var ApplicationController = Class.extend({
     init: function() {},
 
-    defaultLocals: function() {
+    defaultLocals: function( req ) {
         return {
             site_title: 'Setlister',
             root_url: '/',
             songs_path: router.songsPath(),
             setlists_path: router.setlistsPath(),
+            is_signed_in: !!req.user,
             metatags: [],
             fonts: this.fonts(),
             stylesheets: this.stylesheets(),
@@ -39,8 +40,8 @@ var ApplicationController = Class.extend({
         return [];
     },
 
-    locals: function( res, obj ) {
-        res.locals = _.extend( res.locals, this.defaultLocals(), obj );
+    locals: function( req, res, obj ) {
+        res.locals = _.extend( res.locals, this.defaultLocals( req ), obj );
         res.locals.templates = _.map( res.locals.templates, Utils.clientSideTemplate );
 
         if ( process.env.NODE_ENV && process.env.NODE_ENV != 'local' ) {
@@ -70,8 +71,8 @@ var ApplicationController = Class.extend({
         }
     },
 
-    render: function( res, viewPath, locals, options ) {
-        this.locals( res, locals );
+    render: function( req, res, viewPath, locals, options ) {
+        this.locals( req, res, locals );
         var viewFolder = viewPath.replace( /\/[^\/]*$/, '' );
         var fileList = fs.readdirSync( path.join( __dirname, '..', 'views', viewFolder ) );
         partials = _.reduce( fileList, function( obj, file ) {
@@ -86,6 +87,11 @@ var ApplicationController = Class.extend({
 
         res.statusCode = options.status || 200;
         res.render( viewPath, options );
+    },
+
+    authError: function( req, res, next ) {
+        req.flash( 'error', 'Not authorized' );
+        res.redirect( router.rootPath() );
     }
 });
 
