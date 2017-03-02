@@ -6,7 +6,7 @@
     <table>
       <tr class="header">
         <th width="50"></th>
-        <th width="510">Name</th>
+        <th width="470">Name</th>
         <th width="500">Key</th>
         <th width="60">Capo</th>
         <th width="200">Actions</th>
@@ -19,8 +19,11 @@
         </td>
         <td class="key-selector" data-start="{{ start_key }}" data-key="{{ data_key }}" data-song="{{ title_dashes }}"></td>
         <td>
-          <select value="{{ capo }}" class="capo-selector" id="" name="" data-song="">
+          <select value="{{ capo }}" class="capo-selector" id="" name="" data-song="{{ title_dashes }}">
             <option value="0">--</option>
+            {{# capo_list }}
+            <option value="{{ . }}">{{ . }}</option>
+            {{/ capo_list }}
           </select>
         </td>
         <td class="actions">
@@ -40,7 +43,7 @@
   <h2 data-header="{{ title_dashes }}">
     {{ title }}
   </h2>
-  <pre id="">{{ text }}</pre>
+  <pre id="{{ title_dashes }}">{{ text }}</pre>
   <div class="meta">
     {{ artist }}
     <span class="license">{{ license }}</span>

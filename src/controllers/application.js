@@ -16,6 +16,7 @@ var ApplicationController = Class.extend({
             is_signed_in: !!req.user,
             metatags: [],
             fonts: this.fonts(),
+            print_stylesheet: '/css/print.css',
             stylesheets: this.stylesheets(),
             javascripts: this.javascripts(),
             templates: this.templates()

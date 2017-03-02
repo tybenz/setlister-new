@@ -56,11 +56,15 @@ var SetlistsController = ApplicationController.extend({
                 songData.num = i;
                 return songData;
             });
+            var capoList = _.map(_.times(12, Number), function (num) {
+                return num + 1;
+            });
             this.render( req, res, 'setlists/show', {
                 page_title: setlist.get( 'title' ),
                 setlist_title: setlist.get( 'title' ),
                 setlist_songs: setlistSongs.toJSON(),
                 songs: songs,
+                capo_list: capoList,
                 javascripts: ['/js/setlists.js', '/js/setlists_show.js']
             }, {layout: 'layouts/application'});
         }.bind(this))

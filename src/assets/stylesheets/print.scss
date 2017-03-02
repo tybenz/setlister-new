@@ -30,7 +30,7 @@ header {
 }
 
 .song {
-  @include box-shadow(none);
+  box-shadow: none;
   page-break-after: always;
 }
 
