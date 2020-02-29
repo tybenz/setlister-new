@@ -6,10 +6,10 @@
     <table>
       <tr class="header">
         <th width="50"></th>
-        <th width="470">Name</th>
-        <th width="500">Key</th>
-        <th width="60">Capo</th>
-        <th width="200">Actions</th>
+        <th width="500">Name</th>
+        <th width="465">Key</th>
+        <th width="65">Capo</th>
+        <th width="115">Actions</th>
       </tr>
       {{# songs }}
       <tr data-old-pos="{{ position }}" data-pos="{{ position }}">
@@ -30,7 +30,6 @@
           <a href="{{ path }}" class="icon-eye-open"></a>
           <a href="{{ edit_path }}" class="icon-pencil"></a>
           <a href="{{ delete_path }}" data-method="delete" data-confirm="Are you sure?" class="icon-trash"></a>
-          <a href="#" class="icon-headphones"></a>
         </td>
       </tr>
       {{/ songs }}

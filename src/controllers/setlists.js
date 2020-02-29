@@ -65,7 +65,7 @@ var SetlistsController = ApplicationController.extend({
                 setlist_songs: setlistSongs.toJSON(),
                 songs: songs,
                 capo_list: capoList,
-                javascripts: ['/js/setlists.js', '/js/setlists_show.js']
+                javascripts: ['/js/setlist.js']
             }, {layout: 'layouts/application'});
         }.bind(this))
         .done();

@@ -40,7 +40,7 @@ var SongsController = ApplicationController.extend({
                 songs: songsJSON,
                 new_song_path: router.newSongPath(),
                 setlists: setlists.toJSON(),
-                javascripts: ['/js/setlists.js']
+                javascripts: ['/js/songs.js']
             }, {layout: 'layouts/application'} );
         }.bind(this))
         .done();

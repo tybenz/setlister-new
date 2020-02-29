@@ -1,9 +1,5 @@
 var $ = require('jquery');
 
-function authError() {
-    window.location = '/auth_error';
-}
-
 $('[data-method=delete]').on('click', function(evt) {
     var $target = $( evt.target );
     evt.preventDefault();
@@ -22,7 +18,7 @@ $('[data-method=delete]').on('click', function(evt) {
                 window.location.reload();
             },
             error: function (err) {
-                authError();
+                window.location = '/auth_error';
             }
         });
     }

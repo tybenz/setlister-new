@@ -5,9 +5,14 @@ var ncp = require( 'ncp' );
 var version = require( 'node-uuid' )().replace( /-/g, '' );
 
 var javascripts = [
+    'application',
+    'songs',
+    'setlist'
 ];
 
 var stylesheets = [
+    'application',
+    'print'
 ];
 
 var browserify = {};
@@ -64,15 +69,8 @@ module.exports = function( grunt ) {
     });
 
     grunt.registerTask( 'version', 'Write version to file', function() {
-        var done = this.async();
-        fs.writeFile( 'dist/version', version, 'utf8', function( err ) {
-            if ( err ) {
-                throw err;
-            }
-            mkdirp( 'dist/' + version, function( err ) {
-                done();
-            });
-        });
+        fs.writeFileSync( 'dist/version', version);
+        mkdirp.sync( 'dist/' + version );
     });
 
     grunt.registerTask( 'images', 'Move images into dist', function() {

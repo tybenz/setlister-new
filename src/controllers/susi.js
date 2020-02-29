@@ -30,19 +30,25 @@ var SusiController = ApplicationController.extend({
     },
 
     signIn: function( req, res, next ) {
+        console.log('SIGN IN');
         passport.authenticate( 'local', function( err, user, info ) {
+            console.log('SIGN IN CHECK');
             logger( { type: 'signIn' } );
             if ( err ) {
+                console.log('SIGN IN ERROR', err);
                 return next( err );
             }
             if ( !user ) {
+                console.log('SIGN IN NO USER');
                 req.flash( 'error', info.message );
                 return res.redirect( router.signInPath() );
             }
             req.logIn( user, function( err ) {
                 if ( err ) {
+                    console.log('SIGN IN ERROR', err);
                     return next( err );
                 }
+                console.log('SIGN IN WORKED');
                 return res.redirect( router.rootPath() );
             });
         })( req, res, next );

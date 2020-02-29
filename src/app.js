@@ -137,37 +137,15 @@ var traverseViews = function( path ) {
 app.set( 'partials', traverseViews( path.join( __dirname, 'views' ) ) );
 app.engine( 'mustache', require( 'hogan-express' ) );
 
+var assetVersionNumber = fs.readFileSync( path.join( __dirname, '..', 'dist', 'version' ), { encoding: 'utf8' } );
+
 // Client-side JS
-app.use( '/js', browserifyMiddleWare( path.join( __dirname, 'assets', 'javascripts' ) ) );
-app.use( haltOnTimedout );
-app.use( '/js/jquery.js', express.static( path.join( __dirname, '..', 'node_modules', 'jquery', 'dist', 'jquery.js' ) ) );
+// app.use( '/js', browserifyMiddleWare( path.join( __dirname, 'assets', 'javascripts' ) ) );
+app.use( '/js', express.static( path.join(__dirname, '..', 'dist', assetVersionNumber, 'js')));
 app.use( haltOnTimedout );
 
-// Sass
-if ( !process.env.NODE_ENV || process.env.NODE_ENV == 'local' ) {
-    var which = function (cmd) {
-        var realWhich = require('which').sync;
-        try {
-            return realWhich(cmd);
-        }
-        catch (exception) {
-            return null;
-        }
-    };
-    var sassMiddleware = require( 'sass-update-middleware' );
-    app.use( sassMiddleware({
-            src: path.join( __dirname, 'assets', 'stylesheets' ),
-            dest: path.join( __dirname, '..', 'public', 'css' ),
-            sassPath: process.env.SASS_PATH || '/usr/local/bin/sass',
-            includePaths: [
-                path.join( __dirname, 'assets', 'stylesheets', 'bourbon' ),
-                path.join( __dirname, 'assets', 'stylesheets', 'neat' )
-            ]
-    }));
-    app.use( haltOnTimedout );
-    app.use( '/css', express.static( path.join( __dirname, '..', 'public', 'css' ) ) );
-    app.use( haltOnTimedout );
-}
+app.use( '/css', express.static( path.join(__dirname, '..', 'dist', assetVersionNumber, 'css')));
+app.use( haltOnTimedout );
 
 // Images
 app.use( '/img', express.static( path.join( __dirname, 'assets', 'images' ) ) );
@@ -250,9 +228,17 @@ if ( process.env.NODE_ENV == 'heroku' ) {
     }));
     app.use( haltOnTimedout );
 } else {
+    var client = redis.createClient({
+      host: 'localhost',
+      port: 6379,
+      db: 1,
+    });
+    client.unref();
+    client.on('error', console.log);
+
     app.use( session({
         secret: 'gtfo, bruh',
-        store: new RedisStore(),
+        store: new RedisStore( { client: client } ),
         resave: true,
         saveUninitialized: true
     }));
@@ -334,7 +320,8 @@ if ( !process.env.NODE_ENV || process.env.NODE_ENV == 'local' ) {
 
 server.listen( process.env.PORT || 4567, function() {
     logger({
-        type: 'serverStartup'
+        type: 'serverStartup',
+        assetVersionNumber: assetVersionNumber
     });
 });
 
