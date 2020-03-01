@@ -1,6 +1,24 @@
+<div class="song-actions">
+  <span class="capo-select">
+    <strong class="capo-select-label">Capo:</strong>
+    <select value="{{ capo }}" class="capo-selector" id="" name="" data-song="{{ song_title_dashes }}">
+      <option value="0">--</option>
+      {{# capo_list }}
+      <option value="{{ . }}">{{ . }}</option>
+      {{/ capo_list }}
+    </select>
+  </span>
+  <span class="key">
+    <strong class="key-select-label">Key:</strong>
+    <span class="key-selector" data-start="{{ start_key }}" data-key="{{ data_key }}" data-song="{{ song_title_dashes }}"></span>
+  </span>
+  <a href="#" class="button print-button"><span class="icon-print icon"></span>Print</a>
+  <a href="{{ edit_path }}" class="button edit-button"><span class="icon-pencil icon"></span>Edit</a>
+</div>
+
 <div class="song">
-  <h2>{{ song_title }}</h2>
-  <pre>{{ text }}</pre>
+  <h2 data-header="{{ song_title_dashes }}">{{ song_title }}</h2>
+  <pre id="{{ song_title_dashes }}">{{ text }}</pre>
   <div class="meta">
     {{ artist }}
     <span class="license">{{ license }}</span>

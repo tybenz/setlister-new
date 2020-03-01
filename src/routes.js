@@ -15,6 +15,7 @@ module.exports = function( router ) {
     router.get( '/setlists', 'setlists#index', { as: 'setlists' } );
     router.get( '/setlists/new', 'setlists#new', { as: 'newSetlist' } );
     router.get( '/setlists/:id/edit', 'setlists#edit', { as: 'editSetlist' } );
+    router.get( '/setlists/:id/slideshow', 'setlists#slideshow', { as: 'setlistSlideshow' } );
     router.post( '/setlists', 'setlists#create' );
     router.get( '/setlists/:id', 'setlists#show', { as: 'setlist' } );
     router.post( '/setlists/:id', 'setlists#update' );

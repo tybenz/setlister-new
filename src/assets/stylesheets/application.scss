@@ -17,9 +17,9 @@
 @import 'neat';
 @import 'font-awesome';
 
-$grey: #333;
+$grey: #454545;
 $link-color: #0af;
-$border-radius: 2px;
+$border-radius: 8px;
 
 @mixin container {
   @include outer-container;
@@ -29,7 +29,7 @@ $border-radius: 2px;
 
 html, body {
   margin: 0;
-  font-family: source-sans-pro, Arial, sans-serif;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
 }
 
 body {
@@ -90,13 +90,14 @@ section {
 .song {
   border: 1px solid $grey;
   border-radius: $border-radius;
+  overflow: hidden;
   margin-top: 20px;
   pre {
     outline: none;
     margin: 20px;
     border: none;
-    font-family: monospace;
-    font-size: 1em;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12px;
   }
   .icon-headphones, .icon-info-sign {
     color: inherit;
@@ -154,12 +155,19 @@ textarea {
 .builder {
   z-index: 10;
   overflow: hidden;
+  border-radius: $border-radius;
   .builder-inner {
     background: white;
     z-index: 10;
-    border-radius: $border-radius;
     border: 2px solid #222;
+    border-bottom-right-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
     float: left;
+
+  }
+  &.list .builder-inner {
+    border-top-right-radius: $border-radius;
+    border-top-left-radius: $border-radius;
   }
   table {
     width: 100%;
@@ -677,4 +685,29 @@ body.edit {
   .button.edit-slideshow {
     display: none;
   }
+}
+
+.capo-select-label {
+  margin-right: 5px;
+}
+
+.key-select-label {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.print-button, .edit-button {
+  font-size: 14px;
+  float: right;
+  border-radius: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  .icon {
+    margin-right: 5px;
+  }
+}
+
+.print-button {
+  margin-left: 10px;
 }

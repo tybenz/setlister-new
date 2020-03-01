@@ -21,7 +21,8 @@ var SetlistsController = ApplicationController.extend({
                 return _.extend({}, setlist.attributes, {
                     num: i,
                     path: router.setlistPath(id),
-                    edit_path: router.editSetlistPath(id)
+                    edit_path: router.editSetlistPath(id),
+                    slideshow_path: router.setlistSlideshowPath(id)
                 });
             });
             this.render( req, res, 'setlists/index', {
@@ -65,6 +66,36 @@ var SetlistsController = ApplicationController.extend({
                 setlist_songs: setlistSongs.toJSON(),
                 songs: songs,
                 capo_list: capoList,
+                javascripts: ['/js/setlist.js']
+            }, {layout: 'layouts/application'});
+        }.bind(this))
+        .done();
+    },
+
+    slideshow: function( req, res, next ) {
+        new Setlist({id: req.params.id})
+        .fetch({
+            withRelated: ['setlist_songs', 'setlist_songs.song']
+        })
+        .then(function (setlist) {
+            var setlistSongs = setlist.related( 'setlist_songs' );
+            var i = 0;
+            var songs = setlistSongs.map(function (setlistSong) {
+                i++;
+                var song = setlistSong.related('song');
+                var songData = song.toJSON();
+                songData.slides = song.slides();
+                songData.position = setlistSong.position;
+                songData.setlist_song_id = setlistSong.id;
+                songData.song_id = songData.id;
+                songData.title_dashes = songData.title.replace(/ /g, '-');
+                songData.num = i;
+                return songData;
+            });
+            this.render( req, res, 'setlists/slideshow', {
+                page_title: setlist.get( 'title' ),
+                setlist_title: setlist.get( 'title' ),
+                songs: songs,
                 javascripts: ['/js/setlist.js']
             }, {layout: 'layouts/application'});
         }.bind(this))

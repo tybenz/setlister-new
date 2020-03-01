@@ -2,13 +2,13 @@
   Setlists
   <a href="{{ new_setlist_path }}" class="add button js-add-setlist-button">Add</a>
 </h2>
-<div class="builder">
+<div class="builder list">
   <div class="builder-inner">
     <table>
       <tr>
         <th width="50"></th>
-        <th width="1080">Name</th>
-        <th width="115">Actions</th>
+        <th width="1030">Name</th>
+        <th width="140">Actions</th>
       </tr>
       {{# setlists }}
       <tr>
@@ -16,6 +16,7 @@
         <td class="setlist-name"><a href="{{ path }}">{{ title }}</a></td>
         <td class="actions">
           <a href="{{ path }}" class="icon-eye-open"></a>
+          <a href="{{ slideshow_path }}" class="icon-play-circle"></a>
           <a href="{{ edit_path }}" class="icon-pencil"></a>
           <a href="{{ path }}" data-method="delete" class="icon-trash" data-confirm="Are you sure?"></a>
         </td>

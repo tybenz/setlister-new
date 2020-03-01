@@ -1,0 +1,19 @@
+<div class="builder">
+  <h2>
+    Setlist: {{ setlist_title }}
+  </h2>
+</div>
+
+{{# songs }}
+<div class="song">
+  <h2 data-header="{{ title_dashes }}">
+    {{ title }}
+  </h2>
+  <pre id="{{ title_dashes }}">{{# slides }}-------
+{{ . }}{{/ slides }}</pre>
+  <div class="meta">
+    {{ artist }}
+    <span class="license">{{ license }}</span>
+  </div>
+</div>
+{{/ songs }}

@@ -25,7 +25,7 @@ var ApplicationController = Class.extend({
 
     fonts: function() {
         return [
-            { src: '//use.edgefonts.net/source-sans-pro.js' }
+            { href: 'https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro&display=swap' }
         ];
     },
 

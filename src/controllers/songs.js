@@ -47,16 +47,26 @@ var SongsController = ApplicationController.extend({
     },
 
     show: function( req, res, next ) {
+        var capoList = _.map(_.times(12, Number), function (num) {
+            return num + 1;
+        });
+
         new Song({id: req.params.id})
         .fetch()
         .then(function (song) {
             this.render( req, res, 'songs/show', {
+                capo: song.get('capo'),
+                capo_list: capoList,
                 page_title: song.get( 'title' ),
                 song_title: song.get( 'title' ),
+                song_title_dashes: song.get('title').replace(/ /g, '-'),
                 text: song.get( 'text' ),
+                start_key: song.get('data_key'),
                 data_key: song.get( 'data_key' ),
                 artist: song.get( 'artist' ),
-                license: song.get( 'license' )
+                license: song.get( 'license' ),
+                edit_path: router.editSongPath(req.params.id),
+                javascripts: ['/js/song.js']
             }, {layout: 'layouts/application'});
         }.bind(this))
         .done();
