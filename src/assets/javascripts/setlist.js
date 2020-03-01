@@ -133,5 +133,5 @@ $( '.song-shortcut' ).click( function( evt ) {
     var id = $( this ).attr( 'href' );
 
     console.log(id);
-    window.scroll( 0, $( id ).offset().top - 160 );
+    window.scroll( 0, $( id ).offset().top - 80 );
 });

@@ -202,6 +202,7 @@ passport.use( new LocalStrategy(
         });
     }
 ));
+app.use( haltOnTimedout );
 
 if ( process.env.NODE_ENV == 'heroku' ) {
     var redisUrl = url.parse( process.env.REDISTOGO_URL );

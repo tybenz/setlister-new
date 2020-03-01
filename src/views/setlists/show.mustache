@@ -15,7 +15,7 @@
       <tr data-old-pos="{{ position }}" data-pos="{{ position }}">
         <td><input disabled="disabled" type="text" value="{{ num }}" class="order-field" size="1" style="text-align: right"></td>
         <td class="song-name">
-          <a href="#">{{ title }}</a>
+          <a href="#{{ title_dashes }}" class="song-shortcut">{{ title }}</a>
         </td>
         <td class="key-selector" data-start="{{ start_key }}" data-key="{{ data_key }}" data-song="{{ title_dashes }}"></td>
         <td>
@@ -38,7 +38,7 @@
 </div>
 
 {{# songs }}
-<div class="song">
+<div id="#{{ title_dashes }}" class="song">
   <h2 data-header="{{ title_dashes }}">
     {{ title }}
   </h2>
