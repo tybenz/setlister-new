@@ -14,4 +14,9 @@ module.exports = {
             filename: path.join( __dirname, 'setlister-dev.db' )
         }
     }
+
+    production: {
+        client: 'pg',
+        connection: process.env.DATABASE_URL
+    }
 };
