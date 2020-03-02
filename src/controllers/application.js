@@ -53,7 +53,7 @@ var ApplicationController = Class.extend({
                     return url.format({
                         protocol: Settings.cdn.protocol,
                         hostname: Settings.cdn.host[ process.env.NODE_ENV || 'dev' ],
-                        pathname: path.join( cdnVersion, script );
+                        pathname: path.join( cdnVersion, script )
                     });
                 }
                 return script;
