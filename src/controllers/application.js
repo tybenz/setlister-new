@@ -4,6 +4,14 @@ var url = require( 'url' );
 var Utils = require( '../utils' );
 var Settings = require( '../settings' );
 var cdnVersion = fs.readFileSync( path.join( __dirname, '..', '..', 'dist', 'version' ), { encoding: 'utf8' } ).replace(/\s$/, '');
+var printHref = '/css/print.css';
+if (process.env.ENV && process.env.ENV === 'production') {
+    printHref = url.format({
+        protocol: Settings.cdn.protocol,
+        hostname: Settings.cdn.host[ process.env.ENV || 'dev' ],
+        pathname: path.join( cdnVersion, 'css', 'print.gz.css' )
+    });
+}
 
 var ApplicationController = Class.extend({
     init: function() {},
@@ -17,7 +25,7 @@ var ApplicationController = Class.extend({
             is_signed_in: !!req.user,
             metatags: [],
             fonts: this.fonts(),
-            print_stylesheet: '/css/print.css',
+            print_stylesheet: printHref,
             stylesheets: this.stylesheets(),
             javascripts: this.javascripts(),
             templates: this.templates()
@@ -46,13 +54,13 @@ var ApplicationController = Class.extend({
         res.locals = _.extend( res.locals, this.defaultLocals( req ), obj );
         res.locals.templates = _.map( res.locals.templates, Utils.clientSideTemplate );
 
-        if ( process.env.NODE_ENV && process.env.NODE_ENV != 'local' ) {
+        if ( process.env.ENV && process.env.ENV != 'local' ) {
             res.locals.javascripts = res.locals.javascripts.map( function( script ) {
                 if ( !script.match( /^(https?\:\/\/|\/\/)/ ) ) {
                     script = script.replace( /\.js$/, '.gz.js' );
                     return url.format({
                         protocol: Settings.cdn.protocol,
-                        hostname: Settings.cdn.host[ process.env.NODE_ENV || 'dev' ],
+                        hostname: Settings.cdn.host[ process.env.ENV || 'dev' ],
                         pathname: path.join( cdnVersion, script )
                     });
                 }
@@ -64,7 +72,7 @@ var ApplicationController = Class.extend({
                     style = style.replace( /\.css$/, '.gz.css' );
                     return url.format({
                         protocol: Settings.cdn.protocol,
-                        hostname: Settings.cdn.host[ process.env.NODE_ENV || 'dev' ],
+                        hostname: Settings.cdn.host[ process.env.ENV || 'dev' ],
                         pathname: path.join( cdnVersion, style )
                     });
                 }
