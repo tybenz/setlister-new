@@ -14,10 +14,8 @@ var Settings = {
     },
 
     cdn: {
-        local: 'localhost',
-        dev: 'localhost',
-        stage: 'localhost',
-        production: 'setlister-prod-ue1-assets.s3.amazonaws.com'
+        host: 'setlister-prod-ue1-assets.s3.amazonaws.com'
+        protocol: 'https:'
     }
 };
 
