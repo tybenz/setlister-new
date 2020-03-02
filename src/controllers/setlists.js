@@ -54,7 +54,6 @@ var SetlistsController = ApplicationController.extend({
                 songData.edit_path = router.editSongPath(songData.id);
                 songData.delete_path = router.deleteSetlistSongPath(setlistSong.id);
                 songData.title_dashes = songData.title.replace(/ /g, '-');
-                songData.num = i;
                 return songData;
             });
             songs = songs.sort(function (a, b) {
