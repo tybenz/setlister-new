@@ -204,7 +204,7 @@ passport.use( new LocalStrategy(
 ));
 app.use( haltOnTimedout );
 
-if ( process.env.NODE_ENV == 'heroku' ) {
+if ( process.env.NODE_ENV == 'production' ) {
     var redisUrl = url.parse( process.env.REDISTOGO_URL );
     var client = redis.createClient( redisUrl.port, redisUrl.hostname );
     var secret = 'gtfo, bruh';
