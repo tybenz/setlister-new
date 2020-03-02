@@ -53,7 +53,7 @@ var ApplicationController = Class.extend({
                     return url.format({
                         protocol: Settings.cdn.protocol,
                         hostname: Settings.cdn.host[ process.env.NODE_ENV || 'dev' ],
-                        pathname: cdnVersion
+                        pathname: path.join( cdnVersion, script );
                     });
                 }
                 return script;
@@ -65,7 +65,7 @@ var ApplicationController = Class.extend({
                     return url.format({
                         protocol: Settings.cdn.protocol,
                         hostname: Settings.cdn.host[ process.env.NODE_ENV || 'dev' ],
-                        pathname: path.join( Settings.cdn.version, style )
+                        pathname: path.join( cdnVersion, style )
                     });
                 }
                 return style;
