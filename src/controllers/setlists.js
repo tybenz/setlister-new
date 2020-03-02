@@ -6,7 +6,7 @@ var Song = require( '../models/song' );
 var SetlistsController = ApplicationController.extend({
     index: function( req, res, next ) {
         new Setlist()
-        .orderBy('title', 'ASC')
+        .orderBy('created_at', 'DESC')
         .fetchAll()
         .then(function (setlists) {
             if (req.get('Content-Type') == 'application/json') {
