@@ -82,5 +82,10 @@ if (!urlParams.get('full')) {
         };
     });
 
+    $('.back-button').on('click', function (evt) {
+        evt.preventDefault();
+        window.location.pathname = window.location.pathname.replace(/\/slideshow\/?/, '').replace(/\/[^/]*\/?$/, '');
+    });
+
     selectSlide(0);
 }

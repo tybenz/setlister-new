@@ -632,6 +632,12 @@ textarea {
 .slideshow-actions {
   margin-bottom: 10px;
 
+  .back-button {
+    margin-right: 5px;
+    cursor: pointer;
+    color: #333;
+  }
+
   .button {
     border-radius: 4px;
     font-size: 14px;
