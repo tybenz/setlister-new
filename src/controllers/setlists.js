@@ -57,6 +57,15 @@ var SetlistsController = ApplicationController.extend({
                 songData.num = i;
                 return songData;
             });
+            songs = songs.sort(function (a, b) {
+                if (a.position < b.position) {
+                    return -1;
+                }
+                if (a.position > b.position) {
+                    return 1;
+                }
+                return 0;
+            });
             var capoList = _.map(_.times(12, Number), function (num) {
                 return num + 1;
             });
