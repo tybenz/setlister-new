@@ -8,7 +8,9 @@ var javascripts = [
     'application',
     'songs',
     'song',
-    'setlist'
+    'setlist',
+    'slideshow',
+    'jq'
 ];
 
 var stylesheets = [

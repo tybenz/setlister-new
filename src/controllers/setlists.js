@@ -73,6 +73,13 @@ var SetlistsController = ApplicationController.extend({
     },
 
     slideshow: function( req, res, next ) {
+        if (req.query.full) {
+            return this.render( req, res, 'setlists/slideshow', {
+                full: true,
+                javascripts: ['/js/slideshow.js']
+            }, {layout: 'layouts/slideshow'});
+        }
+
         new Setlist({id: req.params.id})
         .fetch({
             withRelated: ['setlist_songs', 'setlist_songs.song']
@@ -96,8 +103,8 @@ var SetlistsController = ApplicationController.extend({
                 page_title: setlist.get( 'title' ),
                 setlist_title: setlist.get( 'title' ),
                 songs: songs,
-                javascripts: ['/js/setlist.js']
-            }, {layout: 'layouts/application'});
+                javascripts: ['/js/slideshow.js']
+            }, {layout: 'layouts/slideshow'});
         }.bind(this))
         .done();
     },

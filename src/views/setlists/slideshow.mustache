@@ -1,19 +1,29 @@
-<div class="builder">
-  <h2>
-    Setlist: {{ setlist_title }}
-  </h2>
-</div>
-
-{{# songs }}
-<div class="song">
-  <h2 data-header="{{ title_dashes }}">
-    {{ title }}
-  </h2>
-  <pre id="{{ title_dashes }}">{{# slides }}-------
-{{ . }}{{/ slides }}</pre>
-  <div class="meta">
-    {{ artist }}
-    <span class="license">{{ license }}</span>
+{{# full }}
+<div class="slideshow-full"></div>
+{{/ full }}
+{{^ full }}
+<div class="slideshow">
+<div class="slideshow-control">
+  <div class="slideshow-actions">
+    <button class="button start-button"><span class="icon-play-circle"></span> Start</button>
+    <button class="button next-button"><span class="icon-chevron-down"></span> Next</button>
+    <button class="button prev-button"><span class="icon-chevron-up"></span> Previous</button>
+  </div>
+  <div class="slideshow-slides">
+    {{# songs }}
+    <div class="slideshow-section" data-song="{{ title_dashes }}">
+      <div class="slide-separator">{{ title }}</div>
+      <div class="slide"></div>
+      {{# slides }}
+      <div class="slide">{{ . }}</div>
+      {{/ slides }}
+      <div class="slide"></div>
+    </div>
+    {{/ songs }}
   </div>
 </div>
-{{/ songs }}
+<div class="slideshow-preview-wrapper">
+  <div class="slideshow-preview"></div>
+</div>
+</div>
+{{/ full }}
