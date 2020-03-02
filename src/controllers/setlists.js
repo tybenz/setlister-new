@@ -44,10 +44,10 @@ var SetlistsController = ApplicationController.extend({
             var songs = setlistSongs.map(function (setlistSong) {
                 i++;
                 var songData = setlistSong.related('song').toJSON();
-                songData.startKey = songData.dada_key;
+                songData.startKey = songData.data_key;
                 songData.data_key = setlistSong.get( 'data_key' );
-                songData.position = setlistSong.position;
-                songData.capo = setlistSong.capo;
+                songData.position = setlistSong.get( 'position' );
+                songData.capo = setlistSong.get( 'capo' );
                 songData.setlist_song_id = setlistSong.id;
                 songData.song_id = songData.id;
                 songData.path = router.songPath(songData.id);
