@@ -1,0 +1,12 @@
+#!/bin/bash
+
+bucket="s3://setlister-${SERVER_ENV-dev}-${SERVER_REGION-ue1}-assets"
+
+PARAMS=''
+if [ ! -z "$PROFILE" ]; then
+  PARAMS="--profile $PROFILE"
+fi
+
+echo "aws s3 cp $PARAMS --recursive --acl public-read \"font\" \"$bucket/font\""
+aws s3 cp $PARAMS --recursive --acl public-read --exclude "*.gz.*" "font" "$bucket/font"
+aws s3 cp $PARAMS --recursive --acl public-read --content-encoding gzip --exclude "*" --include "*.gz.*" "font" "$bucket/font"

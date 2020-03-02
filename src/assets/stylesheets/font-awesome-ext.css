@@ -1,4 +1,4 @@
-$fontAwesomePath: "/assets";
+$fontAwesomePath:   "https://setlister-prod-ue1-assets.s3.amazonaws.com/font";
 
 @font-face{
   font-family:'Font-Awesome-Ext';
