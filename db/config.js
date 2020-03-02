@@ -13,7 +13,7 @@ module.exports = {
         connection: {
             filename: path.join( __dirname, 'setlister-dev.db' )
         }
-    }
+    },
 
     production: {
         client: 'pg',
