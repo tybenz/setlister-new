@@ -33,7 +33,7 @@ var SongsController = ApplicationController.extend({
                 });
             });
 
-            return new Setlist().orderBy('created_at', 'ASC').fetchAll();
+            return new Setlist().orderBy('created_at', 'DESC').fetchAll();
         })
         .then(function (setlists) {
             this.render( req, res, 'songs/index', {
