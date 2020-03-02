@@ -1,1 +1,1 @@
-web: node src/app.js
+web: ./node_modules/.bin/nodemon src/app.js
