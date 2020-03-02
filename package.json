@@ -58,7 +58,9 @@
     "db-migrate": "node_modules/.bin/knex --env ${NODE_ENV:-local} --knexfile db/config.js migrate:latest",
     "db-rollback": "node_modules/.bin/knex --env ${NODE_ENV:-local} --knexfile db/config.js migrate:rollback",
     "console": "scripts/console",
-    "log": "tail -f node_app.log"
+    "log": "tail -f node_app.log",
+    "build-deploy": "grunt && PROFILE=setlister SERVER_ENV=prod scripts/deploy_assets",
+    "deploy": "PROFILE=setlister SERVER_ENV=prod scripts/deploy_assets"
   },
   "devDependencies": {
     "grunt": "^1.0.4",
