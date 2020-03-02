@@ -3,6 +3,7 @@ var path = require( 'path' );
 var url = require( 'url' );
 var Utils = require( '../utils' );
 var Settings = require( '../settings' );
+var cdnVersion = fs.readFileSync( path.join( __dirname, '..', '..', 'dist', 'version' ), { encoding: 'utf8' } ).replace(/\s$/, '');
 
 var ApplicationController = Class.extend({
     init: function() {},
@@ -52,7 +53,7 @@ var ApplicationController = Class.extend({
                     return url.format({
                         protocol: Settings.cdn.protocol,
                         hostname: Settings.cdn.host[ process.env.NODE_ENV || 'dev' ],
-                        pathname: path.join( Settings.cdn.version, script )
+                        pathname: cdnVersion
                     });
                 }
                 return script;
