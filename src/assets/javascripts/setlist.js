@@ -1,5 +1,6 @@
 var initKeySelector = require( './key_selector' );
 var $ = require( 'jquery' );
+window.jQuery = window.$ = $;
 initKeySelector( $( '.key-selector' ) );
 initKeySelector( $( '.capo-selector' ), true );
 
