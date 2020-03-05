@@ -10,11 +10,13 @@ var javascripts = [
     'song',
     'setlist',
     'slideshow',
+    'setlist-create',
     'jq'
 ];
 
 var stylesheets = [
     'application',
+    'app',
     'print'
 ];
 

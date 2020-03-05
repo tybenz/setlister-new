@@ -28,7 +28,8 @@ var ApplicationController = Class.extend({
             print_stylesheet: printHref,
             stylesheets: this.stylesheets(),
             javascripts: this.javascripts(),
-            templates: this.templates()
+            templates: this.templates(),
+            json: { currentRoute: req.path }
         };
     },
 
@@ -39,20 +40,22 @@ var ApplicationController = Class.extend({
     },
 
     stylesheets: function() {
-        return [ '/css/application.css' ];
+        return [ '/css/app.css' ];
     },
 
     javascripts: function() {
-        return [ '/js/application.js' ];
+        return [ '/js/app.js' ];
     },
 
     templates: function() {
         return [];
     },
 
-    locals: function( req, res, obj ) {
+    locals: function( req, res, obj, json ) {
         res.locals = _.extend( res.locals, this.defaultLocals( req ), obj );
         res.locals.templates = _.map( res.locals.templates, Utils.clientSideTemplate );
+        var defaultJson = this.defaultLocals( req ).json;
+        res.locals.json = JSON.stringify(_.extend( {}, defaultJson, json ));
 
         if ( process.env.ENV && process.env.ENV != 'local' ) {
             res.locals.javascripts = res.locals.javascripts.map( function( script ) {
@@ -97,6 +100,11 @@ var ApplicationController = Class.extend({
 
         res.statusCode = options.status || 200;
         res.render( viewPath, options );
+    },
+
+    renderWithJSON: function ( req, res, json ) {
+        this.locals( req, res, {}, json );
+        res.render( 'app.mustache' );
     },
 
     authError: function( req, res, next ) {

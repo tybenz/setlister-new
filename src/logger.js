@@ -12,7 +12,7 @@ logger.error = function( err, requestId ) {
         type: 'error',
         requestId: requestId,
         message: err.name + ': ' + err.message,
-        stack: err.stack.split( '\n    ' )
+        stack: err.stack
     });
 };
 

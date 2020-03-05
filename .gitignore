@@ -18,5 +18,6 @@ tmp/*
 dist/*
 !dist/.gitkeep
 !dist/version
+!dist/favicon.ico
 
 db/*.db

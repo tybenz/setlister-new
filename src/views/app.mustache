@@ -1,0 +1,42 @@
+<html>
+<head>
+  <title>{{ page_title }}{{# page_title }} &mdash; {{/ page_title }}{{ site_title }}</title>
+{{# fonts }}
+  {{# src }}
+  <script type="text/javascript" charset="utf-8" src="{{{ src }}}"></script>
+  {{/ src }}
+  {{# inline }}
+  <script type="text/javascript" charset="utf-8">{{{ inline }}}</script>
+  {{/ inline }}
+  {{# href }}
+    <link rel="stylesheet" type="text/css" href="{{{ href }}}">
+  {{/ href }}
+{{/ fonts }}
+{{# stylesheets }}
+<link rel="stylesheet" type="text/css" href="{{{ . }}}">
+{{/ stylesheets }}
+<link rel="stylesheet" media="print" type="text/css" href="{{ print_stylesheet }}">
+
+{{# metatags }}
+<meta {{# property }}property="{{ property }}" {{/ property }}{{# name }}name="{{ name }}" {{/ name }}{{# content }}content="{{ content }}" {{/ content }}>
+{{/ metatags }}
+</head>
+<body>
+<div id="setlister-react"></div>
+{{# templates }}
+<script type="text/mustache" id="{{ id }}">
+{{{ text }}}</script>
+{{/ templates }}
+
+{{# json }}
+<script type="text/javascript" charset="utf-8">
+  window.json = {{{ json }}};
+</script>
+{{/ json }}
+
+{{# javascripts }}
+<script type="text/javascript" charset="utf-8" src="{{{ . }}}"></script>
+{{/ javascripts }}
+
+</body>
+</html>

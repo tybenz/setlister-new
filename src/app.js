@@ -25,6 +25,7 @@ var Logger = require( './logger' );
 var timeout = require( 'connect-timeout' );
 var uuid = require( 'node-uuid' );
 var cookieParser = require( 'cookie-parser' );
+var sassMiddleware = require( 'node-sass-middleware' );
 var session = require( 'express-session' );
 var RedisStore = require( 'connect-redis' )( session );
 var redis = require( 'redis' );
@@ -114,8 +115,7 @@ app.use( haltOnTimedout );
 
 // Mustache
 app.set( 'view engine', 'mustache' );
-app.set( 'layout', 'layouts/application' );
-app.set('views', path.join( __dirname, 'views' ) );
+app.set( 'views', path.join( __dirname, 'views' ) );
 
 //add all the mustache partials to global namespace so we don't have to include them when doing res.render
 var traverseViews = function( path ) {
@@ -137,14 +137,32 @@ var traverseViews = function( path ) {
 app.set( 'partials', traverseViews( path.join( __dirname, 'views' ) ) );
 app.engine( 'mustache', require( 'hogan-express' ) );
 
-var assetVersionNumber = fs.readFileSync( path.join( __dirname, '..', 'dist', 'version' ), { encoding: 'utf8' } );
+var assetVersionNumber;
 
-// Client-side JS
-// app.use( '/js', browserifyMiddleWare( path.join( __dirname, 'assets', 'javascripts' ) ) );
-app.use( '/js', express.static( path.join(__dirname, '..', 'dist', assetVersionNumber, 'js')));
-app.use( haltOnTimedout );
+if (process.env.ENV === 'production') {
+    assetVersionNumber = fs.readFileSync( path.join( __dirname, '..', 'dist', 'version' ), { encoding: 'utf8' } );
+    app.use( '/js', express.static( path.join(__dirname, '..', 'dist', assetVersionNumber, 'js')));
+    app.use( haltOnTimedout );
+    app.use( '/css', express.static( path.join(__dirname, '..', 'dist', assetVersionNumber, 'css')));
+    app.use( haltOnTimedout );
+} else {
+    // Client-side JS
+    app.use( '/js', browserifyMiddleWare( path.join( __dirname, 'assets', 'javascripts' ) ) );
+    app.use( haltOnTimedout );
 
-app.use( '/css', express.static( path.join(__dirname, '..', 'dist', assetVersionNumber, 'css')));
+    app.use(sassMiddleware({
+        src: path.join(__dirname, 'assets', 'stylesheets'),
+        dest: path.join(__dirname, '..', 'dist', 'css'),
+        debug: true,
+        outputStyle: 'compressed',
+        prefix: '/css'
+    }));
+    app.use( haltOnTimedout );
+    app.use( '/css', express.static( path.join( __dirname, '..', 'dist', 'css' ) ) );
+    app.use( haltOnTimedout );
+}
+
+app.use( '/favicon.ico', express.static( path.join( __dirname, '..', 'dist', 'favicon.ico' ) ) );
 app.use( haltOnTimedout );
 
 // Images
@@ -298,7 +316,7 @@ app.use( function( req, res, next ) {
             { inline: 'try{Typekit.load();}catch(e){}' }
         ]
     };
-    res.status( 404 ).render( 'error/404', { status: 404, layout: 'layouts/application' } );
+    res.status( 404 ).render( 'error/404', { status: 404 } );
 });
 
 // Handle uncaught errors
@@ -320,10 +338,11 @@ if ( !process.env.NODE_ENV || process.env.NODE_ENV == 'local' ) {
 }
 
 server.listen( process.env.PORT || 4567, function() {
-    logger({
-        type: 'serverStartup',
-        assetVersionNumber: assetVersionNumber
-    });
+    var log = { type: 'serverStartup' };
+    if (assetVersionNumber) {
+        log.assetVersionNumber = assetVersionNumber;
+    }
+    logger(log);
 });
 
 module.exports = server;

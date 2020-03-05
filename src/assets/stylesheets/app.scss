@@ -1,0 +1,99 @@
+@import 'calendar';
+
+$font: 'Ubuntu', sans-serif;
+$white: #ffffff;
+$pillow: #e5e5e5;
+$linen: #d0d0d0;
+$grey: #333;
+$black: #111;
+
+html, * {
+  font-family: $font;
+}
+
+.setlister-react-app {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.setlister-react-main {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.setlister-react-main-inner {
+  height: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.setlister-react-nav {
+  height: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  background: $white;
+  border-bottom: 1px solid $pillow;
+}
+
+.setlister-react-nav-hamburger {
+  display: none;
+  width: 25px;
+  height: 20px;
+}
+
+.setlister-react-nav-hamburger-line {
+  width: 100%;
+  height: 3px;
+  margin-bottom: 5px;
+  background-color: $grey;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.setlister-react-nav-inner {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.setlister-react-nav-title {
+  font-family: $font;
+  font-size: 24px;
+  line-height: 50px;
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translateX(-50%) translateY(-50%);
+}
+
+.setlister-react-nav-items {
+  font-family: $font;
+  position: absolute;
+  right: 0px;
+  top: 0;
+  line-height: 50px;
+  font-size: 14px;
+}
+
+.setlister-react-nav-item {
+  margin-left: 20px;
+}
+
+.setlister-react-nav a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

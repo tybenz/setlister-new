@@ -118,9 +118,14 @@ var SetlistsController = ApplicationController.extend({
     },
 
     new: function( req, res, next ) {
-        this.render( req, res, 'setlists/edit', {
-            submit_path: router.setlistsPath()
-        }, {layout: 'layouts/application'});
+        this.renderWithJSON( req, res, {
+            paths: {
+                home: router.rootPath(),
+                songs: router.songsPath(),
+                setlists: router.setlistsPath(),
+                submit: router.setlistsPath()
+            }
+        });
     },
 
     create: function( req, res, next ) {
