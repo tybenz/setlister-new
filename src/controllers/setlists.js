@@ -132,9 +132,9 @@ var SetlistsController = ApplicationController.extend({
         new Setlist(req.body)
         .save()
         .then(function (setlist) {
-            res.redirect(router.setlistsPath());
+            res.sendStatus(200);
         })
-        .done();
+        .catch(next);
     },
 
     edit: function( req, res, next ) {

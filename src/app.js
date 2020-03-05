@@ -174,7 +174,7 @@ app.use( haltOnTimedout );
 
 app.use( bodyParser.urlencoded( { extended: true } ) );
 app.use( haltOnTimedout );
-app.use( bodyParser.json() );
+app.use( bodyParser.json( { type: 'application/json' } ) );
 app.use( haltOnTimedout );
 app.use( logStart );
 app.use( haltOnTimedout );

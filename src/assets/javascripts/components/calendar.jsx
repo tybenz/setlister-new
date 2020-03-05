@@ -9,6 +9,7 @@ var Calendar = createReactClass({
         return {
             showCalendarTable: true,
             showMonthTable: false,
+            origDateObject: moment().startOf('day'),
             dateObject: moment(),
             allmonths: moment.months(),
             showYearNav: false,
@@ -55,11 +56,13 @@ var Calendar = createReactClass({
         props.data.map(function (data) {
             months.push(
                 <td
-                key={data}
-                className="calendar-month"
-                onClick={function (e) {
-                    this.setMonth(data);
-                }}
+                    key={data}
+                    className="calendar-month"
+                    onClick={function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.setMonth(data);
+                    }}
                 >
                 <span>{data}</span>
                 </td>
@@ -79,7 +82,7 @@ var Calendar = createReactClass({
         });
         rows.push(cells);
         var monthlist = rows.map(function (d, i) {
-            return <tr key={i}>{d}</tr>;
+            return <tr key={'month-' + d}>{d}</tr>;
         });
 
         return (
@@ -106,10 +109,12 @@ var Calendar = createReactClass({
         } else {
             curr = "month";
         }
+        var newDateObject = this.state.dateObject.subtract(1, curr).startOf(curr);
         this.setState({
-            selectedDay: undefined,
-            dateObject: this.state.dateObject.subtract(1, curr)
+            selectedDay: newDateObject.format('D'),
+            dateObject: newDateObject
         });
+        this.props.onSelect(moment(newDateObject.format('MM')+'/'+newDateObject.format('D')+'/'+newDateObject.format('YYYY'), 'MM/D/YYYY'));
     },
     onNext: function () {
         var curr = "";
@@ -118,10 +123,12 @@ var Calendar = createReactClass({
         } else {
             curr = "month";
         }
+        var newDateObject = this.state.dateObject.add(1, curr).startOf(curr);
         this.setState({
-            selectedDay: undefined,
-            dateObject: this.state.dateObject.add(1, curr)
+            selectedDay: newDateObject.format('D'),
+            dateObject: newDateObject
         });
+        this.props.onSelect(moment(newDateObject.format('MM')+'/'+newDateObject.format('D')+'/'+newDateObject.format('YYYY'), 'MM/D/YYYY'));
     },
     setYear: function (year) {
         // alert(year)
@@ -159,11 +166,13 @@ var Calendar = createReactClass({
         tenyear.map(function (data) {
             months.push(
                 <td
-                key={data}
-                className="calendar-month"
-                onClick={function (e) {
-                    this.setYear(data);
-                }}
+                    key={data}
+                    className="calendar-month"
+                    onClick={function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.setYear(data);
+                    }}
                 >
                 <span>{data}</span>
                 </td>
@@ -183,17 +192,17 @@ var Calendar = createReactClass({
         });
         rows.push(cells);
         var yearlist = rows.map(function (d, i) {
-            return <tr>{d}</tr>;
+            return <tr key={'year-' + d}>{d}</tr>;
         });
 
         return (
             <table className="calendar-month">
-            <thead>
-            <tr>
-            <th colSpan="4">Select a Yeah</th>
-            </tr>
-            </thead>
-            <tbody>{yearlist}</tbody>
+                <thead>
+                    <tr>
+                        <th colSpan="4">Select a Year</th>
+                    </tr>
+                </thead>
+                <tbody>{yearlist}</tbody>
             </table>
         );
     },
@@ -203,12 +212,15 @@ var Calendar = createReactClass({
                 selectedDay: d
             },
             function () {
-                console.log("SELECTED DAY: ", this.state.selectedDay);
+                var date = this.state.dateObject;
+                this.props.onSelect(moment(date.format('MM')+'/'+d+'/'+date.format('YYYY'), 'MM/D/YYYY'));
             }
         );
     },
     render() {
         var self = this;
+        var date = this.state.dateObject;
+        var actualDate = this.state.origDateObject; // today's date
         var weekdayshortname = self.weekdayshort.map(function (day) {
             return <th key={day}>{day}</th>;
         });
@@ -218,17 +230,20 @@ var Calendar = createReactClass({
         }
         var daysInMonth = [];
         for (var d = 1; d <= self.daysInMonth(); d++) {
-            var currentDay = d == self.currentDay() ? " today" : "";
+            var currentMoment = moment(date.format('MM')+'/'+d+'/'+date.format('YYYY'), 'MM/D/YYYY');
+            var currentDay = currentMoment.isSame(actualDate) ? " today" : "";
             var selectedDay = d == self.state.selectedDay ? " selected-day" : "";
             daysInMonth.push(
-                <td key={d} className={`calendar-day${currentDay}${selectedDay}`}>
-                    <span
-                        onClick={function (e) {
-                            self.onDayClick(e, this);
-                        }.bind(d)}
-                    >
-                        {d}
-                    </span>
+                <td
+                    key={d}
+                    className={`calendar-day${currentDay}${selectedDay}`}
+                    onClick={function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        self.onDayClick(e, this);
+                    }.bind(d)}
+                >
+                    <span>{d}</span>
                 </td>
             );
         }
@@ -253,7 +268,7 @@ var Calendar = createReactClass({
         });
 
         var daysinmonth = rows.map(function (d, i) {
-            return <tr key={i}>{d}</tr>;
+            return <tr key={'day-' + i}>{d}</tr>;
         });
 
         return (
@@ -261,31 +276,25 @@ var Calendar = createReactClass({
                 <div className="calendar-navi">
                     <span
                         onClick={function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
                             self.onPrev();
                         }}
                         className="calendar-button button-prev"
                     />
                     {!self.state.showMonthTable && !self.state.showYearEditor && (
-                        <span
-                            onClick={function (e) {
-                                self.showMonth();
-                            }}
-                            className="calendar-label"
-                        >
-                            {self.month()},
+                        <span className="calendar-label">
+                            {self.month()}
                         </span>
                     )}
-                    <span
-                        className="calendar-label"
-                        onClick={function (e) {
-                            self.showYearEditor();
-                        }}
-                    >
+                    <span className="calendar-label">
                         {self.year()}
                     </span>
 
                     <span
                         onClick={function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
                             self.onNext();
                         }}
                         className="calendar-button button-next"

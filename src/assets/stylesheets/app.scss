@@ -2,10 +2,13 @@
 
 $font: 'Ubuntu', sans-serif;
 $white: #ffffff;
+$cloud: #f5f5f5;
 $pillow: #e5e5e5;
 $linen: #d0d0d0;
+$crisp: #747474;
 $grey: #333;
 $black: #111;
+$blue: #0af;
 
 html, * {
   font-family: $font;
@@ -95,5 +98,80 @@ html, * {
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.setlister-react-date-picker {
+  position: relative;
+}
+
+.setlister-react-date-picker-calendar-wrapper {
+  display: none;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 1;
+
+  &.is-showing {
+    display: block;
+  }
+}
+
+.setlister-react-input {
+  width: 245px;
+  font-family: $font;
+  font-size: 14px;
+  padding: 0.3em 0.5em;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  border: 1px solid $linen;
+  color: $black;
+  background-color: $cloud;
+
+  &:focus, &.is-active {
+    border: 1px solid $blue;
+    background-color: $white;
+  }
+}
+
+.setlister-react-field-wrapper {
+  margin-bottom: 20px;
+}
+
+.setlister-react-field-label {
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: $grey;
+  display: block;
+  margin-bottom: 0.6em;
+  font-size: 12px;
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+.setlister-react-button {
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: $font;
+  border: 1px solid $crisp;
+  background-color: transparent;
+  color: $crisp;
+  font-weight: 500;
+  font-size: 13px;
+  box-shadow: none;
+  outline: none;
+  -webkit-appearance: none;
+  border-radius: 4px;
+  padding: 0.6em 0.8em 0.7em;
+  transition: color 0.1s ease-in-out, border-color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+
+  &:hover {
+    border-color: $blue;
+    color: $white;
+    background-color: $blue;
   }
 }
