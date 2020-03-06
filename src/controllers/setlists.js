@@ -68,14 +68,21 @@ var SetlistsController = ApplicationController.extend({
             var capoList = _.map(_.times(12, Number), function (num) {
                 return num + 1;
             });
-            this.render( req, res, 'setlists/show', {
-                page_title: setlist.get( 'title' ),
-                setlist_title: setlist.get( 'title' ),
-                setlist_songs: setlistSongs.toJSON(),
-                songs: songs,
-                capo_list: capoList,
-                javascripts: ['/js/setlist.js']
-            }, {layout: 'layouts/application'});
+
+            this.renderWithJSON( req, res, {
+                paths: {
+                    home: router.rootPath(),
+                    songs: router.songsPath(),
+                    setlists: router.setlistsPath()
+                },
+                setlist: {
+                    id: setlist.id,
+                    title: setlist.get('title'),
+                    date: setlist.get('date'),
+                    songs: songs,
+                },
+                capoList: capoList
+            });
         }.bind(this))
         .done();
     },

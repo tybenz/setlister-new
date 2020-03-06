@@ -4,7 +4,7 @@ var DatePicker = require('./date-picker.jsx');
 var localData = require('../localData');
 var setlistsPath = localData.paths.setlists;
 
-var SetlistNew = createReactClass({
+var SetlistsNew = createReactClass({
     getInitialState: function (props) {
         return {
             title: undefined,
@@ -61,4 +61,4 @@ var SetlistNew = createReactClass({
     }
 });
 
-module.exports = SetlistNew;
+module.exports = SetlistsNew;

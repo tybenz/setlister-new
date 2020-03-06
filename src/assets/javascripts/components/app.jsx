@@ -1,7 +1,8 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
 var Nav = require('./nav.jsx');
-var SetlistNew = require('./setlist-new.jsx');
+var SetlistsNew = require('./setlists-new.jsx');
+var SetlistsShow = require('./setlists-show.jsx');
 var NotFound = require('./not-found.jsx');
 var localData = require('../localData');
 var currentRoute = localData.currentRoute;
@@ -12,7 +13,6 @@ var App = createReactClass({
     },
 
     render: function () {
-        console.log(currentRoute);
         return (
             <div className="setlister-react-app">
                 <Nav currentRoute={currentRoute} />
@@ -20,8 +20,9 @@ var App = createReactClass({
                     <div className="setlister-react-main-inner">
                         {
                             {
-                                '/setlists/new': <SetlistNew />
-                            }[currentRoute]
+                                '/setlists/new': <SetlistsNew />,
+                                '/setlists/*': <SetlistsShow />
+                            }[currentRoute.replace(/[0-9]+/g, '*').replace(/\/$/, '')]
                             ||
                             <NotFound />
                         }
