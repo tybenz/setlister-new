@@ -183,7 +183,7 @@ h1 {
   margin-bottom: 40px;
 }
 
-.setlister-row {
+.setlister-react-table-row {
   display: flex;
   flex-direction: row;
   border-radius: 4px;
@@ -230,7 +230,7 @@ h1 {
   min-width: 100px;
 }
 
-.setlister-react-setlist-summary-row-header .setlister-react-setlist-summary-cell {
+.setlister-react-table-header-row .setlister-react-table-cell {
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.09em;

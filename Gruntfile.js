@@ -10,7 +10,7 @@ var javascripts = [
     'song',
     'setlist',
     'slideshow',
-    'setlist-create',
+    'app',
     'jq'
 ];
 
