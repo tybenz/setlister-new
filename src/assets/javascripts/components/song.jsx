@@ -58,7 +58,12 @@ var Song = createReactClass({
             columnsOfText[1] = chunks.slice(lastChunkIndex + 1).join('');
         }
 
-        return <div id={song.title_dashes} className="setlister-react-song">
+        var className = 'setlister-react-song';
+        if (this.props.active) {
+            className += ' is-active';
+        }
+
+        return <div id={song.title_dashes} className={className}>
             <h2 className="setlister-react-song-title">
                 {song.title}
                 {song.capo && <span className="setlist-react-song-capo">Capo: {song.capo}</span>}

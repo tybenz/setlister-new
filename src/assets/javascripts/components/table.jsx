@@ -18,7 +18,7 @@ var Table = createReactClass({
                         if (cellClassNames[i]) {
                             className += ' ' + cellClassNames[i];
                         }
-                        return <div className={className}>{title}</div>;
+                        return <div key={'header-cell-' + i} className={className}>{title}</div>;
                     })}
                 </div>
                 {rows.map(function (row, i) {

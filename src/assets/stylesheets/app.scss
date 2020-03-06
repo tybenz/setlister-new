@@ -1,4 +1,5 @@
 @import 'calendar';
+@import 'font-awesome';
 
 $font: 'Ubuntu', sans-serif;
 $monospaceFont: 'Ubuntu Mono', monospace;
@@ -18,6 +19,16 @@ html, body {
 
 html, * {
   font-family: $font;
+}
+
+.setlist-react-app.stage-mode {
+  .setlister-react-nav {
+    display: none;
+  }
+
+  .setlister-react-main {
+    padding-top: 0;
+  }
 }
 
 .setlister-react-main {
@@ -210,6 +221,21 @@ h1 {
   color: $dusk;
 }
 
+.setlister-react-stage-mode-button {
+  cursor: pointer;
+  position: absolute;
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  right: -35px;
+  top: 3px;
+  text-align: center;
+
+  .icon-laptop {
+    line-height: 30px;
+  }
+}
+
 .setlist-song-position {
   min-width: 40px;
 }
@@ -252,6 +278,16 @@ h1 {
   padding: 20px 20px 30px;
   font-size: 13px;
   page-break-after: always;
+  min-height: 950px;
+}
+
+.stage-mode .setlister-react-song {
+  display: none;
+  border: none;
+
+  &.is-active {
+    display: block;
+  }
 }
 
 .setlister-react-song-title {
