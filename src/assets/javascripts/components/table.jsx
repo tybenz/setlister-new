@@ -12,6 +12,9 @@ var Table = createReactClass({
         var cellClassNames = this.props.cellClassNames;
         return (
             <div className="setlister-react-table setlister-react-setlist-summary">
+                {this.props.showControls &&
+                    <div className="setlister-react-table-controls">
+                    </div>}
                 <div className="setlister-react-table-row setlister-react-table-header-row">
                     {titles.map(function (title, i) {
                         var className = 'setlister-react-table-cell';

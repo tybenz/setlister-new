@@ -1,6 +1,6 @@
 // XXX Global requires
 global.Class = require( 'class.extend' );
-global._ = require( 'lodash-node' );
+global._ = require( 'lodash' );
 global.Promise = require( 'bluebird' );
 global.$ = function( obj ) {
     return Promise.promisifyAll( obj, {

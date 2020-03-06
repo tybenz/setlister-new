@@ -38,6 +38,8 @@ html, * {
 .setlister-react-main-inner {
   max-width: 960px;
   margin: 0 auto;
+  position: relative;
+  padding-top: 50px;
 }
 
 .setlister-react-nav {
@@ -195,6 +197,7 @@ h1 {
 }
 
 .setlister-react-table-row {
+  min-height: 16px;
   display: flex;
   flex-direction: row;
   border-radius: 4px;
@@ -205,9 +208,18 @@ h1 {
   &:nth-child(2n) {
     background-color: $pillow;
   }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
-.setlister-react-setlist-title {
+.setlister-react-page-title, .setlister-react-setlist-title {
   font-weight: 400;
   position: absolute;
   top: 0px;
@@ -262,11 +274,6 @@ h1 {
   letter-spacing: 0.09em;
   color: $dusk;
   font-size: 12px;
-}
-
-.setlister-react-setlists-show {
-  position: relative;
-  padding-top: 50px;
 }
 
 .setlister-react-song {
@@ -337,4 +344,8 @@ span.setlist-react-song-capo {
   right: 0;
   bottom: 0;
   font-family: 'Ubuntu Mono', monospace;
+}
+
+.setlist-setlist-title {
+  flex: 1;
 }

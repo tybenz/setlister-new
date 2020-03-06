@@ -20,7 +20,9 @@ var SongsController = ApplicationController.extend({
         var songsJSON;
         new Song()
         .orderBy('title', 'ASC')
-        .fetchAll()
+        .fetchAll({
+            withRelated: ['setlist_songs', 'setlist_songs.setlist']
+        })
         .then(function (songs) {
             var i = 0;
             songsJSON = songs.map(function (song) {
@@ -29,19 +31,24 @@ var SongsController = ApplicationController.extend({
                 return _.extend({}, song.attributes, {
                     num: i,
                     path: router.songPath(id),
-                    edit_path: router.editSongPath(id)
+                    edit_path: router.editSongPath(id),
+                    setlists: song.getSetlists()
                 });
             });
 
             return new Setlist().orderBy('created_at', 'DESC').fetchAll();
         })
         .then(function (setlists) {
-            this.render( req, res, 'songs/index', {
+            this.renderWithJSON( req, res, {
+                paths: {
+                    home: router.rootPath(),
+                    songs: router.songsPath(),
+                    setlists: router.setlistsPath(),
+                    new_song: router.newSongPath()
+                },
                 songs: songsJSON,
-                new_song_path: router.newSongPath(),
-                setlists: setlists.toJSON(),
-                javascripts: ['/js/songs.js']
-            }, {layout: 'layouts/application'} );
+                setlists: setlists.toJSON()
+            });
         }.bind(this))
         .done();
     },
@@ -54,20 +61,26 @@ var SongsController = ApplicationController.extend({
         new Song({id: req.params.id})
         .fetch()
         .then(function (song) {
-            this.render( req, res, 'songs/show', {
-                capo: song.get('capo'),
-                capo_list: capoList,
-                page_title: song.get( 'title' ),
-                song_title: song.get( 'title' ),
-                song_title_dashes: song.get('title').replace(/ /g, '-'),
-                text: song.get( 'text' ),
-                start_key: song.get('data_key'),
-                data_key: song.get( 'data_key' ),
-                artist: song.get( 'artist' ),
-                license: song.get( 'license' ),
-                edit_path: router.editSongPath(req.params.id),
-                javascripts: ['/js/song.js']
-            }, {layout: 'layouts/application'});
+            this.renderWithJSON( req, res, {
+                paths: {
+                    home: router.rootPath(),
+                    songs: router.songsPath(),
+                    setlists: router.setlistsPath(),
+                    edit: router.editSongPath(req.params.id)
+                },
+                song: {
+                    capo: song.get('capo'),
+                    capo_list: capoList,
+                    page_title: song.get( 'title' ),
+                    title: song.get( 'title' ),
+                    song_title_dashes: song.get('title').replace(/ /g, '-'),
+                    text: song.get( 'text' ),
+                    start_key: song.get('data_key'),
+                    data_key: song.get( 'data_key' ),
+                    artist: song.get( 'artist' ),
+                    license: song.get( 'license' ),
+                }
+            });
         }.bind(this))
         .done();
     },

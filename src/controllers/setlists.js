@@ -15,7 +15,7 @@ var SetlistsController = ApplicationController.extend({
             }
 
             var i = 0;
-            var setlistsJSON = setlists.map(function (setlist) {
+            setlists = setlists.map(function (setlist) {
                 var id = setlist.get('id');
                 i++;
                 return _.extend({}, setlist.attributes, {
@@ -25,10 +25,15 @@ var SetlistsController = ApplicationController.extend({
                     slideshow_path: router.setlistSlideshowPath(id)
                 });
             });
-            this.render( req, res, 'setlists/index', {
-                setlists: setlistsJSON,
-                new_setlist_path: router.newSetlistPath()
-            }, {layout: 'layouts/application'} );
+
+            this.renderWithJSON( req, res, {
+                paths: {
+                    home: router.rootPath(),
+                    songs: router.songsPath(),
+                    setlists: router.setlistsPath()
+                },
+                setlists: setlists
+            });
         }.bind(this))
         .done();
     },
@@ -42,19 +47,7 @@ var SetlistsController = ApplicationController.extend({
             var setlistSongs = setlist.related( 'setlist_songs' );
             var i = 0;
             var songs = setlistSongs.map(function (setlistSong) {
-                i++;
-                var songData = setlistSong.related('song').toJSON();
-                songData.startKey = songData.data_key;
-                songData.data_key = setlistSong.get( 'data_key' );
-                songData.position = setlistSong.get( 'position' );
-                songData.capo = setlistSong.get( 'capo' );
-                songData.setlist_song_id = setlistSong.id;
-                songData.song_id = songData.id;
-                songData.path = router.songPath(songData.id);
-                songData.edit_path = router.editSongPath(songData.id);
-                songData.delete_path = router.deleteSetlistSongPath(setlistSong.id);
-                songData.title_dashes = songData.title.replace(/ /g, '-');
-                return songData;
+                return setlistSong.fullSong();
             });
             songs = songs.sort(function (a, b) {
                 if (a.position < b.position) {

@@ -34,7 +34,6 @@
     "knex": "^0.20.10",
     "liftoff": "^3.1.0",
     "lodash": "^4.17.15",
-    "lodash-node": "^3.10.2",
     "method-override": "^3.0.0",
     "moment": "^2.24.0",
     "moment-range": "^4.0.2",
