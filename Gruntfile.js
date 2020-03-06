@@ -15,7 +15,6 @@ var javascripts = [
 ];
 
 var stylesheets = [
-    'application',
     'app',
     'print'
 ];
@@ -50,7 +49,6 @@ module.exports = function( grunt ) {
         sass: {
             options: {
                 // sourcemap: 'none',
-                loadPath: [ 'src/assets/stylesheets/bourbon', 'src/assets/stylesheets/neat' ],
                 style: 'expanded'
             },
             dist: { files: sass }

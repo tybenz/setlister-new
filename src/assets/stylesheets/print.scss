@@ -1,78 +1,30 @@
-body {
-  font-family: 'Source Sans Pro', sans-serif;
+html, * {
+  font-family: 'Ubuntu', sans-serif;
 }
 
-header {
+.setlister-react-nav,
+.setlister-react-setlist-summary,
+.setlister-react-setlist-title {
   display: none;
 }
 
-.builder {
-  display: none;
+.setlister-react-main {
+  padding-top: 0;
 }
 
-.pin-wrapper {
-  display: none;
+.setlister-react-setlists-show {
+  position: relative;
+  padding-top: 0;
 }
 
-.page-header {
-  display: none;
+.setlister-react-song {
+  padding: 0;
+  border: none;
+  position: relative;
 }
 
-.song-actions {
-  display: none;
-}
-
-.song-info.flyout {
-  display: none;
-}
-
-#setlist-id {
-  display: none;
-}
-
-.song {
-  box-shadow: none;
-  page-break-after: always;
-}
-
-.song {
-  border: 1px solid #333;
-  margin-top: 20px;
-  pre {
-    font-family: 'Source Code Pro', monospace;
-    margin: 20px;
-  }
-  .icon-headphones {
-    color: inherit;
-    text-decoration: none;
-  }
-  .meta {
-    -webkit-print-color-adjust: exact;
-    font-size: 0.8em;
-    background: #333;
-    color: white;
-    padding: 6px 10px;
-    .license {
-      float: right;
-    }
-  }
-}
-
-.builder, .song {
-  border-radius: 0;
-  h2 {
-    padding: 10px;
-    margin: 0;
-    border-bottom: 1px solid black;
-    background-color: #333;
-    color: white;
-    position: relative;
-    -webkit-print-color-adjust: exact;
-    .capo {
-      font-size: 0.6em;
-      position: absolute;
-      right: 10px;
-      bottom: 16px;
-    }
-  }
+.setlister-react-song-text,
+.setlister-react-song-column {
+  page-break-inside: avoid;
+  -webkit-region-break-inside: avoid;
 }

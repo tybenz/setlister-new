@@ -12,28 +12,19 @@ $grey: #333;
 $black: #111;
 $blue: #0af;
 
+html, body {
+  margin: 0;
+}
+
 html, * {
   font-family: $font;
 }
 
-.setlister-react-app {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
 .setlister-react-main {
-  position: absolute;
-  top: 80px;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  padding-top: 50px;
 }
 
 .setlister-react-main-inner {
-  height: 100%;
   max-width: 960px;
   margin: 0 auto;
 }
@@ -81,8 +72,10 @@ html, * {
 
 .setlister-react-nav-title {
   font-family: $font;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 50px;
+  letter-spacing: 0.09em;
+
   // position: absolute;
   // top: 50%;
   // left: 50%;
@@ -187,7 +180,7 @@ h1 {
 }
 
 .setlister-react-setlist-summary {
-  margin: 20px 0 40px;
+  margin-bottom: 40px;
 }
 
 .setlister-row {
@@ -206,7 +199,7 @@ h1 {
 .setlister-react-setlist-title {
   font-weight: 400;
   position: absolute;
-  top: -30px;
+  top: 0px;
   font-size: 14px;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -245,16 +238,28 @@ h1 {
   font-size: 12px;
 }
 
+.setlister-react-setlists-show {
+  position: relative;
+  padding-top: 50px;
+}
+
 .setlister-react-song {
-  border: 1px solid $grey;
+  position: relative;
+  border: 1px solid $linen;
   border-radius: 4px;
   margin-bottom: 30px;
+  overflow: hidden;
+  padding: 20px 20px 30px;
+  font-size: 13px;
+  page-break-after: always;
 }
 
 .setlister-react-song-title {
-  padding: 10px 15px;
-  margin: 0;
-  border-bottom: 1px solid $grey;
+  margin: 0 0 40px;
+  font-weight: 100;
+  color: #383838;
+  font-size: 35px;
+  position: relative;
 }
 
 .setlister-react-song-footer {
@@ -263,9 +268,37 @@ h1 {
 }
 
 .setlister-react-song-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
   font-family: $monospaceFont;
-  padding: 15px;
   margin: 0;
   overflow: auto;
   line-height: 1.2;
+
+  strong {
+    color: #000;
+    font-weight: 900;
+  }
+}
+
+.setlister-react-song-column {
+  flex: 1;
+}
+
+.setlister-react-song-text,
+.setlister-react-song-column {
+  page-break-inside: avoid;
+  -webkit-region-break-inside: avoid;
+}
+span.setlist-react-song-capo {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  right: 0;
+  bottom: 0;
+  font-family: 'Ubuntu Mono', monospace;
 }

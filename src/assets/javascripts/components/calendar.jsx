@@ -1,6 +1,5 @@
 var React = require( "react" );
 var moment = require( "moment" );
-var { range } = require( "moment-range" );
 var createReactClass = require('create-react-class');
 
 var Calendar = createReactClass({
@@ -217,7 +216,7 @@ var Calendar = createReactClass({
             }
         );
     },
-    render() {
+    render: function () {
         var self = this;
         var date = this.state.dateObject;
         var actualDate = this.state.origDateObject; // today's date
@@ -236,7 +235,7 @@ var Calendar = createReactClass({
             daysInMonth.push(
                 <td
                     key={d}
-                    className={`calendar-day${currentDay}${selectedDay}`}
+                    className={'calendar-day' + currentDay + selectedDay}
                     onClick={function (e) {
                         e.preventDefault();
                         e.stopPropagation();

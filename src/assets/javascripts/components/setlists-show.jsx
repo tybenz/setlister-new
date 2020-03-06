@@ -1,7 +1,9 @@
 var React = require('react');
+var Song = require('./song.jsx');
 var createReactClass = require('create-react-class');
 var localData = require('../localData');
 var setlist = localData.setlist;
+var maxLines = 58;
 
 var SetlistsShow = createReactClass({
     getInitialState: function (props) {
@@ -9,12 +11,14 @@ var SetlistsShow = createReactClass({
     },
 
     render: function () {
+        var chord_regex = /\b([A-G][b\#]?(2|5|6|7|9|11|13|6\/9|7\-5|7\-9|7\#5|7\#9|7\+5|7\+9|7b5|7b9|7sus2|7sus4|add2|add4|add9|aug|dim|dim7|m\/maj7|m6|m7|m7b5|m9|m11|m13|maj7|maj9|maj11|maj13|mb5|m|sus|sus2|sus4)*)(?=[^A-z])/g;
+
         return (
             <div className="setlister-react-setlists-show">
+                <div className="setlister-react-setlist-title">
+                    {setlist.title || setlist.date}
+                </div>
                 <div className="setlister-react-setlist-summary">
-                    <div className="setlister-react-setlist-title">
-                        {setlist.title || setlist.date}
-                    </div>
                     <div className="setlister-react-setlist-summary-inner">
                         <div className="setlister-react-setlist-summary-row-header setlister-row">
                             <div className="setlister-react-setlist-summary-cell setlist-song-position" />
@@ -32,7 +36,7 @@ var SetlistsShow = createReactClass({
                             </div>
                         </div>
                         {setlist.songs.map(function (song) {
-                            return <div className="setlister-react-setlist-summary-row setlister-row">
+                            return <div key={'song-in-table-' + song.position} className="setlister-react-setlist-summary-row setlister-row">
                                 <div className="setlister-react-setlist-summary-cell setlist-song-position">
                                     {song.position}
                                 </div>
@@ -52,14 +56,7 @@ var SetlistsShow = createReactClass({
                     </div>
                 </div>
                 {setlist.songs.map(function (song) {
-                    return <div id={song.title_dashes} className="setlister-react-song">
-                        <h2 className="setlister-react-song-title">
-                            {song.title}
-                            {song.capo && 'Capo: ' + song.capo}
-                        </h2>
-                        <pre className="setlister-react-song-text">{song.text}</pre>
-                        <div className="setlister-react-song-footer" />
-                    </div>;
+                    return <Song key={'song-' + song.position} song={song} />;
                 })}
             </div>
         );
