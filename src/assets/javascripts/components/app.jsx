@@ -7,8 +7,7 @@ var SetlistsShow = require('./setlists-show.jsx');
 var SongsIndex = require('./songs-index.jsx');
 var SongsShow = require('./songs-show.jsx');
 var NotFound = require('./not-found.jsx');
-var localData = require('../localData');
-var currentRoute = localData.currentRoute;
+var localData = require('../local-data');
 
 var App = createReactClass({
     getInitialState: function (props) {
@@ -70,7 +69,7 @@ var App = createReactClass({
 
         return (
             <div className={className}>
-                <Nav currentRoute={currentRoute} />
+                <Nav />
                 <div className="setlister-react-main">
                     <div className="setlister-react-main-inner">
                         {
@@ -83,7 +82,7 @@ var App = createReactClass({
                                 '/songs/new': <SongsShow isEdit={true} />,
                                 '/songs/*': <SongsShow />,
                                 '/songs/*/edit': <SongsShow isEdit={true} />
-                            }[currentRoute.replace(/[0-9]+/g, '*').replace(/\/$/, '')]
+                            }[localData.getPath('current').replace(/[0-9]+/g, '*').replace(/\/$/, '')]
                             ||
                             <NotFound />
                         }

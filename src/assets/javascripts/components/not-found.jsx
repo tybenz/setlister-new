@@ -1,7 +1,6 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
-var localData = require('../localData');
-var currentRoute = localData.currentRoute;
+var localData = require('../local-data');
 
 var NotFound = createReactClass({
     getInitialState: function (props) {

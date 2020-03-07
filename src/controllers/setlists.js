@@ -29,9 +29,6 @@ var SetlistsController = ApplicationController.extend({
 
             this.renderWithJSON( req, res, {
                 paths: {
-                    home: router.rootPath(),
-                    songs: router.songsPath(),
-                    setlists: router.setlistsPath(),
                     new_setlist: router.newSetlistPath()
                 },
                 setlists: setlists
@@ -65,11 +62,6 @@ var SetlistsController = ApplicationController.extend({
             });
 
             this.renderWithJSON( req, res, {
-                paths: {
-                    home: router.rootPath(),
-                    songs: router.songsPath(),
-                    setlists: router.setlistsPath()
-                },
                 setlist: {
                     id: setlist.id,
                     path: router.setlistPath(setlist.id),
@@ -123,9 +115,6 @@ var SetlistsController = ApplicationController.extend({
     new: function( req, res, next ) {
         this.renderWithJSON( req, res, {
             paths: {
-                home: router.rootPath(),
-                songs: router.songsPath(),
-                setlists: router.setlistsPath(),
                 submit: router.setlistsPath()
             }
         });
@@ -165,11 +154,6 @@ var SetlistsController = ApplicationController.extend({
             });
 
             this.renderWithJSON( req, res, {
-                paths: {
-                    home: router.rootPath(),
-                    songs: router.songsPath(),
-                    setlists: router.setlistsPath()
-                },
                 setlist: {
                     id: setlist.id,
                     path: router.setlistPath(setlist.id),

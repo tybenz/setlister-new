@@ -1,8 +1,7 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
 var DatePicker = require('./date-picker.jsx');
-var localData = require('../localData');
-var setlistsPath = localData.paths.setlists;
+var localData = require('../local-data');
 
 var SetlistsNew = createReactClass({
     getInitialState: function (props) {
@@ -21,7 +20,7 @@ var SetlistsNew = createReactClass({
     },
 
     onCreateClick: function () {
-        window.fetch(setlistsPath, {
+        window.fetch(localData.getPath('setlists'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +32,7 @@ var SetlistsNew = createReactClass({
                 console.error(new Error('Non-200 response while trying to create setlist. ' + response.status));
                 alert('There was a problem creating the setlist');
             }
-            window.location = setlistsPath;
+            window.location = localData.getPath('setlists');
         })
         .catch(function (err) {
             console.error(err);

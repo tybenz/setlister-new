@@ -1,8 +1,7 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
 var utils = require('../utils');
-var localData = require('../localData');
-var paths = localData.paths;
+var localData = require('../local-data');
 var allSetlists = localData.all_setlists;
 
 var AddToSetlist = createReactClass({
@@ -42,7 +41,7 @@ var AddToSetlist = createReactClass({
 
         this.setState({ indexLoading: index });
 
-        window.fetch(paths.new_setlist_song, {
+        window.fetch(localData.getPath('new_setlist_song'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -91,7 +90,7 @@ var AddToSetlist = createReactClass({
                                     this.onSetlistClick(setlist, i);
                                 }.bind(this)}
                             >
-                                {setlist.title || setlist.date}
+                                {localData.getSetlistTitle(setlist)}
                                 <span className="icon icon-refresh" />
                                 <span className="icon icon-ok" />
                             </div>

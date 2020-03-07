@@ -3,10 +3,9 @@ var Song = require('./song.jsx');
 var KeySelector = require('./key-selector.jsx');
 var CapoSelector = require('./capo-selector.jsx');
 var createReactClass = require('create-react-class');
-var localData = require('../localData');
+var localData = require('../local-data');
 var song = localData.song;
 var paths = localData.paths;
-var currentRoute = localData.currentRoute;
 
 var SongsShow = createReactClass({
     getInitialState: function (props) {
@@ -54,7 +53,7 @@ var SongsShow = createReactClass({
 
     onSaveClick: function () {
         window.fetch(
-            song.id ? song.path : paths.songs,
+            song.id ? song.path : localData.getPath('songs'),
             {
                 method: 'POST',
                 headers: {
@@ -69,7 +68,7 @@ var SongsShow = createReactClass({
             }
         ).then(function (response) {
             if (response.status === 200) {
-                window.location = song.path ? song.path : paths.songs;
+                window.location = song.path ? song.path : localData.getPath('songs');
             } else {
                 console.error(new Error('Non-200 response from POST ' + song.path + ' ' + response.status));
                 window.location = '/auth_error';

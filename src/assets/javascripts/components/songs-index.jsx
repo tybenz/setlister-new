@@ -3,7 +3,7 @@ var Song = require('./song.jsx');
 var Table = require('./table.jsx');
 var AddToSetlist = require('./add-to-setlist.jsx');
 var createReactClass = require('create-react-class');
-var localData = require('../localData');
+var localData = require('../local-data');
 var songs = localData.songs;
 var paths = localData.paths;
 
@@ -54,7 +54,7 @@ var SongsIndex = createReactClass({
                 <div className="setlister-react-actions">
                     <a className="icon-pencil action" title="Edit song" href={song.edit_path}></a>
                     <a className="icon-remove action" title="Delete song" data-method="delete" data-confirm="Are you sure?" href={song.delete_path}></a>
-                    <a className="icon-plus-sign action" ref={this.songRowRefs[i]} title="Add to setlist" href="#" onClick={function (evt) {
+                    <a className="icon-plus-sign action add-to-setlist-button" ref={this.songRowRefs[i]} title="Add to setlist" href="#" onClick={function (evt) {
                         evt.preventDefault();
                         this.onAddToSetlistClick(song, i);
                     }.bind(this)}></a>
@@ -68,7 +68,7 @@ var SongsIndex = createReactClass({
             <div className={mainClassName}>
                 <div className="setlister-react-page-title">
                     Songs
-                    <a className="setlister-react-page-action" title="Add song" href={paths.new_song}><span className="icon icon-plus" /></a>
+                    <a className="setlister-react-page-action" title="Add song" href={localData.getPath('new_song')}><span className="icon icon-plus" /></a>
                 </div>
                 <Table titles={tableTitles} rows={rows} cellClassNames={cellClassNames} showControls={true} />
                 {addToSetlist && <AddToSetlist song={addToSetlist} songRef={this.state.songRef} />}

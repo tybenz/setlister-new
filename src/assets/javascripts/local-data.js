@@ -13,4 +13,14 @@ localData.getSetlistTitle = function (setlist) {
     return title || date;
 };
 
+localData.getPath = function (pathName) {
+    var path = localData.fixedPaths[pathName];
+    if (path) {
+        return path;
+    }
+    return localData.paths
+        ? localData.paths[pathName]
+        : undefined;
+};
+
 module.exports = localData;

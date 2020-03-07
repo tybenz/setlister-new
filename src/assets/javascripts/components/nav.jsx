@@ -1,5 +1,6 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
+var localData = require('../local-data');
 
 var Nav = createReactClass({
     getInitialState: function (props) {
@@ -23,7 +24,7 @@ var Nav = createReactClass({
         return (
             <div className={className}>
                 <div className="setlister-react-nav-inner">
-                    <div className="setlister-react-nav-title"><a href={paths.home}>Setlister</a></div>
+                    <div className="setlister-react-nav-title"><a href={localData.getPath('home')}>Setlister</a></div>
                     <div onClick={this.onHamburgerClick} className="setlister-react-nav-hamburger">
                         <div className="setlister-react-nav-hamburger-line"/>
                         <div className="setlister-react-nav-hamburger-line"/>
@@ -31,13 +32,13 @@ var Nav = createReactClass({
                     </div>
                     <div className="setlister-react-nav-items">
                         <span className="setlister-react-nav-item">
-                            <a href={paths.home}>Home</a>
+                            <a href={localData.getPath('home')}>Home</a>
                         </span>
                         <span className="setlister-react-nav-item">
-                            <a href={paths.songs}>Songs</a>
+                            <a href={localData.getPath('songs')}>Songs</a>
                         </span>
                         <span className="setlister-react-nav-item">
-                            <a href={paths.setlists}>Setlists</a>
+                            <a href={localData.getPath('setlists')}>Setlists</a>
                         </span>
                     </div>
                 </div>

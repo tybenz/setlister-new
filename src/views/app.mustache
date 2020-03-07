@@ -15,7 +15,6 @@
 {{# stylesheets }}
 <link rel="stylesheet" type="text/css" href="{{{ . }}}">
 {{/ stylesheets }}
-<link rel="stylesheet" media="print" type="text/css" href="{{ print_stylesheet }}">
 
 {{# metatags }}
 <meta {{# property }}property="{{ property }}" {{/ property }}{{# name }}name="{{ name }}" {{/ name }}{{# content }}content="{{ content }}" {{/ content }}>
@@ -23,10 +22,6 @@
 </head>
 <body>
 <div id="setlister-react"></div>
-{{# templates }}
-<script type="text/mustache" id="{{ id }}">
-{{{ text }}}</script>
-{{/ templates }}
 
 {{# json }}
 <script type="text/javascript" charset="utf-8">

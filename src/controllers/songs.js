@@ -42,9 +42,6 @@ var SongsController = ApplicationController.extend({
         .then(function (setlists) {
             this.renderWithJSON( req, res, {
                 paths: {
-                    home: router.rootPath(),
-                    songs: router.songsPath(),
-                    setlists: router.setlistsPath(),
                     new_song: router.newSongPath(),
                     new_setlist_song: router.createSetlistSongPath()
                 },
@@ -61,9 +58,6 @@ var SongsController = ApplicationController.extend({
         .then(function (song) {
             this.renderWithJSON( req, res, {
                 paths: {
-                    home: router.rootPath(),
-                    songs: router.songsPath(),
-                    setlists: router.setlistsPath(),
                     edit: router.editSongPath(req.params.id)
                 },
                 song: {
@@ -85,11 +79,6 @@ var SongsController = ApplicationController.extend({
 
     new: function( req, res, next ) {
         this.renderWithJSON( req, res, {
-            paths: {
-                home: router.rootPath(),
-                songs: router.songsPath(),
-                setlists: router.setlistsPath()
-            },
             song: {}
         });
     },
@@ -109,9 +98,6 @@ var SongsController = ApplicationController.extend({
         .then(function (song) {
             this.renderWithJSON( req, res, {
                 paths: {
-                    home: router.rootPath(),
-                    songs: router.songsPath(),
-                    setlists: router.setlistsPath(),
                     edit: router.editSongPath(req.params.id)
                 },
                 song: {

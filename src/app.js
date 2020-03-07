@@ -283,6 +283,9 @@ app.use( methodOverride( function( req, res ) {
 }));
 app.use( haltOnTimedout );
 
+// Make router globally exceptable for path helpers
+global.router = new Router( app, path.join( __dirname, '/controllers' ), routes );
+
 app.use( function( req, res, next ) {
     var flash = {
         info: [],
@@ -296,14 +299,12 @@ app.use( function( req, res, next ) {
         flash[ message.type ].push( message.message );
     }
 
-    res.locals.messages = flash;
-    res.locals.messages.empty = empty;
+    res.locals.json = res.locals.json || {};
+    res.locals.json.flash = flash;
+    res.locals.json.flash.empty = empty;
     next();
 });
 app.use( haltOnTimedout );
-
-// Make router globally exceptable for path helpers
-global.router = new Router( app, path.join( __dirname, '/controllers' ), routes );
 
 // First non error middleware after route binding. So if the response hasn't
 // ended by now, we can assume that it is a bad route and therefor a 404.

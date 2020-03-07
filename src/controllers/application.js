@@ -3,15 +3,10 @@ var path = require( 'path' );
 var url = require( 'url' );
 var Utils = require( '../utils' );
 var Settings = require( '../settings' );
-var cdnVersion = fs.readFileSync( path.join( __dirname, '..', '..', 'dist', 'version' ), { encoding: 'utf8' } ).replace(/\s$/, '');
-var printHref = '/css/print.css';
-if (process.env.ENV && process.env.ENV === 'production') {
-    printHref = url.format({
-        protocol: Settings.cdn.protocol,
-        hostname: Settings.cdn.host[ process.env.ENV || 'dev' ],
-        pathname: path.join( cdnVersion, 'css', 'print.gz.css' )
-    });
-}
+var cdnVersion = fs.readFileSync(
+    path.join( __dirname, '..', '..', 'dist', 'version' ),
+    { encoding: 'utf8' }
+).replace(/\s$/, '');
 
 var ApplicationController = Class.extend({
     init: function() {},
@@ -19,17 +14,18 @@ var ApplicationController = Class.extend({
     defaultLocals: function( req ) {
         return {
             site_title: 'Setlister',
-            root_url: '/',
-            songs_path: router.songsPath(),
-            setlists_path: router.setlistsPath(),
-            is_signed_in: !!req.user,
             metatags: [],
             fonts: this.fonts(),
-            print_stylesheet: printHref,
             stylesheets: this.stylesheets(),
             javascripts: this.javascripts(),
-            templates: this.templates(),
-            json: { currentRoute: req.path }
+            json: {
+                fixedPaths: {
+                    current: req.path,
+                    root: router.rootPath(),
+                    songs: router.songsPath(),
+                    setlists: router.setlistsPath()
+                }
+            }
         };
     },
 
@@ -39,15 +35,11 @@ var ApplicationController = Class.extend({
     },
 
     stylesheets: function() {
-        return [ '/css/app.css' ];
+        return [ '/css/app.css', '/css/print.css' ];
     },
 
     javascripts: function() {
         return [ '/js/app.js' ];
-    },
-
-    templates: function() {
-        return [];
     },
 
     locals: function( req, res, obj, json ) {

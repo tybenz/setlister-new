@@ -2,9 +2,8 @@ var React = require('react');
 var Song = require('./song.jsx');
 var Table = require('./table.jsx');
 var createReactClass = require('create-react-class');
-var localData = require('../localData');
+var localData = require('../local-data');
 var setlists = localData.setlists;
-var paths = localData.paths;
 
 var SetlistsIndex = createReactClass({
     getInitialState: function (props) {
@@ -41,7 +40,7 @@ var SetlistsIndex = createReactClass({
             <div className={mainClassName}>
                 <div className="setlister-react-page-title">
                     Setlists
-                    <a className="setlister-react-page-action" title="Add setlist" href={paths.new_setlist}><span className="icon icon-plus" /></a>
+                    <a className="setlister-react-page-action" title="Add setlist" href={localData.getPath('new_setlist')}><span className="icon icon-plus" /></a>
                 </div>
                 <Table titles={tableTitles} rows={rows} cellClassNames={cellClassNames} showControls={true} />
             </div>

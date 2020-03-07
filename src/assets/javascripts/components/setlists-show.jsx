@@ -4,7 +4,7 @@ var Table = require('./table.jsx');
 var KeySelector = require('./key-selector.jsx');
 var CapoSelector = require('./capo-selector.jsx');
 var createReactClass = require('create-react-class');
-var localData = require('../localData');
+var localData = require('../local-data');
 var setlist = localData.setlist;
 
 var SetlistsShow = createReactClass({
@@ -152,7 +152,7 @@ var SetlistsShow = createReactClass({
                 {!isInStageMode &&
                     <Table isEdit={isEdit} onOrderUpClick={this.onOrderUpClick} onOrderDownClick={this.onOrderDownClick} titles={tableTitles} rows={rows} cellClassNames={cellClassNames} />}
                 {setlist.songs.map(function (song, i) {
-                    return <Song key={'song-' + song.position} song={song} active={i === activeSong} />;
+                    return <Song key={'song-' + i} song={song} active={i === activeSong} />;
                 })}
             </div>
         );
