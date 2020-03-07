@@ -53,20 +53,23 @@ var SongsShow = createReactClass({
     },
 
     onSaveClick: function () {
-        window.fetch(song.path, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                data_key: song.data_key,
-                capo: song.capo,
-                title: song.title,
-                text: song.text
-            })
-        }).then(function (response) {
+        window.fetch(
+            song.id ? song.path : paths.songs,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data_key: song.data_key,
+                    capo: song.capo,
+                    title: song.title,
+                    text: song.text
+                })
+            }
+        ).then(function (response) {
             if (response.status === 200) {
-                window.location = song.path;
+                window.location = song.path ? song.path : paths.songs;
             } else {
                 console.error(new Error('Non-200 response from POST ' + song.path + ' ' + response.status));
                 window.location = '/auth_error';

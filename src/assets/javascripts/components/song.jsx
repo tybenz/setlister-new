@@ -50,7 +50,10 @@ var Song = createReactClass({
         div.innerHTML = song.text;
         var cleanText = div.textContent || div.innerText || "";
         textWithMarkup = cleanText.replace(chordRegex, function(match) {
-            var chord = transpose(newKey, oldKey, match);
+            var chord = match;
+            if (newKey && oldKey) {
+                chord = transpose(newKey, oldKey, match);
+            }
             return '<strong>' + chord + '</strong>';
         });
         textWithMarkup = textWithMarkup.replace(/\b_(.*)(?=[^A-z])/g, '$1');

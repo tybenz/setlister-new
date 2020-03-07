@@ -15,7 +15,8 @@ var Table = createReactClass({
                 {this.props.showControls &&
                     <div className="setlister-react-table-controls">
                     </div>}
-                <div className="setlister-react-table-row setlister-react-table-header-row">
+                <div className="setlister-react-table-rows">
+                    <div className="setlister-react-table-row setlister-react-table-header-row">
                     {titles.map(function (title, i) {
                         var className = 'setlister-react-table-cell';
                         if (cellClassNames[i]) {
@@ -23,18 +24,19 @@ var Table = createReactClass({
                         }
                         return <div key={'header-cell-' + i} className={className}>{title}</div>;
                     })}
+                    </div>
+                    {rows.map(function (row, i) {
+                        return <div key={'song-in-table-' + i} className="setlister-react-table-row">
+                            {row.map(function (cell, i) {
+                                var className = 'setlister-react-table-cell';
+                                if (cellClassNames[i]) {
+                                    className += ' ' + cellClassNames[i];
+                                }
+                                return <div key={'cell-' + i} className={className}>{cell}</div>;
+                            })}
+                            </div>;
+                    })}
                 </div>
-                {rows.map(function (row, i) {
-                    return <div key={'song-in-table-' + i} className="setlister-react-table-row">
-                        {row.map(function (cell, i) {
-                            var className = 'setlister-react-table-cell';
-                            if (cellClassNames[i]) {
-                                className += ' ' + cellClassNames[i];
-                            }
-                            return <div key={'cell-' + i} className={className}>{cell}</div>;
-                        })}
-                    </div>;
-                })}
             </div>
         );
     }

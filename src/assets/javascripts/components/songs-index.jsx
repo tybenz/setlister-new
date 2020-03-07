@@ -26,7 +26,11 @@ var SongsIndex = createReactClass({
         var rows = songs.map(function (song) {
             return [
                 <a href={song.path}>{song.title || song.date}</a>,
-                ''
+                <div className="setlister-react-actions">
+                    <a className="icon-pencil action" title="Edit song" href={song.edit_path}></a>
+                    <a className="icon-remove action" title="Delete song" data-method="delete" data-confirm="Are you sure?" href={song.delete_path}></a>
+                    <a className="icon-plus-sign action" title="Add to setlist" href="#"></a>
+                </div>
             ];
         });
         var cellClassNames = ['setlist-song-title', 'setlist-song-actions'];

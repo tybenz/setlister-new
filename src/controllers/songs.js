@@ -32,6 +32,7 @@ var SongsController = ApplicationController.extend({
                     num: i,
                     path: router.songPath(id),
                     edit_path: router.editSongPath(id),
+                    delete_path: router.songPath(id),
                     setlists: song.getSetlists()
                 });
             });
@@ -82,16 +83,21 @@ var SongsController = ApplicationController.extend({
     },
 
     new: function( req, res, next ) {
-        this.render( req, res, 'songs/edit', {
-            submit_path: router.songsPath()
-        }, {layout: 'layouts/application'});
+        this.renderWithJSON( req, res, {
+            paths: {
+                home: router.rootPath(),
+                songs: router.songsPath(),
+                setlists: router.setlistsPath()
+            },
+            song: {}
+        });
     },
 
     create: function( req, res, next ) {
         new Song(req.body)
         .save()
         .then(function (song) {
-            res.redirect(router.songsPath());
+            res.send({ id: song.id });
         })
         .done();
     },

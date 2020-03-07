@@ -79,6 +79,7 @@ var App = createReactClass({
                                 '/setlists/new': <SetlistsNew />,
                                 '/setlists/*': <SetlistsShow stageMode={isInStageMode} onStageModeOn={this.onStageModeOn} onStageModeOff={this.onStageModeOff} />,
                                 '/songs': <SongsIndex />,
+                                '/songs/new': <SongsShow isEdit={true} />,
                                 '/songs/*': <SongsShow />,
                                 '/songs/*/edit': <SongsShow isEdit={true} />
                             }[currentRoute.replace(/[0-9]+/g, '*').replace(/\/$/, '')]

@@ -211,7 +211,7 @@ h1 {
   font-size: 14px;
 
   &:nth-child(2n) {
-    background-color: $pillow;
+    background-color: $cloud;
   }
 
   a {
@@ -224,7 +224,7 @@ h1 {
 
     &.action {
       color: $dusk;
-      margin-right: 10px;
+      margin-right: 12px;
       font-size: 15px;
 
       &:hover {
@@ -285,7 +285,7 @@ h1 {
 }
 
 .setlist-song-actions {
-  min-width: 100px;
+  min-width: 62px;
 }
 
 .setlister-react-table-cell {
