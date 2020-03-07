@@ -5,13 +5,8 @@ var ncp = require( 'ncp' );
 var version = require( 'node-uuid' )().replace( /-/g, '' );
 
 var javascripts = [
-    'application',
-    'songs',
-    'song',
-    'setlist',
     'slideshow',
-    'app',
-    'jq'
+    'app'
 ];
 
 var stylesheets = [
