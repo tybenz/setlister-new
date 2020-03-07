@@ -4,11 +4,18 @@ html, * {
 
 .setlister-react-nav,
 .setlister-react-setlist-summary,
+.setlister-react-page-title,
+.setlister-react-song-controls,
 .setlister-react-setlist-title {
   display: none;
 }
 
-.setlister-react-main {
+.setlister-react-page-title {
+  position: relative;
+}
+
+.setlister-react-main,
+.setlister-react-main-inner {
   padding-top: 0;
 }
 
@@ -19,13 +26,10 @@ html, * {
 
 .setlister-react-song {
   padding: 0;
-  border: none;
+  border: 0;
   position: relative;
   min-height: 0;
-}
-
-.setlister-react-song-text,
-.setlister-react-song-column {
   page-break-inside: avoid;
   -webkit-region-break-inside: avoid;
+  page-break-after: auto;
 }

@@ -315,8 +315,15 @@ h1 {
   overflow: hidden;
   padding: 20px 20px 30px;
   font-size: 13px;
-  page-break-after: always;
-  min-height: 950px;
+  // page-break-after: always;
+  // page-break-inside: avoid;
+  // -webkit-region-break-inside: avoid;
+}
+
+@media screen {
+  .setlister-react-song {
+    min-height: 950px;
+  }
 }
 
 .stage-mode .setlister-react-song {
@@ -349,7 +356,6 @@ input.setlister-react-song-title {
 
 .setlister-react-song-text {
   width: 100%;
-  height: 100%;
   border: none;
   outline: none;
   display: flex;
@@ -369,6 +375,12 @@ input.setlister-react-song-title {
   }
 }
 
+@media screen {
+  .setlister-react-song-text {
+    height: 100%;
+  }
+}
+
 .setlister-react-song-column {
   font-family: inherit;
   flex: 1;
@@ -376,8 +388,8 @@ input.setlister-react-song-title {
 
 .setlister-react-song-text,
 .setlister-react-song-column {
-  page-break-inside: avoid;
-  -webkit-region-break-inside: avoid;
+  // page-break-inside: avoid;
+  // -webkit-region-break-inside: avoid;
 }
 span.setlist-react-song-capo {
   font-size: 13px;

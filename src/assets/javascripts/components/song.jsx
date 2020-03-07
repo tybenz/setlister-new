@@ -1,6 +1,6 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
-var maxLines = 58;
+var maxLines = 55;
 
 var numbers = { 'Ab': 11, 'A': 0, 'A#': 1, 'Bb': 1, 'B': 2, 'C': 3, 'C#': 4, 'Db': 4, 'D': 5, 'D#': 6, 'Eb': 6, 'E': 7, 'F': 8, 'F#': 9, 'Gb': 9, 'G': 10, 'G#': 11 };
 var notes = {
@@ -107,7 +107,9 @@ var Song = createReactClass({
                 ? <input autoFocus type="text" className="setlister-react-song-title" onChange={this.onTitleChange} defaultValue={song.title} />
                 : <h2 className="setlister-react-song-title">
                     {song.title}
-                    {song.capo && song.capo > 0 && <span className="setlist-react-song-capo">Capo: {song.capo}</span>}
+                    {song.capo
+                        ? <span className="setlist-react-song-capo">Capo: {song.capo}</span>
+                        : undefined}
                 </h2>}
             {isEdit
                 ? <div><textarea className="setlister-react-song-text" onChange={this.onTextChange} defaultValue={song.text} /></div>
