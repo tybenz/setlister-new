@@ -54,10 +54,6 @@ var SongsController = ApplicationController.extend({
     },
 
     show: function( req, res, next ) {
-        var capoList = _.map(_.times(12, Number), function (num) {
-            return num + 1;
-        });
-
         new Song({id: req.params.id})
         .fetch()
         .then(function (song) {
@@ -69,8 +65,8 @@ var SongsController = ApplicationController.extend({
                     edit: router.editSongPath(req.params.id)
                 },
                 song: {
+                    path: router.songPath(song.id),
                     capo: song.get('capo'),
-                    capo_list: capoList,
                     page_title: song.get( 'title' ),
                     title: song.get( 'title' ),
                     song_title_dashes: song.get('title').replace(/ /g, '-'),
@@ -101,20 +97,29 @@ var SongsController = ApplicationController.extend({
     },
 
     edit: function( req, res, next ) {
-        var id = req.params.id;
-        new Song({id: id})
+        new Song({id: req.params.id})
         .fetch()
         .then(function (song) {
-            console.log( song.get('title') );
-            this.render( req, res, 'songs/edit', {
-                submit_path: router.songPath(id),
-                page_title: song.get( 'title' ),
-                song_title: song.get( 'title' ),
-                text: song.get( 'text' ),
-                data_key: song.get( 'data_key' ),
-                artist: song.get( 'artist' ),
-                license: song.get( 'license' )
-            }, {layout: 'layouts/application'});
+            this.renderWithJSON( req, res, {
+                paths: {
+                    home: router.rootPath(),
+                    songs: router.songsPath(),
+                    setlists: router.setlistsPath(),
+                    edit: router.editSongPath(req.params.id)
+                },
+                song: {
+                    path: router.songPath(song.id),
+                    capo: song.get('capo'),
+                    page_title: song.get( 'title' ),
+                    title: song.get( 'title' ),
+                    song_title_dashes: song.get('title').replace(/ /g, '-'),
+                    text: song.get( 'text' ),
+                    start_key: song.get( 'data_key' ),
+                    data_key: song.get( 'data_key' ),
+                    artist: song.get( 'artist' ),
+                    license: song.get( 'license' ),
+                }
+            });
         }.bind(this))
         .done();
     },

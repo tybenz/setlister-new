@@ -1,9 +1,12 @@
 var React = require('react');
 var Song = require('./song.jsx');
-var Table = require('./table.jsx');
+var KeySelector = require('./key-selector.jsx');
+var CapoSelector = require('./capo-selector.jsx');
 var createReactClass = require('create-react-class');
 var localData = require('../localData');
 var song = localData.song;
+var paths = localData.paths;
+var currentRoute = localData.currentRoute;
 
 var SongsShow = createReactClass({
     getInitialState: function (props) {
@@ -21,11 +24,69 @@ var SongsShow = createReactClass({
     onKeyDown: function (evt) {
     },
 
+    onKeyChange: function (key) {
+        if (song) {
+            song.data_key = key;
+            this.forceUpdate();
+        }
+    },
+
+    onCapoChange: function (capo) {
+        if (song) {
+            song.capo = capo;
+            this.forceUpdate();
+        }
+    },
+
+    onSaveClick: function () {
+        window.fetch(song.path, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                data_key: song.data_key,
+                capo: song.capo,
+                text: song.text
+            })
+        }).then(function (response) {
+            if (response.status === 200) {
+                window.location = song.path;
+            } else {
+                console.error(new Error('Non-200 response from POST ' + song.path + ' ' + response.status));
+                window.location = '/auth_error';
+            }
+        }).catch(function (err) {
+            console.error(err);
+            window.location = '/auth_error';
+        });
+    },
+
     render: function () {
-        var mainClassName = 'songer-react-songs-show';
+        var isEdit = this.props.isEdit;
+        var mainClassName = 'setlister-react-songs-show';
 
         return (
             <div className={mainClassName}>
+                <div className="setlister-react-song-controls">
+                    <span className="setlister-react-song-key-select">
+                        <span className="setlister-react-field-label">Key:</span>
+                        <KeySelector onChange={this.onKeyChange} defaultValue={song.data_key} />
+                    </span>
+                    <span className="setlister-react-song-capo-select">
+                        <span className="setlister-react-field-label">Capo:</span>
+                        <CapoSelector onChange={this.onCapoChange} defaultValue={song.capo} />
+                    </span>
+                    <span className="setlister-react-song-buttons">
+                        {isEdit
+                            ? <a className="setlister-react-button" onClick={this.onSaveClick}>
+                                Save
+                            </a>
+                            : <a href={paths.edit} className="setlister-react-button">
+                                <span className="icon-pencil" /> Edit
+                            </a>}
+                    </span>
+                </div>
                 <Song song={song} />
             </div>
         );

@@ -175,6 +175,7 @@ h1 {
 
 .setlister-react-button {
   text-transform: uppercase;
+  text-decoration: none;
   cursor: pointer;
   font-family: $font;
   border: 1px solid $crisp;
@@ -378,6 +379,11 @@ span.setlist-react-song-capo {
   flex: 1;
 }
 
+.setlister-react-key-select,
+.setlister-react-capo-select {
+  display: inline-block;
+}
+
 .setlister-react-capo-select-input,
 .setlister-react-key-select-input {
   border: 1px solid $linen;
@@ -432,4 +438,28 @@ span.setlist-react-song-capo {
   .setlist-song-key {
     min-width: 39px;
   }
+}
+
+
+.setlister-react-song-controls {
+  position: relative;
+  margin-bottom: 10px;
+  height: 33px;
+  line-height: 33px;
+}
+
+.setlister-react-song-key-select,
+.setlister-react-song-capo-select {
+  margin-right: 10px;
+
+  .setlister-react-field-label {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+
+.setlister-react-song-buttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
