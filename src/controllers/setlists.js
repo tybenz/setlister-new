@@ -183,12 +183,14 @@ var SetlistsController = ApplicationController.extend({
     delete: function( req, res, next ) {
         var id = req.params.id;
         new Setlist({id: id})
-        .fetch()
+        .fetch({
+            withRelated: [ 'setlist_songs' ]
+        })
         .then(function (setlist) {
             return setlist.destroy();
         })
         .then(function () {
-            res.send(200);
+            res.sendStatus(200);
         })
         .done();
     }

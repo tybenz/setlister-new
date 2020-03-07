@@ -13,7 +13,6 @@
   },
   "homepage": "https://create.com",
   "dependencies": {
-    "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "bookshelf": "^1.1.0",
     "bookshelf-virtuals-plugin": "^0.1.1",

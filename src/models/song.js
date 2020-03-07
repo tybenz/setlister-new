@@ -45,6 +45,17 @@ var Song = BaseModel.extend({
         return _.uniqBy(setlists, function (setlist) {
             return setlist.id;
         });
+    },
+
+    destroy: function () {
+        var setlistSongs = this.related('setlist_songs');
+
+        return Promise.all(setlistSongs.map(function (setlistSong) {
+            return setlistSong.destroy();
+        }))
+        .then(function () {
+            return BaseModel.prototype.destroy.call(this);
+        }.bind(this));
     }
 });
 

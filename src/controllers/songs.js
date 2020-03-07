@@ -133,12 +133,14 @@ var SongsController = ApplicationController.extend({
     delete: function( req, res, next ) {
         var id = req.params.id;
         new Song({id: id})
-        .fetch()
+        .fetch({
+            withRelated: [ 'setlist_songs' ]
+        })
         .then(function (song) {
             return song.destroy();
         })
         .then(function () {
-            res.send(200);
+            res.sendStatus(200);
         })
         .done();
     }

@@ -52,7 +52,7 @@ var SetlistSongsController = ApplicationController.extend({
             return setlistSong.save();
         })
         .then(function (setlistSong) {
-            res.send(200);
+            res.sendStatus(200);
         })
         .done();
     },
