@@ -32,7 +32,16 @@ var Song = createReactClass({
         return {};
     },
 
+    onTextChange: function (evt) {
+        this.props.onTextChange(evt.target.value);
+    },
+
+    onTitleChange: function (evt) {
+        this.props.onTitleChange(evt.target.value);
+    },
+
     render: function () {
+        var isEdit = this.props.isEdit;
         var song = this.props.song;
         var oldKey = song.start_key;
         var newKey = song.data_key;
@@ -91,15 +100,19 @@ var Song = createReactClass({
         }
 
         return <div id={song.title_dashes} className={className}>
-            <h2 className="setlister-react-song-title">
-                {song.title}
-                {song.capo && song.capo > 0 && <span className="setlist-react-song-capo">Capo: {song.capo}</span>}
-            </h2>
-            <pre className="setlister-react-song-text"><div className="setlister-react-song-column" dangerouslySetInnerHTML={{
-                __html:  columnsOfText[0]
-            }} /><div className="setlister-react-song-column" dangerouslySetInnerHTML={{
-                __html:  columnsOfText[1]
-            }} /></pre>
+            {isEdit
+                ? <input type="text" className="setlister-react-song-title" onChange={this.onTitleChange} defaultValue={song.title} />
+                : <h2 className="setlister-react-song-title">
+                    {song.title}
+                    {song.capo && song.capo > 0 && <span className="setlist-react-song-capo">Capo: {song.capo}</span>}
+                </h2>}
+            {isEdit
+                ? <div><textarea className="setlister-react-song-text" onChange={this.onTextChange} defaultValue={song.text} /></div>
+                : <pre className="setlister-react-song-text"><div className="setlister-react-song-column" dangerouslySetInnerHTML={{
+                    __html:  columnsOfText[0]
+                }} /><div className="setlister-react-song-column" dangerouslySetInnerHTML={{
+                    __html:  columnsOfText[1]
+                }} /></pre>}
         </div>;
     }
 });

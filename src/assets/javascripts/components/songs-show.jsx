@@ -38,6 +38,20 @@ var SongsShow = createReactClass({
         }
     },
 
+    onTitleChange: function (title) {
+        if (song) {
+            song.title = title;
+            this.forceUpdate();
+        }
+    },
+
+    onTextChange: function (text) {
+        if (song) {
+            song.text = text;
+            this.forceUpdate();
+        }
+    },
+
     onSaveClick: function () {
         window.fetch(song.path, {
             method: 'POST',
@@ -47,6 +61,7 @@ var SongsShow = createReactClass({
             body: JSON.stringify({
                 data_key: song.data_key,
                 capo: song.capo,
+                title: song.title,
                 text: song.text
             })
         }).then(function (response) {
@@ -87,7 +102,7 @@ var SongsShow = createReactClass({
                             </a>}
                     </span>
                 </div>
-                <Song song={song} />
+                <Song song={song} isEdit={isEdit} onTextChange={this.onTextChange} onTitleChange={this.onTitleChange} />
             </div>
         );
     }
