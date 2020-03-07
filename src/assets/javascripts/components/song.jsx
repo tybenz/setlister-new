@@ -104,7 +104,7 @@ var Song = createReactClass({
 
         return <div id={song.title_dashes} className={className}>
             {isEdit
-                ? <input type="text" className="setlister-react-song-title" onChange={this.onTitleChange} defaultValue={song.title} />
+                ? <input autoFocus type="text" className="setlister-react-song-title" onChange={this.onTitleChange} defaultValue={song.title} />
                 : <h2 className="setlister-react-song-title">
                     {song.title}
                     {song.capo && song.capo > 0 && <span className="setlist-react-song-capo">Capo: {song.capo}</span>}

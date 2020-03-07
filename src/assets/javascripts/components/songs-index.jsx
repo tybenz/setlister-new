@@ -4,6 +4,7 @@ var Table = require('./table.jsx');
 var createReactClass = require('create-react-class');
 var localData = require('../localData');
 var songs = localData.songs;
+var paths = localData.paths;
 
 var SongsIndex = createReactClass({
     getInitialState: function (props) {
@@ -38,7 +39,10 @@ var SongsIndex = createReactClass({
 
         return (
             <div className={mainClassName}>
-                <div className="setlister-react-page-title">Songs</div>
+                <div className="setlister-react-page-title">
+                    Songs
+                    <a className="setlister-react-page-action" title="Add song" href={paths.new_song}><span className="icon icon-plus" /></a>
+                </div>
                 <Table titles={tableTitles} rows={rows} cellClassNames={cellClassNames} showControls={true} />
             </div>
         );

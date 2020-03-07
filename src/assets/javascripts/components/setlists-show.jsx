@@ -104,7 +104,7 @@ var SetlistsShow = createReactClass({
                 {!isInStageMode &&
                     <div className="setlister-react-page-title">
                         {setlist.title || setlist.date}
-                        <div className="setlister-react-stage-mode-button" title="Music stand mode" onClick={this.onStageModeOn}><span className="icon-laptop" /></div>
+                        <div className="setlister-react-page-action" title="Music stand mode" onClick={this.onStageModeOn}><span className="icon icon-laptop" /></div>
                     </div>}
                 {!isInStageMode &&
                     <Table titles={tableTitles} rows={rows} cellClassNames={cellClassNames} />}

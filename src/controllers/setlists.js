@@ -22,6 +22,7 @@ var SetlistsController = ApplicationController.extend({
                     num: i,
                     path: router.setlistPath(id),
                     edit_path: router.editSetlistPath(id),
+                    delete_path: router.setlistPath(id),
                     slideshow_path: router.setlistSlideshowPath(id)
                 });
             });
@@ -30,7 +31,8 @@ var SetlistsController = ApplicationController.extend({
                 paths: {
                     home: router.rootPath(),
                     songs: router.songsPath(),
-                    setlists: router.setlistsPath()
+                    setlists: router.setlistsPath(),
+                    new_setlist: router.newSetlistPath()
                 },
                 setlists: setlists
             });

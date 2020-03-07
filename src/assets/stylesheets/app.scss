@@ -109,7 +109,7 @@ html, * {
 }
 
 .setlister-react-nav-item {
-  margin-left: 20px;
+  margin-left: 40px;
 }
 
 .setlister-react-nav a {
@@ -253,7 +253,7 @@ h1 {
   color: $dusk;
 }
 
-.setlister-react-stage-mode-button {
+.setlister-react-page-action {
   cursor: pointer;
   position: absolute;
   font-size: 16px;
@@ -263,8 +263,10 @@ h1 {
   top: 3px;
   text-align: center;
 
-  .icon-laptop {
+  .icon {
     line-height: 30px;
+    text-decoration: none;
+    color: $grey;
   }
 }
 
