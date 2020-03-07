@@ -42,6 +42,21 @@ var SetlistSongsController = ApplicationController.extend({
         .done();
     },
 
+    update: function( req, res, next ) {
+        new SetlistSong({ id: req.params.id })
+        .fetch()
+        .then(function (setlistSong) {
+            setlistSong.set('data_key', req.body.data_key);
+            setlistSong.set('capo', req.body.capo);
+            setlistSong.set('position', req.body.position);
+            return setlistSong.save();
+        })
+        .then(function (setlistSong) {
+            res.send(200);
+        })
+        .done();
+    },
+
     delete: function( req, res, next ) {
         var id = req.params.id;
         new SetlistSong({id: id})

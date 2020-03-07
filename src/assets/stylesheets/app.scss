@@ -202,6 +202,7 @@ h1 {
 }
 
 .setlister-react-table-row {
+  position: relative;
   min-height: 16px;
   display: flex;
   flex-direction: row;
@@ -533,4 +534,27 @@ span.setlist-react-song-capo {
 
 .setlister-react-add-to-setlist-items {
   overflow: auto;
+}
+
+.setlister-react-table-order {
+  position: absolute;
+  top: 0;
+  left: -20px;
+  width: 20px;
+  height: 32px;
+  text-align: center;
+  line-height: 16px;
+  padding-top: 5px;
+
+  .icon {
+    font-size: 10px;
+  }
+}
+
+.setlister-react-table-order-up {
+  cursor: pointer;
+}
+
+.setlister-react-table-order-down {
+  cursor: pointer;
 }

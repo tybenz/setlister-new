@@ -78,6 +78,7 @@ var App = createReactClass({
                                 '/setlists': <SetlistsIndex />,
                                 '/setlists/new': <SetlistsNew />,
                                 '/setlists/*': <SetlistsShow stageMode={isInStageMode} onStageModeOn={this.onStageModeOn} onStageModeOff={this.onStageModeOff} />,
+                                '/setlists/*/edit': <SetlistsShow isEdit={true} />,
                                 '/songs': <SongsIndex />,
                                 '/songs/new': <SongsShow isEdit={true} />,
                                 '/songs/*': <SongsShow />,

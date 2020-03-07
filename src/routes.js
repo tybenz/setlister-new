@@ -22,6 +22,7 @@ module.exports = function( router ) {
     router.delete( '/setlists/:id', 'setlists#delete' );
 
     router.post( '/setlist_songs', 'setlist_songs#create', { as: 'createSetlistSong' } );
+    router.post( '/setlist_songs/:id', 'setlist_songs#update', { as: 'setlistSong' } );
     router.delete( '/setlist_songs/:id', 'setlist_songs#delete', { as: 'deleteSetlistSong' } );
 
     router.get( '/auth_error', 'application#authError' );

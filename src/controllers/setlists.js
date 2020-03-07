@@ -72,6 +72,7 @@ var SetlistsController = ApplicationController.extend({
                 },
                 setlist: {
                     id: setlist.id,
+                    path: router.setlistPath(setlist.id),
                     title: setlist.get('title'),
                     date: setlist.get('date'),
                     songs: songs,
@@ -140,14 +141,44 @@ var SetlistsController = ApplicationController.extend({
     },
 
     edit: function( req, res, next ) {
-        var id = req.params.id;
-        new Setlist({id: id})
-        .fetch()
+        new Setlist({id: req.params.id})
+        .fetch({
+            withRelated: ['setlist_songs', 'setlist_songs.song']
+        })
         .then(function (setlist) {
-            this.render( req, res, 'setlists/edit', {
-                submit_path: router.setlistPath(id),
-                page_title: setlist.get( 'title' ),
-            }, {layout: 'layouts/application'});
+            var setlistSongs = setlist.related( 'setlist_songs' );
+            var i = 0;
+            var songs = setlistSongs.map(function (setlistSong) {
+                return setlistSong.fullSong();
+            });
+            songs = songs.sort(function (a, b) {
+                if (a.position < b.position) {
+                    return -1;
+                }
+                if (a.position > b.position) {
+                    return 1;
+                }
+                return 0;
+            });
+            var capoList = _.map(_.times(12, Number), function (num) {
+                return num + 1;
+            });
+
+            this.renderWithJSON( req, res, {
+                paths: {
+                    home: router.rootPath(),
+                    songs: router.songsPath(),
+                    setlists: router.setlistsPath()
+                },
+                setlist: {
+                    id: setlist.id,
+                    path: router.setlistPath(setlist.id),
+                    title: setlist.get('title'),
+                    date: setlist.get('date'),
+                    songs: songs,
+                },
+                capoList: capoList
+            });
         }.bind(this))
         .done();
     },
