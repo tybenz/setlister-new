@@ -1,0 +1,111 @@
+@import 'colors';
+
+.setlister-react-song {
+  position: relative;
+  border: 1px solid $linen;
+  border-radius: 4px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  padding: 20px 20px 30px;
+  font-size: 13px;
+}
+
+@media screen {
+  .setlister-react-song {
+    min-height: 950px;
+  }
+}
+
+.stage-mode .setlister-react-song {
+  display: none;
+  border: none;
+
+  &.is-active {
+    display: block;
+  }
+}
+
+.setlister-react-song-title {
+  margin: 0 0 40px;
+  font-weight: 100;
+  color: #383838;
+  font-size: 35px;
+  position: relative;
+}
+
+input.setlister-react-song-title {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.setlister-react-song-footer {
+  height: 20px;
+  border-top: 1px solid $grey;
+}
+
+.setlister-react-song-text {
+  width: 100%;
+  border: none;
+  outline: none;
+  display: flex;
+  font: $monospaceFont;
+  font-size: 14px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: $monospaceFont;
+  margin: 0;
+  overflow: auto;
+  line-height: 1.2;
+
+  strong {
+    color: #000;
+    font-weight: 900;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .setlister-react-song-text {
+    flex-direction: column;
+  }
+}
+
+.setlister-react-song-column {
+  font-family: inherit;
+  flex: 1;
+}
+
+span.setlist-react-song-capo {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  right: 0;
+  bottom: 0;
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+.setlister-react-song-controls {
+  position: relative;
+  margin-bottom: 10px;
+  height: 33px;
+  line-height: 33px;
+}
+
+.setlister-react-song-key-select,
+.setlister-react-song-capo-select {
+  margin-right: 10px;
+
+  .setlister-react-field-label {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+
+.setlister-react-song-buttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

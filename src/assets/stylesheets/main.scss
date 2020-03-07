@@ -1,0 +1,129 @@
+@import 'colors';
+
+html, body {
+  margin: 0;
+}
+
+html, * {
+  font-family: $font;
+}
+
+.setlist-react-app.stage-mode {
+  .setlister-react-main {
+    padding-top: 0;
+  }
+
+  .setlister-react-main-inner {
+    padding-top: 0;
+  }
+}
+
+.setlister-react-main {
+  padding-top: 50px;
+}
+
+.setlister-react-main-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  padding-top: 50px;
+}
+
+.setlister-react-input {
+  width: 245px;
+  font-family: $font;
+  font-size: 14px;
+  padding: 0.3em 0.5em;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  border: 1px solid $linen;
+  color: $black;
+  background-color: $cloud;
+
+  &:focus, &.is-active {
+    border: 1px solid $blue;
+    background-color: $white;
+  }
+}
+
+.setlister-react-field-wrapper {
+  margin-bottom: 20px;
+}
+
+.setlister-react-field-label {
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: $grey;
+  display: block;
+  margin-bottom: 0.6em;
+  font-size: 12px;
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+.setlister-react-button {
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: $font;
+  border: 1px solid $crisp;
+  background-color: transparent;
+  color: $crisp;
+  font-weight: 500;
+  font-size: 13px;
+  box-shadow: none;
+  outline: none;
+  -webkit-appearance: none;
+  border-radius: 4px;
+  padding: 0.6em 0.8em 0.7em;
+  transition: color 0.1s ease-in-out, border-color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+
+  &:hover {
+    border-color: $blue;
+    color: $white;
+    background-color: $blue;
+  }
+}
+
+.setlister-react-setlist-summary {
+  margin-bottom: 40px;
+}
+
+.setlister-react-page-title, .setlister-react-setlist-title {
+  font-weight: 400;
+  position: absolute;
+  top: 0px;
+  font-size: 14px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-color: #e5e5e5;
+  border-style: solid;
+  border-width: 0 1px 1px 1px;
+  padding: 10px;
+  color: $dusk;
+}
+
+.setlister-react-page-action {
+  cursor: pointer;
+  position: absolute;
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  right: -35px;
+  top: 3px;
+  text-align: center;
+
+  .icon {
+    line-height: 30px;
+    text-decoration: none;
+    color: $grey;
+  }
+}
+
+.setlist-setlist-title {
+  flex: 1;
+}

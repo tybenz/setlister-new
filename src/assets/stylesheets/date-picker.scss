@@ -1,0 +1,15 @@
+.setlister-react-date-picker {
+  position: relative;
+}
+
+.setlister-react-date-picker-calendar-wrapper {
+  display: none;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 1;
+
+  &.is-showing {
+    display: block;
+  }
+}

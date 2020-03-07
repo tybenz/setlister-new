@@ -1,0 +1,57 @@
+@import 'colors';
+
+.setlister-react-key-select {
+  display: inline-block;
+}
+
+.setlister-react-key-select-input {
+  border: 1px solid $linen;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  outline: none;
+}
+
+.setlister-react-key-select-input {
+  display: none;
+}
+
+.setlister-react-key-select-button {
+  cursor: pointer;
+  outline: none;
+  border: 1px solid $linen;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  display: inline-block;
+  margin-right: 3px;
+  border-radius: 4px;
+  background-color: $white;
+  transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+
+  &:hover {
+    background-color: $white;
+    border-color: $blue;
+  }
+
+  &.is-active {
+    background-color: $blue;
+    border-color: $blue;
+    color: $white;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.setlister-react-key-select-buttons {
+  display: block;
+}
+
+@media only screen and (max-width: 900px) {
+  .setlister-react-key-select-buttons {
+    display: none;
+  }
+  .setlister-react-key-select-input {
+    display: block;
+  }
+}
