@@ -45,10 +45,11 @@ var SongsController = ApplicationController.extend({
                     home: router.rootPath(),
                     songs: router.songsPath(),
                     setlists: router.setlistsPath(),
-                    new_song: router.newSongPath()
+                    new_song: router.newSongPath(),
+                    new_setlist_song: router.createSetlistSongPath()
                 },
                 songs: songsJSON,
-                setlists: setlists.toJSON()
+                all_setlists: setlists.toJSON()
             });
         }.bind(this))
         .done();

@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 var Utils = {
     getAlignmentAdjustment: function( align, refDim, posDim ) {
         var value = 0;

@@ -26,7 +26,7 @@ var SetlistsIndex = createReactClass({
         var tableTitles = ['Name', 'Actions']
         var rows = setlists.map(function (setlist) {
             return [
-                <a href={setlist.path}>{setlist.title || setlist.date}</a>,
+                <a href={setlist.path}>{localData.getSetlistTitle(setlist)}</a>,
                 <div className="setlister-react-actions">
                     <a className="icon-play-circle action" title="Start slideshow" href={setlist.slideshow_path}></a>
                     <a className="icon-pencil action" title="Edit song" href={setlist.edit_path}></a>

@@ -477,3 +477,60 @@ span.setlist-react-song-capo {
   bottom: 0;
   right: 0;
 }
+
+.setlister-react-add-to-setlist {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  max-height: 400px;
+  background: $white;
+  border: 1px solid $pillow;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.4);
+}
+
+.setlister-react-add-to-setlist-header {
+  background-color: $pillow;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  padding: 5px 10px;
+}
+
+.setlister-react-add-to-setlist-item {
+  position: relative;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid $pillow;
+  transition: background-color 0.1s ease-in-out;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: $cloud;
+  }
+
+  .icon {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+  }
+
+  &.is-loading .icon-refresh {
+    display: inline-block;
+  }
+
+  &.is-checked .icon-ok {
+    display: inline-block;
+  }
+}
+
+.setlister-react-add-to-setlist-items {
+  overflow: auto;
+}
