@@ -75,7 +75,7 @@ var SongsController = ApplicationController.extend({
                     title: song.get( 'title' ),
                     song_title_dashes: song.get('title').replace(/ /g, '-'),
                     text: song.get( 'text' ),
-                    start_key: song.get('data_key'),
+                    start_key: song.get( 'data_key' ),
                     data_key: song.get( 'data_key' ),
                     artist: song.get( 'artist' ),
                     license: song.get( 'license' ),

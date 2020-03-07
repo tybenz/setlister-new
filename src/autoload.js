@@ -5,7 +5,7 @@ var modules = [];
 
 // Require the base model first
 global.Promise = require( 'bluebird' );
-global._ = require( 'lodash-node' );
+global._ = require( 'lodash' );
 global.Class = require( 'class.extend' );
 global.BaseModel = require( './models/model' );
 global.$ = function( obj ) {

@@ -35,7 +35,6 @@ var ApplicationController = Class.extend({
 
     fonts: function() {
         return [
-            { href: 'https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro&display=swap' }
         ];
     },
 

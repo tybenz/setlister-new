@@ -15,6 +15,43 @@ var App = createReactClass({
         return { isInStageMode: false };
     },
 
+    componentDidMount: function () {
+        document.body.addEventListener('click', this.globalOnClick);
+    },
+
+    componentWillUnmount: function () {
+        document.body.removeEventListener('click', this.globalOnClick);
+    },
+
+    globalOnClick: function (evt) {
+        var target = evt.target;
+        if (target.dataset.method && target.dataset.method === 'delete') {
+            evt.preventDefault();
+            evt.stopPropagation();
+            var dataConfirm = target.dataset.confirm;
+            if (dataConfirm) {
+                dataConfirm = window.confirm(dataConfirm);
+            } else {
+                dataConfirm = true;
+            }
+            if (dataConfirm) {
+                window.fetch(target.href, {
+                    method: 'DELETE'
+                }).then(function (response) {
+                    if (response.status === 200) {
+                        window.location.reload();
+                    } else {
+                        console.error(new Error('Non-200 response from DELETE ' + target.href + ' ' + response.status));
+                        window.location = '/auth_error';
+                    }
+                }).catch(function (err) {
+                    console.error(err);
+                    window.location = '/auth_error';
+                });
+            }
+        }
+    },
+
     onStageModeOn: function () {
         this.setState({ isInStageMode: true });
     },

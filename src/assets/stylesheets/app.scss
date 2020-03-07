@@ -29,6 +29,10 @@ html, * {
   .setlister-react-main {
     padding-top: 0;
   }
+
+  .setlister-react-main-inner {
+    padding-top: 0;
+  }
 }
 
 .setlister-react-main {
@@ -216,6 +220,21 @@ h1 {
     &:hover {
       text-decoration: underline;
     }
+
+    &.action {
+      color: $dusk;
+      margin-right: 10px;
+      font-size: 15px;
+
+      &:hover {
+        color: $black;
+        text-decoration: none;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 }
 
@@ -261,11 +280,19 @@ h1 {
 }
 
 .setlist-song-key {
-  min-width: 50px;
+  min-width: 510px;
 }
 
 .setlist-song-actions {
   min-width: 100px;
+}
+
+.setlister-react-table-cell {
+  padding-right: 10px;
+
+  &:last-child {
+    padding-right: 0;
+  }
 }
 
 .setlister-react-table-header-row .setlister-react-table-cell {
@@ -327,6 +354,7 @@ h1 {
 }
 
 .setlister-react-song-column {
+  font-family: inherit;
   flex: 1;
 }
 
@@ -348,4 +376,60 @@ span.setlist-react-song-capo {
 
 .setlist-setlist-title {
   flex: 1;
+}
+
+.setlister-react-capo-select-input,
+.setlister-react-key-select-input {
+  border: 1px solid $linen;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  outline: none;
+}
+
+.setlister-react-key-select-input {
+  display: none;
+}
+
+.setlister-react-key-select-button {
+  cursor: pointer;
+  outline: none;
+  border: 1px solid $linen;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  display: inline-block;
+  margin-right: 3px;
+  border-radius: 4px;
+  background-color: $white;
+  transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+
+  &:hover {
+    background-color: $white;
+    border-color: $blue;
+  }
+
+  &.is-active {
+    background-color: $blue;
+    border-color: $blue;
+    color: $white;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.setlister-react-key-select-buttons {
+  display: block;
+}
+
+@media only screen and (max-width: 900px) {
+  .setlister-react-key-select-buttons {
+    display: none;
+  }
+  .setlister-react-key-select-input {
+    display: block;
+  }
+  .setlist-song-key {
+    min-width: 39px;
+  }
 }
