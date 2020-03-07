@@ -47,19 +47,26 @@ html, * {
 }
 
 .setlister-react-nav {
-  height: 50px;
+  height: 9999px;
+  max-height: 50px;
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   background: $white;
   border-bottom: 1px solid $pillow;
+  z-index: 1;
+  overflow: hidden;
 }
 
 .setlister-react-nav-hamburger {
+  cursor: pointer;
   display: none;
   width: 25px;
   height: 20px;
+  position: absolute;
+  top: 15px;
+  left: 0;
 }
 
 .setlister-react-nav-hamburger-line {
@@ -79,18 +86,11 @@ html, * {
   margin: 0 auto;
 }
 
-@media only screen and (max-width: 960px) {
-  .setlister-react-main-inner,
-  .setlister-react-nav-inner {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-}
-
 .setlister-react-nav-title {
   font-family: $font;
   font-size: 18px;
   line-height: 50px;
+  height: 50px;
   letter-spacing: 0.09em;
 
   // position: absolute;
@@ -118,6 +118,45 @@ html, * {
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .setlister-react-nav {
+    transition: max-height 0.1s ease-in-out;
+    max-height: 50px;
+
+    &.is-open {
+      max-height: 191px;
+    }
+  }
+
+  .setlister-react-nav-hamburger {
+    display: block;
+  }
+
+  .setlister-react-nav-title {
+    text-align: center;
+  }
+
+  .setlister-react-nav-items {
+    position: static;
+    width: 100%;
+    background-color: $white;
+    line-height: 40px;
+    padding-bottom: 20px;
+    text-align: center;
+  }
+
+  .setlister-react-nav-item {
+    display: block;
+    margin-left: 0;
+  }
+
+  .setlister-react-main-inner,
+  .setlister-react-nav-inner {
+    margin-left: 20px;
+    margin-right: 20px;
   }
 }
 
@@ -375,9 +414,9 @@ input.setlister-react-song-title {
   }
 }
 
-@media screen {
+@media only screen and (max-width: 960px) {
   .setlister-react-song-text {
-    height: 100%;
+    flex-direction: column;
   }
 }
 

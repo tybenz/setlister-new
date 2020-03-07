@@ -13,7 +13,7 @@ var Nav = createReactClass({
     render: function () {
         var className = 'setlister-react-nav';
         if (this.state.isExpanded) {
-            className += ' expanded';
+            className += ' is-open';
         }
         var paths = {};
         if (window.json && window.json.paths) {
