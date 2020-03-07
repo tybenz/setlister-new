@@ -27,9 +27,7 @@ var SongsController = ApplicationController.extend({
             var i = 0;
             songsJSON = songs.map(function (song) {
                 var id = song.get('id');
-                i++;
                 return _.extend({}, song.attributes, {
-                    num: i,
                     path: router.songPath(id),
                     edit_path: router.editSongPath(id),
                     delete_path: router.songPath(id),
