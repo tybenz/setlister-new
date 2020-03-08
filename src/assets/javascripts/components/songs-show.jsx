@@ -5,7 +5,6 @@ var CapoSelector = require('./capo-selector.jsx');
 var createReactClass = require('create-react-class');
 var localData = require('../local-data');
 var song = localData.song;
-var paths = localData.paths;
 
 var SongsShow = createReactClass({
     getInitialState: function (props) {
@@ -99,7 +98,7 @@ var SongsShow = createReactClass({
                             ? <a className="setlister-react-button" onClick={this.onSaveClick}>
                                 Save
                             </a>
-                            : <a href={paths.edit} className="setlister-react-button">
+                            : <a href={localData.getPath('edit')} className="setlister-react-button">
                                 <span className="icon-pencil" /> Edit
                             </a>}
                     </span>

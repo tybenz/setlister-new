@@ -21,6 +21,7 @@ var ApplicationController = Class.extend({
             json: {
                 fixedPaths: {
                     current: req.path,
+                    home: router.rootPath(),
                     root: router.rootPath(),
                     songs: router.songsPath(),
                     setlists: router.setlistsPath()

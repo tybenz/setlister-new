@@ -42,6 +42,8 @@ var SusiController = ApplicationController.extend({
             }
             req.logIn( user, function( err ) {
                 if ( err ) {
+                    logger( { type: 'signInError', error: err } );
+                    req.flash( 'error', 'There was an error attempting to sign in' );
                     return next( err );
                 }
                 req.flash( 'info', 'Logged in successfully!' );

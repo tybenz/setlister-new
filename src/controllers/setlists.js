@@ -44,7 +44,6 @@ var SetlistsController = ApplicationController.extend({
         })
         .then(function (setlist) {
             var setlistSongs = setlist.related( 'setlist_songs' );
-            var i = 0;
             var songs = setlistSongs.map(function (setlistSong) {
                 return setlistSong.fullSong();
             });
@@ -57,9 +56,6 @@ var SetlistsController = ApplicationController.extend({
                 }
                 return 0;
             });
-            var capoList = _.map(_.times(12, Number), function (num) {
-                return num + 1;
-            });
 
             this.renderWithJSON( req, res, {
                 setlist: {
@@ -68,8 +64,7 @@ var SetlistsController = ApplicationController.extend({
                     title: setlist.get('title'),
                     date: setlist.get('date'),
                     songs: songs,
-                },
-                capoList: capoList
+                }
             });
         }.bind(this))
         .done();

@@ -59,6 +59,7 @@ var SongsController = ApplicationController.extend({
                     edit: router.editSongPath(req.params.id)
                 },
                 song: {
+                    id: song.id,
                     path: router.songPath(song.id),
                     capo: song.get('capo'),
                     page_title: song.get( 'title' ),
@@ -99,6 +100,7 @@ var SongsController = ApplicationController.extend({
                     edit: router.editSongPath(req.params.id)
                 },
                 song: {
+                    id: song.id,
                     path: router.songPath(song.id),
                     capo: song.get('capo'),
                     page_title: song.get( 'title' ),
@@ -120,7 +122,11 @@ var SongsController = ApplicationController.extend({
         new Song({id: id})
         .fetch()
         .then(function (song) {
-            return song.save(req.body, {update: true});
+            console.log(req.body);
+            Object.keys(req.body).forEach(function (key) {
+                song.set(key, req.body[key]);
+            });
+            return song.save();
         }.bind(this))
         .then(function () {
             res.redirect(router.songsPath());

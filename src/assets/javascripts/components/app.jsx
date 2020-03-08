@@ -1,6 +1,7 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
 var Nav = require('./nav.jsx');
+var Home = require('./home.jsx');
 var SetlistsNew = require('./setlists-new.jsx');
 var SetlistsIndex = require('./setlists-index.jsx');
 var SetlistsShow = require('./setlists-show.jsx');
@@ -81,7 +82,8 @@ var App = createReactClass({
                                 '/songs': <SongsIndex />,
                                 '/songs/new': <SongsShow isEdit={true} />,
                                 '/songs/*': <SongsShow />,
-                                '/songs/*/edit': <SongsShow isEdit={true} />
+                                '/songs/*/edit': <SongsShow isEdit={true} />,
+                                '': <Home />
                             }[localData.getPath('current').replace(/[0-9]+/g, '*').replace(/\/$/, '')]
                             ||
                             <NotFound />
