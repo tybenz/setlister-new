@@ -9,5 +9,6 @@ if [ ! -z "$PROFILE" ]; then
 fi
 
 echo "aws s3 cp $PARAMS --recursive --acl public-read \"dist/$version\" \"$bucket/$version\""
-aws s3 cp $PARAMS --recursive --acl public-read --exclude "*.gz.*" "dist/$version" "$bucket/$version"
-aws s3 cp $PARAMS --recursive --acl public-read --content-encoding gzip --exclude "*" --include "*.gz.*" "dist/$version" "$bucket/$version"
+aws s3 cp $PARAMS --recursive --acl public-read "src/assets/font" "$bucket/font" --metadata-directive REPLACE --cache-control max-age=86400
+aws s3 cp $PARAMS --recursive --acl public-read --exclude "*.gz.*" "dist/$version" "$bucket/$version" --metadata-directive REPLACE --cache-control max-age=86400
+aws s3 cp $PARAMS --recursive --acl public-read --content-encoding gzip --exclude "*" --include "*.gz.*" "dist/$version" "$bucket/$version" --metadata-directive REPLACE --cache-control max-age=86400
