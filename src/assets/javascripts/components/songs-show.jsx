@@ -43,6 +43,13 @@ var SongsShow = createReactClass({
         }
     },
 
+    onTagsChange: function (evt) {
+        if (song) {
+            song.tags = evt.target.value;
+            this.forceUpdate();
+        }
+    },
+
     onTextChange: function (text) {
         if (song) {
             song.text = text;
@@ -62,7 +69,8 @@ var SongsShow = createReactClass({
                     data_key: song.data_key,
                     capo: song.capo,
                     title: song.title,
-                    text: song.text
+                    text: song.text,
+                    tags: song.tags
                 })
             }
         ).then(function (response) {
@@ -102,6 +110,17 @@ var SongsShow = createReactClass({
                                 <span className="icon-pencil" /> Edit
                             </a>}
                     </span>
+                </div>
+                <div className="setlister-react-song-controls setlister-react-song-controls-tags">
+                    <span className="setlister-react-field-label">Tags:</span>
+                    <input
+                        type="text"
+                        disabled={!isEdit}
+                        className="setlister-react-input setlister-react-tags-input"
+                        placeholder="Comma-separated list (e.g. vertical, testimony)"
+                        defaultValue={song.tags}
+                        onChange={this.onTagsChange}
+                    />
                 </div>
                 <Song song={song} isEdit={isEdit} onTextChange={this.onTextChange} onTitleChange={this.onTitleChange} />
             </div>

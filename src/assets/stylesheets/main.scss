@@ -48,6 +48,23 @@ html, * {
   }
 }
 
+.setlister-react-select {
+  font-family: $font;
+  font-size: 13px;
+  padding: 0.3em 0.5em;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: none;
+  border: 1px solid $linen;
+  color: $black;
+  background-color: $cloud;
+
+  &:focus, &.is-active {
+    border: 1px solid $blue;
+    background-color: $white;
+  }
+}
+
 .setlister-react-field-wrapper {
   margin-bottom: 20px;
 }
@@ -126,4 +143,38 @@ h1 {
 
 .setlist-setlist-title {
   flex: 1;
+}
+
+.setlister-react-tag {
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  margin-right: 5px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &.blue {
+    background-color: $blue;
+  }
+  &.green {
+    background-color: $green;
+  }
+  &.orange {
+    background-color: $orange;
+  }
+  &.red {
+    background-color: $red;
+  }
+  &.pink {
+    background-color: $pink;
+  }
+  &.purple {
+    background-color: $purple;
+  }
+  &.cyan {
+    background-color: $cyan;
+  }
 }

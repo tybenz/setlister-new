@@ -98,8 +98,44 @@
   min-width: 62px;
 }
 
+.setlist-song-tags {
+  text-align: right;
+}
+
+.setlist-song-proximity {
+  min-width: 87px;
+  text-align: right;
+}
+
+.setlist-song-frequency {
+  min-width: 50px;
+  text-align: center;
+  font-size: 12px;
+}
+
 @media only screen and (max-width: 900px) {
   .setlist-song-key {
     min-width: 39px;
+  }
+}
+
+.setlister-react-table-controls {
+  text-align: right;
+  position: absolute;
+  top: 10px;
+  right: 0;
+
+  .setlister-react-field-label {
+    display: inline-block;
+    margin-right: 5px;
+  }
+}
+
+.setlister-react-table-filter {
+  display: inline-block;
+  margin-right: 30px;
+
+  .icon {
+    cursor: pointer;
   }
 }

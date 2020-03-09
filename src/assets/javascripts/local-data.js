@@ -13,6 +13,13 @@ localData.getSetlistTitle = function (setlist) {
     return title || date;
 };
 
+localData.getSetlistDate = function (setlist) {
+    var dateFormattedTitle = this.getSetlistTitle(setlist);
+    if (dateFormattedTitle) {
+        return moment(dateFormattedTitle, 'MM/DD/YYYY');
+    }
+};
+
 localData.getPath = function (pathName) {
     var path = localData.fixedPaths[pathName];
     if (path) {

@@ -6,9 +6,15 @@ var Table = createReactClass({
         return {};
     },
 
+    onSortChange: function (evt) {
+        this.props.onSort(evt.target.value);
+    },
+
     render: function () {
         var isEdit = this.props.isEdit;
         var titles = this.props.titles;
+        var tagFilter = this.props.tagFilter;
+        var sort = this.props.sort;
         var rows = this.props.rows;
         var cellClassNames = this.props.cellClassNames;
 
@@ -16,6 +22,21 @@ var Table = createReactClass({
             <div className="setlister-react-table setlister-react-setlist-summary">
                 {this.props.showControls &&
                     <div className="setlister-react-table-controls">
+                        {tagFilter &&
+                            <div className="setlister-react-table-filter">
+                                <div className="setlister-react-field-label">FILTER: </div>
+                                <span className={'setlister-react-tag ' + tagFilter.color}>{tagFilter.name}</span>
+                                <span className="icon icon-remove" onClick={this.props.onClearTagFilterClick} />
+                            </div>}
+
+                        <select
+                            className="setlister-react-table-sort-menu setlister-react-select"
+                            onChange={this.onSortChange}
+                        >
+                            {sort.map(function (sortObj, i) {
+                                return <option key={'sort-' + i} value={sortObj.value}>{sortObj.name}</option>;
+                            }.bind(this))}
+                        </select>
                     </div>}
                 <div className="setlister-react-table-rows">
                     <div className="setlister-react-table-row setlister-react-table-header-row">
