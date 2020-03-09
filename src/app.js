@@ -139,7 +139,7 @@ app.engine( 'mustache', require( 'hogan-express' ) );
 
 var assetVersionNumber;
 
-if (process.env.NODE_ENV === 'PRODUCTION_CHANGE_LATER') {
+if (process.env.NODE_ENV === 'production') {
     assetVersionNumber = fs.readFileSync( path.join( __dirname, '..', 'dist', 'version' ), { encoding: 'utf8' } );
     app.use( '/js', express.static( path.join(__dirname, '..', 'dist', assetVersionNumber, 'js')));
     app.use( haltOnTimedout );
