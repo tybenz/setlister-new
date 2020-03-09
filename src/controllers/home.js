@@ -5,7 +5,7 @@ var ApplicationController = require( './application' );
 var HomeController = ApplicationController.extend({
     index: function( req, res, next ) {
         new Setlist().query(function (q) {
-            q.orderBy('date', 'DESC');
+            q.orderBy('created_at', 'DESC');
             q.limit(20);
         }).fetchAll({
             withRelated: ['setlist_songs', 'setlist_songs.song']
