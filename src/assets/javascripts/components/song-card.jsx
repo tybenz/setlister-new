@@ -10,8 +10,8 @@ var SongCard = createReactClass({
     },
 
     render: function () {
-        var isSongLink = this.props.isSongLink;
-        var song = this.props.song;
+        var song = this.props.song || {};
+        var isSongLink = this.props.isSongLink && song.id;
 
         var div = document.createElement("div");
         div.innerHTML = song.text;
