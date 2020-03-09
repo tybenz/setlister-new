@@ -6,6 +6,7 @@ var HomeController = ApplicationController.extend({
     index: function( req, res, next ) {
         new Setlist().query(function (q) {
             q.orderBy('date', 'DESC');
+            q.limit(20);
         }).fetchAll({
             withRelated: ['setlist_songs', 'setlist_songs.song']
         }).then(function (recentSetlists) {
