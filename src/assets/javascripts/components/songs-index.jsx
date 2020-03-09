@@ -179,8 +179,8 @@ var SongsIndex = createReactClass({
         }
         if (tagFilter) {
             songs = _.filter(songs, function (song) {
-                var tags = this.getSongTags(song).join(',');
-                return tags.search(tagFilter.name) !== -1;
+                var tags = this.getSongTags(song);
+                return tags.includes(tagFilter.name);
             }.bind(this));
         }
 
