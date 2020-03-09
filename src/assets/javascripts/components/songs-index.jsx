@@ -82,7 +82,9 @@ var SongsIndex = createReactClass({
                     return undefined;
                 }
 
-                return proximity;
+                if (proximity <= 12) {
+                    return proximity;
+                }
             }
         }
 
