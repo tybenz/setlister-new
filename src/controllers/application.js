@@ -24,7 +24,8 @@ var ApplicationController = Class.extend({
                     home: router.rootPath(),
                     root: router.rootPath(),
                     songs: router.songsPath(),
-                    setlists: router.setlistsPath()
+                    setlists: router.setlistsPath(),
+                    sign_in: router.signInPath()
                 }
             }
         };
@@ -45,17 +46,30 @@ var ApplicationController = Class.extend({
 
     locals: function( req, res, obj, json ) {
         res.locals = _.extend( res.locals, this.defaultLocals( req ), obj );
-        res.locals.templates = _.map( res.locals.templates, Utils.clientSideTemplate );
+
+        var flashMessages = {
+            info: [],
+            error: [],
+            warning: []
+        };
+        var empty = !res.locals.flash.length;
+
+        while ( res.locals.flash.length ) {
+            var message = res.locals.flash.shift();
+            flashMessages[ message.type ].push( message.message );
+        }
+        json.flash = flashMessages;
+
         var defaultJson = this.defaultLocals( req ).json;
         res.locals.json = JSON.stringify(_.extend( {}, defaultJson, json ));
 
-        if ( process.env.ENV && process.env.ENV != 'local' ) {
+        if ( process.env.NODE_ENV && process.env.NODE_ENV != 'local' ) {
             res.locals.javascripts = res.locals.javascripts.map( function( script ) {
                 if ( !script.match( /^(https?\:\/\/|\/\/)/ ) ) {
                     script = script.replace( /\.js$/, '.gz.js' );
                     return url.format({
                         protocol: Settings.cdn.protocol,
-                        hostname: Settings.cdn.host[ process.env.ENV || 'dev' ],
+                        hostname: Settings.cdn.host[ process.env.NODE_ENV || 'dev' ],
                         pathname: path.join( cdnVersion, script )
                     });
                 }
@@ -67,7 +81,7 @@ var ApplicationController = Class.extend({
                     style = style.replace( /\.css$/, '.gz.css' );
                     return url.format({
                         protocol: Settings.cdn.protocol,
-                        hostname: Settings.cdn.host[ process.env.ENV || 'dev' ],
+                        hostname: Settings.cdn.host[ process.env.NODE_ENV || 'dev' ],
                         pathname: path.join( cdnVersion, style )
                     });
                 }

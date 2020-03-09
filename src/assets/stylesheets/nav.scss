@@ -19,6 +19,19 @@
   overflow: hidden;
 }
 
+.setlister-react-nav-susi {
+  display: block;
+  position: absolute;
+  left: 50%;
+  margin-left: -25px;
+  top: 0;
+  height: 50px;
+  width: 50px;
+  outline: none;
+  color: $white;
+  background-color: transparent;
+}
+
 .setlister-react-nav-hamburger {
   cursor: pointer;
   display: none;
@@ -115,5 +128,13 @@
   .setlister-react-nav-inner {
     margin-left: 20px;
     margin-right: 20px;
+  }
+
+  .setlister-react-nav-susi {
+    position: absolute;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    margin: none;
   }
 }

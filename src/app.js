@@ -139,7 +139,7 @@ app.engine( 'mustache', require( 'hogan-express' ) );
 
 var assetVersionNumber;
 
-if (process.env.ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
     assetVersionNumber = fs.readFileSync( path.join( __dirname, '..', 'dist', 'version' ), { encoding: 'utf8' } );
     app.use( '/js', express.static( path.join(__dirname, '..', 'dist', assetVersionNumber, 'js')));
     app.use( haltOnTimedout );
@@ -153,7 +153,6 @@ if (process.env.ENV === 'production') {
     app.use(sassMiddleware({
         src: path.join(__dirname, 'assets', 'stylesheets'),
         dest: path.join(__dirname, '..', 'dist', 'css'),
-        debug: true,
         outputStyle: 'compressed',
         prefix: '/css'
     }));
@@ -285,26 +284,6 @@ app.use( haltOnTimedout );
 
 // Make router globally exceptable for path helpers
 global.router = new Router( app, path.join( __dirname, '/controllers' ), routes );
-
-app.use( function( req, res, next ) {
-    var flash = {
-        info: [],
-        error: [],
-        warning: []
-    };
-    var empty = !res.locals.flash.length;
-
-    while ( res.locals.flash.length ) {
-        var message = res.locals.flash.shift();
-        flash[ message.type ].push( message.message );
-    }
-
-    res.locals.json = res.locals.json || {};
-    res.locals.json.flash = flash;
-    res.locals.json.flash.empty = empty;
-    next();
-});
-app.use( haltOnTimedout );
 
 // First non error middleware after route binding. So if the response hasn't
 // ended by now, we can assume that it is a bad route and therefor a 404.

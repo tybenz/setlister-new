@@ -44,14 +44,15 @@ a.setlister-react-home-card-section {
 }
 
 .setlister-react-card-list {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  min-width: 960px;
+  overflow: hidden;
+}
+
+.setlister-react-card-list-inner {
+  white-space: pre;
 }
 
 .setlister-react-card {
+  display: inline-block;
   border-radius: 4px;
   width: 180px;
   height: 190px;
@@ -59,6 +60,11 @@ a.setlister-react-home-card-section {
   overflow: hidden;
   text-decoration: none;
   color: inherit;
+  margin-right: 12px;
+
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 .setlister-react-card-preview {

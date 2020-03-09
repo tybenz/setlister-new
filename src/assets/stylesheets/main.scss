@@ -178,3 +178,37 @@ h1 {
     background-color: $cyan;
   }
 }
+
+.setlister-react-flash {
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  text-align: center;
+}
+
+.flash {
+  font-size: 0.9em;
+  padding: 5px 10px;
+  border-width: 1px;
+  border-radius: 0 0 4px 4px;
+  border-style: solid;
+  margin-bottom: 10px;
+  display: inline-block;
+  background-color: white;
+
+  &.error {
+    color: $red;
+    border-color: $red;
+  }
+
+  &.info {
+    color: $blue;
+    border-color: $blue;
+  }
+
+  &.warning {
+    color: $orange;
+    border-color: $orange;
+  }
+}

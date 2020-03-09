@@ -107,6 +107,10 @@ var SongsIndex = createReactClass({
     },
 
     getSongTags: function (song) {
+        if (!song.tags) {
+            return [];
+        }
+
         var tags = song.tags.split(',');
 
         var prox = this.getSongProximity(song);

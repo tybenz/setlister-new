@@ -2,6 +2,7 @@ var React = require('react');
 var createReactClass = require('create-react-class');
 var Nav = require('./nav.jsx');
 var Home = require('./home.jsx');
+var SignIn = require('./sign-in.jsx');
 var SetlistsNew = require('./setlists-new.jsx');
 var SetlistsIndex = require('./setlists-index.jsx');
 var SetlistsShow = require('./setlists-show.jsx');
@@ -9,6 +10,7 @@ var SongsIndex = require('./songs-index.jsx');
 var SongsShow = require('./songs-show.jsx');
 var NotFound = require('./not-found.jsx');
 var localData = require('../local-data');
+var flash = localData.flash;
 
 var App = createReactClass({
     getInitialState: function (props) {
@@ -60,6 +62,9 @@ var App = createReactClass({
         this.setState({ isInStageMode: false });
     },
 
+    getFlashMessage: function () {
+    },
+
     render: function () {
         var isInStageMode = this.state.isInStageMode;
 
@@ -73,6 +78,19 @@ var App = createReactClass({
                 <Nav />
                 <div className="setlister-react-main">
                     <div className="setlister-react-main-inner">
+                        {flash &&
+                            <div className="setlister-react-flash">
+                                {Object.keys(flash).map(function (type) {
+                                    var messages = flash[type];
+                                    return messages.map(function (message, i) {
+                                        return <div
+                                            key={'flash-' + type + '-' + i}
+                                            className={'flash ' + type}>
+                                                {message}
+                                        </div>;
+                                    });
+                                })}
+                            </div>}
                         {
                             {
                                 '/setlists': <SetlistsIndex />,
@@ -83,7 +101,8 @@ var App = createReactClass({
                                 '/songs/new': <SongsShow isEdit={true} />,
                                 '/songs/*': <SongsShow />,
                                 '/songs/*/edit': <SongsShow isEdit={true} />,
-                                '': <Home />
+                                '': <Home />,
+                                '/sign_in': <SignIn />
                             }[localData.getPath('current').replace(/[0-9]+/g, '*').replace(/\/$/, '')]
                             ||
                             <NotFound />

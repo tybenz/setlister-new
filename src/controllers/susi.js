@@ -1,5 +1,4 @@
 var _ = require( 'lodash' );
-var flash = require( 'flash' );
 var passport = require( 'passport' );
 var ApplicationController = require( './application' );
 var User = require( '../models/user' );
@@ -33,10 +32,12 @@ var SusiController = ApplicationController.extend({
         passport.authenticate( 'local', function( err, user, info ) {
             logger( { type: 'signIn' } );
             if ( err ) {
+                logger.error( err );
                 req.flash( 'error', 'Incorrect email or password' );
                 return res.redirect( router.signInPath() );
             }
             if ( !user ) {
+                logger.error( new Error('no user') );
                 req.flash( 'error', 'Incorrect email or password' );
                 return res.redirect( router.signInPath() );
             }

@@ -37,18 +37,7 @@ var HomeController = ApplicationController.extend({
     },
 
     signIn: function( req, res, next ) {
-        if ( req.user ) {
-            res.redirect( router.rootPath() );
-            return;
-        }
-
-        this.render( req, res, 'home/sign_in', {
-            name: 'Tyler',
-            signIn: true,
-            signInUrl: router.signInPath(),
-            stylesheets: [ '/css/vendor.css', '/css/application.css', '/css/susi.css' ],
-            javascripts: [ '/js/susi.js' ]
-        }, {layout: 'layouts/application'});
+        this.renderWithJSON(req, res, {});
     }
 });
 

@@ -60,9 +60,11 @@ var Home = createReactClass({
                         <span className="setlister-react-home-header-subtitle">({localData.getSetlistTitle(nextSetlist)})</span>
                     </div>
                     <div className="setlister-react-card-list">
-                        {nextSetlist.songs.map(function (song, i) {
-                            return <SongCard key={'next-setlister-song-' + i} song={song} />;
-                        }.bind(this))}
+                        <div className="setlister-react-card-list-inner">
+                            {nextSetlist.songs.map(function (song, i) {
+                                return <SongCard key={'next-setlister-song-' + i} song={song} />;
+                            }.bind(this))}
+                        </div>
                     </div>
                 </a>
                 <div className="setlister-react-home-card-section">
@@ -73,9 +75,11 @@ var Home = createReactClass({
                         </a>
                     </div>
                     <div className="setlister-react-card-list">
-                        {recentSongs.map(function (song, i) {
-                            return <SongCard isSongLink={true} key={'next-setlister-song-' + i} song={song} />;
-                        }.bind(this))}
+                        <div className="setlister-react-card-list-inner">
+                            {recentSongs.map(function (song, i) {
+                                return <SongCard isSongLink={true} key={'next-setlister-song-' + i} song={song} />;
+                            }.bind(this))}
+                        </div>
                     </div>
                 </div>
                 <div className="setlister-react-home-header">
