@@ -54,19 +54,20 @@ var Home = createReactClass({
     render: function () {
         return (
             <div className="setlister-react-home">
-                <a href={'/setlists/' + nextSetlist.id} className="setlister-react-home-card-section">
-                    <div className="setlister-react-home-header">
-                        <span className="setlister-react-home-header-link">This week</span>
-                        <span className="setlister-react-home-header-subtitle">({localData.getSetlistTitle(nextSetlist)})</span>
-                    </div>
-                    <div className="setlister-react-card-list">
-                        <div className="setlister-react-card-list-inner">
-                            {nextSetlist.songs.map(function (song, i) {
-                                return <SongCard key={'next-setlister-song-' + i} song={song} />;
-                            }.bind(this))}
+                {nextSetlist &&
+                    <a href={'/setlists/' + nextSetlist.id} className="setlister-react-home-card-section">
+                        <div className="setlister-react-home-header">
+                            <span className="setlister-react-home-header-link">This week</span>
+                            <span className="setlister-react-home-header-subtitle">({localData.getSetlistTitle(nextSetlist)})</span>
                         </div>
-                    </div>
-                </a>
+                        <div className="setlister-react-card-list">
+                            <div className="setlister-react-card-list-inner">
+                                {nextSetlist.songs.map(function (song, i) {
+                                    return <SongCard key={'next-setlister-song-' + i} song={song} />;
+                                }.bind(this))}
+                            </div>
+                        </div>
+                    </a>}
                 <div className="setlister-react-home-card-section">
                     <div className="setlister-react-home-header">
                         <a className="setlister-react-home-header-link" href={localData.getPath('songs')}>Recent songs</a>
