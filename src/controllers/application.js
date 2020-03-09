@@ -66,7 +66,7 @@ var ApplicationController = Class.extend({
         var defaultJson = this.defaultLocals( req ).json;
         res.locals.json = JSON.stringify(_.extend( {}, defaultJson, json ));
 
-        if ( process.env.NODE_ENV && process.env.NODE_ENV != 'local' ) {
+        if ( process.env.NODE_ENV && process.env.NODE_ENV === 'PRODUCTION_CHANGE_LATER' ) {
             res.locals.javascripts = res.locals.javascripts.map( function( script ) {
                 if ( !script.match( /^(https?\:\/\/|\/\/)/ ) ) {
                     script = script.replace( /\.js$/, '.gz.js' );
