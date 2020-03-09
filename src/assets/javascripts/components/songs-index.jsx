@@ -39,8 +39,10 @@ var SongsIndex = createReactClass({
 
     onAddToSetlistClick: function (song, index) {
         var ref = this.songRowRefs[index];
-        this.setState({ addToSetlist: song, songRef: ref });
-        document.body.addEventListener('click', this.onDocClick);
+        if (localData.is_signed_in) {
+            this.setState({ addToSetlist: song, songRef: ref });
+            document.body.addEventListener('click', this.onDocClick);
+        }
     },
 
     onDocClick: function (evt) {
@@ -68,7 +70,13 @@ var SongsIndex = createReactClass({
         if (lastSetlist) {
             var date = localData.getSetlistDate(lastSetlist);
             if (date) {
-                var proximity = moment().diff(date, 'weeks');
+                var currentDistanceFromSunday = moment().diff(moment().startOf('week'), 'days');
+                var proximity;
+                if (currentDistanceFromSunday > 0) {
+                    proximity = moment().diff(date, 'weeks') + 1;
+                } else {
+                    proximity = moment().diff(date, 'weeks');
+                }
 
                 if (proximity < 0) {
                     return undefined;
@@ -116,9 +124,9 @@ var SongsIndex = createReactClass({
         var prox = this.getSongProximity(song);
         if (prox) {
             if (prox == 1) {
-                tags.push('used-last-week');
+                tags.push('last-week');
             } else {
-                tags.push('used-' + prox + '-weeks-ago');
+                tags.push(prox + '-weeks-ago');
             }
         }
 

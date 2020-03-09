@@ -42,7 +42,7 @@ var SetlistsIndex = createReactClass({
                     Setlists
                     <a className="setlister-react-page-action" title="Add setlist" href={localData.getPath('new_setlist')}><span className="icon icon-plus" /></a>
                 </div>
-                <Table titles={tableTitles} rows={rows} cellClassNames={cellClassNames} showControls={true} />
+                <Table titles={tableTitles} rows={rows} cellClassNames={cellClassNames} />
             </div>
         );
     }

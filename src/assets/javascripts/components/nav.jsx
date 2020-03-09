@@ -42,7 +42,12 @@ var Nav = createReactClass({
                         </span>
                     </div>
                 </div>
-                <a href={localData.getPath('sign_in')} className="setlister-react-nav-susi" />
+                <a
+                    href={localData.is_signed_in
+                        ? localData.getPath('sign_out')
+                        : localData.getPath('sign_in')}
+                    className="setlister-react-nav-susi"
+                />
             </div>
         );
     }

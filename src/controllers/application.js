@@ -19,13 +19,15 @@ var ApplicationController = Class.extend({
             stylesheets: this.stylesheets(),
             javascripts: this.javascripts(),
             json: {
+                is_signed_in: !!req.user,
                 fixedPaths: {
                     current: req.path,
                     home: router.rootPath(),
                     root: router.rootPath(),
                     songs: router.songsPath(),
                     setlists: router.setlistsPath(),
-                    sign_in: router.signInPath()
+                    sign_in: router.signInPath(),
+                    sign_out: router.signOutPath()
                 }
             }
         };
@@ -46,6 +48,7 @@ var ApplicationController = Class.extend({
 
     locals: function( req, res, obj, json ) {
         res.locals = _.extend( res.locals, this.defaultLocals( req ), obj );
+        json = json || {};
 
         var flashMessages = {
             info: [],

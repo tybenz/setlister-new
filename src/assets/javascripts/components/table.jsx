@@ -14,7 +14,7 @@ var Table = createReactClass({
         var isEdit = this.props.isEdit;
         var titles = this.props.titles;
         var tagFilter = this.props.tagFilter;
-        var sort = this.props.sort;
+        var sort = this.props.sort || [];
         var rows = this.props.rows;
         var cellClassNames = this.props.cellClassNames;
 

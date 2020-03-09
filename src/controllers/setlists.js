@@ -4,6 +4,19 @@ var SetlistSong = require( '../models/setlist_song' );
 var Song = require( '../models/song' );
 
 var SetlistsController = ApplicationController.extend({
+    before: [
+        { name: 'authorize', except: [ 'index', 'show', 'slideshow' ] }
+    ],
+
+    authorize: function ( req, res, next ) {
+        if ( req.user ) {
+            next();
+        } else {
+            req.flash( 'error', 'Not authorized' );
+            res.redirect( router.rootPath() );
+        }
+    },
+
     index: function( req, res, next ) {
         new Setlist()
         .orderBy('created_at', 'DESC')

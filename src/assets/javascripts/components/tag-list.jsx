@@ -28,7 +28,7 @@ var TagList = createReactClass({
     tagColor: function (tag) {
         var color = tagColors[tag];
         if (!color) {
-            if (tag.search(/^used/) !== -1) {
+            if (tag.search(/week/) !== -1) {
                 return 'blue';
             }
 
@@ -52,9 +52,9 @@ var TagList = createReactClass({
     render: function () {
         var tags = this.props.tags;
         tags = tags.sort(function (a, b) {
-            if (a.search(/^used/) !== -1 && b.search(/^used/) === -1) return -1;
-            if (b.search(/^used/) !== -1 && a.search(/^used/) === -1) return 1;
-            if (b.search(/^used/) !== -1 && a.search(/^used/) !== -1) return 0;
+            if (a.search(/week/) !== -1 && b.search(/week/) === -1) return -1;
+            if (b.search(/week/) !== -1 && a.search(/week/) === -1) return 1;
+            if (b.search(/week/) !== -1 && a.search(/week/) !== -1) return 0;
             if (a > b) return -1;
             if (a < b) return -1;
             if (a > b) return -1;
