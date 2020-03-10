@@ -198,6 +198,17 @@ var SongsIndex = createReactClass({
             }.bind(this));
         }
 
+        // if months 1-9 or 12/26-12/31
+        var today = moment();
+        var day = today.format('DD');
+        var month = today.format('MM');
+        if (month < 10 || month === 12 && day > 25) {
+            songs = _.filter(songs, function (song) {
+                var tags = this.getSongTags(song);
+                return !tags.includes('christmas');
+            }.bind(this));
+        }
+
         return (
             <div className={mainClassName}>
                 <div className="setlister-react-page-title">
