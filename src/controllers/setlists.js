@@ -101,7 +101,7 @@ var SetlistsController = ApplicationController.extend({
                 songData.position = setlistSong.position;
                 songData.setlist_song_id = setlistSong.id;
                 songData.song_id = songData.id;
-                songData.title_dashes = songData.title.replace(/ /g, '-');
+                songData.title_dashes = encodeURIComponent(songData.title.toLowerCase().replace(/ /g, '-').replace(/[\(\)\']/g, ''));
                 return songData;
             });
             this.render( req, res, 'setlists/slideshow', {

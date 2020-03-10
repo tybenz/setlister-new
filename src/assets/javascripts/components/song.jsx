@@ -135,7 +135,12 @@ var Song = createReactClass({
             className += ' is-active';
         }
 
-        return <div id={song.title_dashes} className={className}>
+        var htmlId = song.title_dashes;
+        if (this.props.num) {
+            htmlId += '-' + this.props.num;
+        }
+
+        return <div id={htmlId} className={className}>
             {isEdit
                 ? <input autoFocus type="text" className="setlister-react-song-title" onChange={this.onTitleChange} defaultValue={song.title} />
                 : <h2 className="setlister-react-song-title">

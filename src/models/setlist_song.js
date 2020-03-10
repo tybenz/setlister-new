@@ -25,7 +25,7 @@ var SetlistSong = BaseModel.extend({
         songData.edit_path = songData && songData.id ? router.editSongPath(songData.id) : router[ 'editSongPath(1);' ]
         songData.setlist_song_path = router.setlistSongPath(this.id);
         songData.delete_path = router.deleteSetlistSongPath(this.id);
-        songData.title_dashes = songData && songData.title ? songData.title.replace(/ /g, '-') : '';
+        songData.title_dashes = songData && songData.title ? encodeURIComponent(songData.title.toLowerCase().replace(/ /g, '-').replace(/[\(\)\']/g, '')) : '';
         return songData;
     }
 });

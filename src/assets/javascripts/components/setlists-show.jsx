@@ -116,9 +116,23 @@ var SetlistsShow = createReactClass({
     render: function () {
         var isEdit = this.props.isEdit;
         var tableTitles = ['Title', 'Key', 'Capo', 'Actions']
+
+        var knownSongs = {};
+        var idNumbers = [];
+
         var rows = setlist.songs.map(function (song, i) {
+            var anchor = '#' + song.title_dashes;
+            if (knownSongs[song.title]) {
+                knownSongs[song.title]++;
+                idNumbers[i] = knownSongs[song.title];
+                anchor += '-' + knownSongs[song.title];
+            } else {
+                knownSongs[song.title] = 1;
+                idNumbers[i] = undefined;
+            }
+
             return [
-                song.title,
+                <a href={anchor}>{song.title}</a>,
                 <KeySelector defaultValue={song.data_key} onChange={function (note) {
                     this.onKeyChange(i, note);
                 }.bind(this)} />,
@@ -153,7 +167,7 @@ var SetlistsShow = createReactClass({
                     <Table isEdit={isEdit} onOrderUpClick={this.onOrderUpClick} onOrderDownClick={this.onOrderDownClick} titles={tableTitles} rows={rows} cellClassNames={cellClassNames} />}
                 <div>
                     {setlist.songs.map(function (song, i) {
-                        return <Song key={'song-' + i} song={song} active={i === activeSong} />;
+                        return <Song num={idNumbers[i]} key={'song-' + i} song={song} active={i === activeSong} />;
                     })}
                 </div>
             </div>
