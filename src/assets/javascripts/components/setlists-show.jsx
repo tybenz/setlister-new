@@ -151,9 +151,11 @@ var SetlistsShow = createReactClass({
                     </div>}
                 {!isInStageMode &&
                     <Table isEdit={isEdit} onOrderUpClick={this.onOrderUpClick} onOrderDownClick={this.onOrderDownClick} titles={tableTitles} rows={rows} cellClassNames={cellClassNames} />}
-                {setlist.songs.map(function (song, i) {
-                    return <Song key={'song-' + i} song={song} active={i === activeSong} />;
-                })}
+                <div>
+                    {setlist.songs.map(function (song, i) {
+                        return <Song key={'song-' + i} song={song} active={i === activeSong} />;
+                    })}
+                </div>
             </div>
         );
     }

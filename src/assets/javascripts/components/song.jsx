@@ -1,6 +1,6 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
-var maxLines = 55;
+var maxLines = 58;
 
 var numbers = { 'Ab': 11, 'A': 0, 'A#': 1, 'Bb': 1, 'B': 2, 'C': 3, 'C#': 4, 'Db': 4, 'D': 5, 'D#': 6, 'Eb': 6, 'E': 7, 'F': 8, 'F#': 9, 'Gb': 9, 'G': 10, 'G#': 11 };
 var notes = {
@@ -95,6 +95,9 @@ var Song = createReactClass({
         if (lastChunkIndex) {
             columnsOfText[0] = chunks.slice(0, lastChunkIndex + 1).join('');
             columnsOfText[1] = chunks.slice(lastChunkIndex + 1).join('');
+
+            columnsOfText[0] = columnsOfText[0].replace(/\n*$/, '').replace(/\r\n*$/, '');
+            columnsOfText[1] = columnsOfText[1].replace(/\n*$/, '').replace(/\r\n*$/, '');
         }
 
         var className = 'setlister-react-song';

@@ -25,13 +25,22 @@
     padding-top: 0;
   }
 
+  .setlister-react-song-title {
+    margin-bottom: 30px;
+  }
+
   .setlister-react-song {
     padding: 0;
+    margin: 0;
     border: 0;
     position: relative;
     min-height: 0;
     page-break-inside: avoid;
     -webkit-region-break-inside: avoid;
-    page-break-after: auto;
+    page-break-after: always;
+
+    &:last-child {
+      page-break-after: avoid;
+    }
   }
 }
