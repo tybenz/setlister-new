@@ -40,40 +40,39 @@ var Song = createReactClass({
         this.props.onTitleChange(evt.target.value);
     },
 
-    render: function () {
-        var isEdit = this.props.isEdit;
-        var song = this.props.song;
-        var oldKey = song.start_key;
-        var newKey = song.data_key;
-
-        var div = document.createElement("div");
-        div.innerHTML = song.text;
-        var cleanText = div.textContent || div.innerText || "";
-        textWithMarkup = cleanText.replace(chordRegex, function(match) {
-            var chord = match;
-            if (newKey && oldKey) {
-                chord = transpose(newKey, oldKey, match);
-            }
-            return '<strong>' + chord + '</strong>';
-        });
-        textWithMarkup = textWithMarkup.replace(/\b_(.*)(?=[^A-z])/g, '$1');
-
+    splitTextIntoTwoColumns: function (text) {
+        // separate song into chunks based on section titles like "VERSE 1:",
+        // "CHORUS:", etc.
         var sepRegex = /[A-Z]+\s*[A-Z0-9]*\:/g;
         var chunks = [];
         var match;
         var lastIndex = 0;
-        while (match = sepRegex.exec(textWithMarkup)) {
-            var str = textWithMarkup.substring(lastIndex, match.index);
+        while (match = sepRegex.exec(text)) {
+            var str = text.substring(lastIndex, match.index);
             if (str) {
                 chunks.push(str);
             }
             lastIndex = match.index;
         }
-        var str = textWithMarkup.substring(lastIndex);
+        var str = text.substring(lastIndex);
         if (str) {
             chunks.push(str);
         }
 
+        // get a total number of lines from start to the end of each chunk
+        //
+        // ex:
+        // VERSE 1:
+        // Who breaks the power of sin and darkness
+        // Whose love is mighty and so much stronger
+        // The king of glory the king above all kings  <---------------------------- line total: 5
+        //
+        //
+        // CHORUS:
+        // This is amazing grace, this is unfailing love
+        // That you would take my place, that you would bear my cross <------------- line total: 9
+        //
+        // So... lineTotals = [ 5, 9 ]
         var lineTotals = [];
         chunks.forEach(function (chunk, i) {
             var prevLineTotal = lineTotals[i - 1];
@@ -83,6 +82,8 @@ var Song = createReactClass({
                     (i === chunks.length - 1 ? 1 : 0)
             );
         });
+
+        // Based on lineTotals, find out what the last chunk of column one would be
         var lastChunkIndex = chunks.length - 1;
         for (var i = lineTotals.length - 1; i >= 0; i--) {
             var lineTotal = lineTotals[i];
@@ -91,6 +92,7 @@ var Song = createReactClass({
                 break;
             }
         }
+
         var columnsOfText = [];
         if (lastChunkIndex) {
             columnsOfText[0] = chunks.slice(0, lastChunkIndex + 1).join('');
@@ -99,6 +101,34 @@ var Song = createReactClass({
             columnsOfText[0] = columnsOfText[0].replace(/\n*$/, '').replace(/\r\n*$/, '');
             columnsOfText[1] = columnsOfText[1].replace(/\n*$/, '').replace(/\r\n*$/, '');
         }
+
+        return columnsOfText;
+    },
+
+    render: function () {
+        var isEdit = this.props.isEdit;
+        var song = this.props.song;
+        var oldKey = song.start_key;
+        var newKey = song.data_key;
+
+        // clean any potential HTML/XSS from text
+        var div = document.createElement("div");
+        div.innerHTML = song.text;
+        var cleanText = div.textContent || div.innerText || "";
+
+        // add strong tags around chords
+        textWithMarkup = cleanText.replace(chordRegex, function(match) {
+            var chord = match;
+            if (newKey && oldKey) {
+                chord = transpose(newKey, oldKey, match);
+            }
+            return '<strong>' + chord + '</strong>';
+        });
+        // remove the _<chord> exceptions
+        textWithMarkup = textWithMarkup.replace(/\b_(.*)(?=[^A-z])/g, '$1');
+
+        // split text if necessary
+        var columnsOfText = this.splitTextIntoTwoColumns(textWithMarkup);
 
         var className = 'setlister-react-song';
         if (this.props.active) {
@@ -116,11 +146,13 @@ var Song = createReactClass({
                 </h2>}
             {isEdit
                 ? <div><textarea className="setlister-react-song-text" onChange={this.onTextChange} defaultValue={song.text} /></div>
-                : <pre className="setlister-react-song-text"><div className="setlister-react-song-column" dangerouslySetInnerHTML={{
-                    __html:  columnsOfText[0]
-                }} /><div className="setlister-react-song-column" dangerouslySetInnerHTML={{
-                    __html:  columnsOfText[1]
-                }} /></pre>}
+                : <pre className="setlister-react-song-text">
+                    {columnsOfText.map(function (text, i) {
+                        return <div key={'column-' + i} className="setlister-react-song-column" dangerouslySetInnerHTML={{
+                            __html: text
+                        }} />;
+                    })}
+                    </pre>}
         </div>;
     }
 });
