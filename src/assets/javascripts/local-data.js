@@ -4,7 +4,15 @@ var localData = _.extend({}, window.json || {});
 
 localData.getSetlistTitle = function (setlist) {
     var title = setlist.title;
-    var date = setlist.date && moment(setlist.date).format('MM/DD/YYYY');
+    var dateStr = setlist.date;
+    var date;
+    if (dateStr) {
+        if (dateStr.search(/00:00:00\.000Z$/) !== -1) {
+            date = moment(setlist.date).add(1, 'days').format('MM/DD/YYYY');
+        } else {
+            date = moment(setlist.date).format('MM/DD/YYYY');
+        }
+    }
     if (title && title.search(/[0-9]{2}-[0-9]{2}-[0-9]{4}/) !== -1) {
         title = title.replace(/^.*([0-9]{2}-[0-9]{2}-[0-9]{4}).*$/, '$1');
         return moment(title, 'MM-DD-YYYY').format('MM/DD/YYYY');
