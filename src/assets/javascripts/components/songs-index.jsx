@@ -72,25 +72,23 @@ var SongsIndex = createReactClass({
             return 0;
         });
 
-        var lastSetlist = setlists[0];
+        var mostRecentSetlist = setlists[0];
 
-        if (lastSetlist) {
-            var date = localData.getSetlistDate(lastSetlist);
+        if (mostRecentSetlist) {
+            var date = localData.getSetlistDate(mostRecentSetlist);
             if (date) {
                 var currentDistanceFromSunday = moment().diff(moment().startOf('week'), 'days');
-                var proximity;
-                if (currentDistanceFromSunday > 0) {
-                    proximity = moment().diff(date, 'weeks') + 1;
-                } else {
-                    proximity = moment().diff(date, 'weeks');
+                var diffInWeeks = moment().diff(date, 'weeks');
+                var diffInDays = moment().diff(date, 'days');
+
+                if (diffInDays > 0) {
+                    if (currentDistanceFromSunday > 0) {
+                        diffInWeeks += 1;
+                    }
                 }
 
-                if (proximity < 0) {
-                    return undefined;
-                }
-
-                if (proximity <= 12) {
-                    return proximity;
+                if (diffInWeeks <= 12) {
+                    return diffInWeeks;
                 }
             }
         }
@@ -130,8 +128,14 @@ var SongsIndex = createReactClass({
         var tags = song.tags ? song.tags.split(',') : [];
 
         var prox = this.getSongProximity(song);
-        if (prox) {
-            if (prox == 1) {
+        if (typeof prox === 'number') {
+            if (prox < -1) {
+                tags.push(Math.abs(prox) + 'weeks-from-now');
+            } else if (prox == -1) {
+                tags.push('next-week');
+            } else if (prox == 0) {
+                tags.push('this-week');
+            } else if (prox == 1) {
                 tags.push('last-week');
             } else {
                 tags.push(prox + '-weeks-ago');
