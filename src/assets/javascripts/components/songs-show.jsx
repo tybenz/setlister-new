@@ -66,7 +66,7 @@ var SongsShow = createReactClass({
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    data_key: song.data_key,
+                    data_key: song.data_key || 'G',
                     capo: song.capo,
                     title: song.title,
                     text: song.text,
@@ -95,7 +95,7 @@ var SongsShow = createReactClass({
                 <div className="setlister-react-song-controls">
                     <span className="setlister-react-song-key-select">
                         <span className="setlister-react-field-label">Key:</span>
-                        <KeySelector onChange={this.onKeyChange} defaultValue={song.data_key} />
+                        <KeySelector onChange={this.onKeyChange} defaultValue={song.data_key || 'G'} />
                     </span>
                     <span className="setlister-react-song-capo-select">
                         <span className="setlister-react-field-label">Capo:</span>

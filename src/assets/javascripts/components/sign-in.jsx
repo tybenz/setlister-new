@@ -14,14 +14,14 @@ var SignIn = createReactClass({
                 </div>
                 <div className="setlister-react-field-wrapper">
                     <label className="setlister-react-field-label">Email</label>
-                    <input autoFocus type="text" className="setlister-react-input" defaultValue="" name="email" />
+                    <input autoFocus type="email" className="setlister-react-input" defaultValue="" name="email" />
                 </div>
                 <div className="setlister-react-field-wrapper">
                     <label className="setlister-react-field-label">Password</label>
                     <input type="password" className="setlister-react-input" defaultValue="" name="password" />
                 </div>
                 <div>
-                    <button type="submit" onClick={this.onCreateClick} className="setlister-react-button">Create</button>
+                    <button type="submit" className="setlister-react-button">Sign In</button>
                 </div>
             </form>
         );

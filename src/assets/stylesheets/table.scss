@@ -40,10 +40,10 @@
 }
 
 .setlister-react-table-cell {
-  padding-right: 10px;
+  margin-right: 10px;
 
   &:last-child {
-    padding-right: 0;
+    margin-right: 0;
   }
 }
 
@@ -84,6 +84,8 @@
 
 .setlist-song-title {
   flex: 1;
+  white-space: pre;
+  overflow: hidden;
 }
 
 .setlist-song-capo {
@@ -113,12 +115,6 @@
   font-size: 12px;
 }
 
-@media only screen and (max-width: 900px) {
-  .setlist-song-key {
-    min-width: 39px;
-  }
-}
-
 .setlister-react-table-controls {
   text-align: right;
   position: absolute;
@@ -137,5 +133,36 @@
 
   .icon {
     cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .setlist-song-key {
+    min-width: 39px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .setlist-song-frequency {
+    display: none;
+  }
+
+  .setlister-react-capo-select-input,
+  .setlister-react-key-select-input {
+    font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .setlist-song-tags {
+    display: none;
+  }
+
+  .setlist-song-capo {
+    display: none;
+  }
+
+  .setlister-react-table-filter {
+    display: none;
   }
 }

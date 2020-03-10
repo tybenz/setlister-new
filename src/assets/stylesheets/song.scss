@@ -125,3 +125,19 @@ textarea.setlister-react-song-text {
 .setlister-react-tags-input {
   width: 100%;
 }
+
+@media only screen and (max-width: 800px) {
+  .setlister-react-song-title {
+    font-size: 24px;
+  }
+
+  .setlister-react-song-text {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .setlister-react-song-text {
+    font-size: 11px;
+  }
+}

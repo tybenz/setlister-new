@@ -74,9 +74,12 @@ var Home = createReactClass({
                     </div>
                     <div className="setlister-react-card-list">
                         <div className="setlister-react-card-list-inner">
-                            {recentSongs.map(function (song, i) {
-                                return <SongCard isSongLink={true} key={'next-setlister-song-' + i} song={song} />;
-                            }.bind(this))}
+                            {recentSongs.reduce(function (acc, song, i) {
+                                if (i < 5) {
+                                    acc.push(<SongCard isSongLink={true} key={'next-setlister-song-' + i} song={song} />);
+                                }
+                                return acc;
+                            }.bind(this), [])}
                         </div>
                     </div>
                 </div>

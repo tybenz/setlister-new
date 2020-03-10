@@ -42,6 +42,8 @@ var SongsIndex = createReactClass({
         if (localData.is_signed_in) {
             this.setState({ addToSetlist: song, songRef: ref });
             document.body.addEventListener('click', this.onDocClick);
+        } else {
+            window.location = '/auth_error';
         }
     },
 

@@ -41,6 +41,8 @@
   position: absolute;
   top: 15px;
   left: 0;
+  padding-right: calc(100% - 50px);
+  z-index: 1;
 }
 
 .setlister-react-nav-hamburger-line {
