@@ -27,12 +27,9 @@ var SetlistsController = ApplicationController.extend({
                 return;
             }
 
-            var i = 0;
             setlists = setlists.map(function (setlist) {
                 var id = setlist.get('id');
-                i++;
                 return _.extend({}, setlist.attributes, {
-                    num: i,
                     path: router.setlistPath(id),
                     edit_path: router.editSetlistPath(id),
                     delete_path: router.setlistPath(id),
@@ -97,9 +94,7 @@ var SetlistsController = ApplicationController.extend({
         })
         .then(function (setlist) {
             var setlistSongs = setlist.related( 'setlist_songs' );
-            var i = 0;
             var songs = setlistSongs.map(function (setlistSong) {
-                i++;
                 var song = setlistSong.related('song');
                 var songData = song.toJSON();
                 songData.slides = song.slides();
@@ -107,7 +102,6 @@ var SetlistsController = ApplicationController.extend({
                 songData.setlist_song_id = setlistSong.id;
                 songData.song_id = songData.id;
                 songData.title_dashes = songData.title.replace(/ /g, '-');
-                songData.num = i;
                 return songData;
             });
             this.render( req, res, 'setlists/slideshow', {
@@ -144,7 +138,6 @@ var SetlistsController = ApplicationController.extend({
         })
         .then(function (setlist) {
             var setlistSongs = setlist.related( 'setlist_songs' );
-            var i = 0;
             var songs = setlistSongs.map(function (setlistSong) {
                 return setlistSong.fullSong();
             });

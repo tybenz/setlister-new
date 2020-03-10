@@ -25,9 +25,15 @@ var HomeController = ApplicationController.extend({
                 });
 
                 var setlist = setlist.toJSON();
-                setlist.songs = songs;
 
-                return setlist;
+                var id = setlist.id;
+                return _.extend({}, setlist, {
+                    path: router.setlistPath(id),
+                    edit_path: router.editSetlistPath(id),
+                    delete_path: router.setlistPath(id),
+                    slideshow_path: router.setlistSlideshowPath(id),
+                    songs: songs
+                });
             });
 
             this.renderWithJSON(req, res, {
