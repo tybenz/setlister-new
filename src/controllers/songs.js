@@ -124,7 +124,6 @@ var SongsController = ApplicationController.extend({
         new Song({id: id})
         .fetch()
         .then(function (song) {
-            console.log(req.body);
             Object.keys(req.body).forEach(function (key) {
                 song.set(key, req.body[key]);
             });

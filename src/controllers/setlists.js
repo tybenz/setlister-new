@@ -123,6 +123,7 @@ var SetlistsController = ApplicationController.extend({
     },
 
     create: function( req, res, next ) {
+        logger({ type: 'createSetlist', body: req.body });
         new Setlist(req.body)
         .save()
         .then(function (setlist) {
