@@ -60,8 +60,13 @@ var SongsIndex = createReactClass({
         }
 
         var setlists = song.setlists.sort(function (setlistA, setlistB) {
-            if (setlistA.date > setlistB.date) return -1;
-            if (setlistA.date < setlistB.date) return 1;
+            var dateA = localData.getSetlistDate(setlistA);
+            var dateB = localData.getSetlistDate(setlistB);
+            if (!dateA && dateB) return 1;
+            if (dateA && !dateB) return -1;
+            if (!dateA && !dateB) return 0;
+            if (dateA > dateB) return -1;
+            if (dateA < dateB) return 1;
             return 0;
         });
 
@@ -97,16 +102,19 @@ var SongsIndex = createReactClass({
         }
 
         var setlists = song.setlists.sort(function (setlistA, setlistB) {
-            var aDate = localData.getSetlistDate(setlistA);
-            var bDate = localData.getSetlistDate(setlistB);
-            if (aDate > bDate) return -1;
-            if (aDate < bDate) return 1;
+            var dateA = localData.getSetlistDate(setlistA);
+            var dateB = localData.getSetlistDate(setlistB);
+            if (!dateA && dateB) return 1;
+            if (dateA && !dateB) return -1;
+            if (!dateA && !dateB) return 0;
+            if (dateA > dateB) return -1;
+            if (dateA < dateB) return 1;
             return 0;
         });
         var setlistsInLastThreeMonths = [];
         setlists.forEach(function (setlist) {
             var date = localData.getSetlistDate(setlist);
-            var isInLastThreeMonths = moment().diff(date, 'months') <= 3;
+            var isInLastThreeMonths = date && moment().diff(date, 'months') <= 3;
             if (isInLastThreeMonths) {
                 setlistsInLastThreeMonths.push(setlist);
             } else {

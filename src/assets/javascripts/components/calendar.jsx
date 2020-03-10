@@ -212,7 +212,7 @@ var Calendar = createReactClass({
             },
             function () {
                 var date = this.state.dateObject;
-                this.props.onSelect(moment(date.format('MM')+'/'+d+'/'+date.format('YYYY'), 'MM/D/YYYY'));
+                this.props.onSelect(moment(date.format('MM')+'/'+d+'/'+date.format('YYYY'), 'MM/D/YYYY').startOf('day').add(8, 'hours'));
             }
         );
     },

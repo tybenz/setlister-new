@@ -18,15 +18,15 @@ var Home = createReactClass({
         var today = moment();
         var found = false;
         recentSetlists.forEach(function (setlist) {
-            var date = moment(setlist.date);
-            if (date >= today && date.diff(today, 'days') < 7 && !found) {
+            var date = localData.getSetlistDate(setlist);
+            if (date && date >= today && date.diff(today, 'days') < 7 && !found) {
                 nextSetlist = setlist;
                 found = true;
             } else if (setlistsMinusNext.length < setlistsMinusNextMax) {
                 setlistsMinusNext.push(setlist);
             }
 
-            if (date < today) {
+            if (date && date < today) {
                 recentSongs = recentSongs.concat(setlist.songs);
             }
         });
