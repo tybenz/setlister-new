@@ -11,6 +11,31 @@ var cdnVersion = fs.readFileSync(
 var ApplicationController = Class.extend({
     init: function() {},
 
+    sendNotFound: function (next) {
+        var notFoundErr = new Error('Not found');
+        notFoundErr.status = 404;
+        next(notFoundErr);
+    },
+
+    getNotFound: function () {
+        var notFoundErr = new Error('Not found');
+        notFoundErr.status = 404;
+        return notFoundErr;
+    },
+
+    getIdParam: function (req, res, next) {
+        var id = req.params.id;
+        id = id.replace(/[^0-9]/g, '');
+        id = parseInt(id);
+
+        if (isNaN(id)) {
+            console.log('SEND NOT FOUND');
+            return this.sendNotFound(next);
+        }
+
+        return id;
+    },
+
     defaultLocals: function( req ) {
         return {
             site_title: 'Setlister',
@@ -55,7 +80,6 @@ var ApplicationController = Class.extend({
             error: [],
             warning: []
         };
-        var empty = !res.locals.flash.length;
 
         while ( res.locals.flash.length ) {
             var message = res.locals.flash.shift();

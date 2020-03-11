@@ -10,6 +10,7 @@ var logger = function( log ) {
 logger.error = function( err, requestId ) {
     logger({
         type: 'error',
+        status: err.status,
         requestId: requestId,
         message: err.name + ': ' + err.message,
         stack: err.stack

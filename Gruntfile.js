@@ -6,6 +6,7 @@ var version = require( 'node-uuid' )().replace( /-/g, '' );
 
 var javascripts = [
     'slideshow',
+    'error',
     'app'
 ];
 

@@ -39,35 +39,56 @@ var SetlistSongsController = ApplicationController.extend({
         .then(function (setlistSong) {
             res.send(200);
         })
-        .done();
+        .catch(function (err) {
+            next(err);
+        });
     },
 
     update: function( req, res, next ) {
-        new SetlistSong({ id: req.params.id })
-        .fetch()
-        .then(function (setlistSong) {
-            setlistSong.set('data_key', req.body.data_key);
-            setlistSong.set('capo', req.body.capo);
-            setlistSong.set('position', req.body.position);
-            return setlistSong.save();
-        })
-        .then(function (setlistSong) {
-            res.sendStatus(200);
-        })
-        .done();
+        // getIdParam sends 404 error if id is not valid number
+        var id = this.getIdParam(req, res, next);
+        if (id) {
+            new SetlistSong({ id: id })
+            .fetch()
+            .catch(function (err) {
+                logger({ type: 'SETLIST_SONG_UPDATE_ERROR', message: 'Could not fetch setlist_song with id of ' + id, error: err });
+                throw this.getNotFound();
+            }.bind(this))
+            .then(function (setlistSong) {
+                setlistSong.set('data_key', req.body.data_key);
+                setlistSong.set('capo', req.body.capo);
+                setlistSong.set('position', req.body.position);
+                return setlistSong.save();
+            })
+            .then(function (setlistSong) {
+                res.sendStatus(200);
+            })
+            .catch(function (err) {
+                next(err);
+            });
+        }
     },
 
     delete: function( req, res, next ) {
-        var id = req.params.id;
-        new SetlistSong({id: id})
-        .fetch()
-        .then(function (setlistSong) {
-            return setlistSong.destroy();
-        })
-        .then(function () {
-            res.sendStatus(200);
-        })
-        .done();
+        // getIdParam sends 404 error if id is not valid number
+        var id = this.getIdParam(req, res, next);
+        if (id) {
+            new SetlistSong({id: id})
+            .fetch()
+            .catch(function (err) {
+                logger({ type: 'SETLIST_SONG_DELETE_ERROR', message: 'Could not fetch setlist_song with id of ' + id, error: err });
+                throw this.getNotFound();
+            }.bind(this))
+            .then(function (setlistSong) {
+                return setlistSong.destroy();
+            })
+            .then(function () {
+                res.sendStatus(200);
+            })
+            .catch(function (err) {
+                next(err);
+            });
+        }
     }
 });
 

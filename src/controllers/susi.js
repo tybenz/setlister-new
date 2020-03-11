@@ -23,8 +23,8 @@ var SusiController = ApplicationController.extend({
                 res.redirect( router.rootPath() );
             });
         })
-        .catch( function( err ) {
-            throw err;
+        .catch(function (err) {
+            next(err);
         });
     },
 

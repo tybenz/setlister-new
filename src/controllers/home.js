@@ -40,7 +40,10 @@ var HomeController = ApplicationController.extend({
                 recent_setlists: recentSetlists
                 // recent_songs: recentSongs
             });
-        }.bind(this));
+        }.bind(this))
+        .catch(function (err) {
+            next(err);
+        });
     },
 
     signIn: function( req, res, next ) {
