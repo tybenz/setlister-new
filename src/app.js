@@ -38,6 +38,9 @@ var Utils = require( './utils' );
 var User = require( './models/user' );
 var Router = require( 'paper-router' );
 var routes = require( './routes' );
+var ApplicationController = require( './controllers/application' );
+var applicationController = new ApplicationController();
+console.log(applicationController);
 
 global.logger = Logger.create();
 global.profile = require( 'paper-profiler' ).create();
@@ -285,84 +288,21 @@ app.use( haltOnTimedout );
 // Make router globally exceptable for path helpers
 global.router = new Router( app, path.join( __dirname, '/controllers' ), routes );
 
-var setFlashForError = function (req, res, json) {
-    var flashMessages = {
-        info: [],
-        error: [],
-        warning: []
-    };
-
-    while ( res.locals.flash && res.locals.flash.length ) {
-        var message = res.locals.flash.shift();
-        flashMessages[ message.type ].push( message.message );
-    }
-    json.flash = flashMessages;
-    res.locals.json = JSON.stringify(_.extend( {}, json ));
-};
-
 // First non error middleware after route binding. So if the response hasn't
 // ended by now, we can assume that it is a bad route and therefor a 404.
 app.use( function( req, res, next ) {
-    // res.locals to set javascript
-    res.locals = {
-        stylesheets: [ '/css/app.css', '/css/print.css' ],
-        javascripts: [ '/js/error.js' ]
-    };
-    setFlashForError(req, res, {
-        error: 'Not found',
-        fixedPaths: {
-            current: req.path,
-            home: router.rootPath(),
-            root: router.rootPath(),
-            songs: router.songsPath(),
-            setlists: router.setlistsPath(),
-            sign_in: router.signInPath(),
-            sign_out: router.signOutPath()
-        }
-    });
-    res.status(404).render('app.mustache');
+    applicationController.notFound( req, res, next );
 });
 
 // Handle uncaught errors
 app.use( function( err, req, res, next ) {
-    console.log('ERROR HANDLER CALLED');
     logger.error( err, req.requestId );
+
     if (err.status === 404) {
-        res.locals = {
-            stylesheets: [ '/css/app.css', '/css/print.css' ],
-            javascripts: [ '/js/error.js' ]
-        };
-        setFlashForError(req, res, {
-            error: 'Not found',
-            fixedPaths: {
-                current: req.path,
-                home: router.rootPath(),
-                root: router.rootPath(),
-                songs: router.songsPath(),
-                setlists: router.setlistsPath(),
-                sign_in: router.signInPath(),
-                sign_out: router.signOutPath()
-            }
-        });
-        return res.status(404).render('app.mustache');
+        return applicationController.notFound( req, res, next );
     }
-    res.locals = {
-        stylesheets: [ '/css/app.css', '/css/print.css' ],
-        javascripts: [ '/js/error.js' ]
-    };
-    setFlashForError(req, res, {
-        error: 'Application error',
-        fixedPaths: {
-            current: req.path,
-            home: router.rootPath(),
-            root: router.rootPath(),
-            songs: router.songsPath(),
-            setlists: router.setlistsPath(),
-            sign_in: router.signInPath(),
-            sign_out: router.signOutPath()
-        }
-    });
-    res.status(500).render('app.mustache');
+
+    applicationController.applicationError( req, res, next );
 });
 
 var server;

@@ -71,7 +71,7 @@ var ApplicationController = Class.extend({
         return [ '/js/app.js' ];
     },
 
-    locals: function( req, res, obj, json ) {
+    locals: function( req, res, obj, json, isError ) {
         res.locals = _.extend( res.locals, this.defaultLocals( req ), obj );
         json = json || {};
 
@@ -143,6 +143,58 @@ var ApplicationController = Class.extend({
     authError: function( req, res, next ) {
         req.flash( 'error', 'Not authorized' );
         res.redirect( router.rootPath() );
+    },
+
+    notFound: function ( req, res, next ) {
+        this.locals(
+            req,
+            res,
+            {
+                stylesheets: [ '/css/app.css', '/css/print.css' ],
+                javascripts: [ '/js/error.js' ]
+            },
+            {
+                error: 'Not found',
+                fixedPaths: {
+                    current: req.path,
+                    home: router.rootPath(),
+                    root: router.rootPath(),
+                    songs: router.songsPath(),
+                    setlists: router.setlistsPath(),
+                    sign_in: router.signInPath(),
+                    sign_out: router.signOutPath()
+                }
+            },
+            true
+        );
+
+        res.status(404).render( 'app.mustache' );
+    },
+
+    applicationError: function ( req, res, next ) {
+        this.locals(
+            req,
+            res,
+            {
+                stylesheets: [ '/css/app.css', '/css/print.css' ],
+                javascripts: [ '/js/error.js' ]
+            },
+            {
+                error: 'Application error',
+                fixedPaths: {
+                    current: req.path,
+                    home: router.rootPath(),
+                    root: router.rootPath(),
+                    songs: router.songsPath(),
+                    setlists: router.setlistsPath(),
+                    sign_in: router.signInPath(),
+                    sign_out: router.signOutPath()
+                }
+            },
+            true
+        );
+
+        res.status(500).render( 'app.mustache' );
     }
 });
 
