@@ -16,8 +16,20 @@ if (!urlParams.get('full')) {
         var text = $slide.text();
         $slides.removeClass('active');
         $slide.addClass('active');
-        $preview.text(text);
-        $slideshowFull.text(text);
+
+        $preview.find('.slideshow-preview-slide:first-child').remove();
+        $preview.append('<div class="slideshow-preview-slide">' + text + '</div>');
+        $preview.append('<div class="slideshow-preview-slide"></div>');
+        setTimeout(function () {
+            $preview.find('.slideshow-preview-slide:last-child').remove();
+        }, 100);
+
+        $slideshowFull.find('.slideshow-full-slide:first-child').remove();
+        $slideshowFull.append('<div class="slideshow-full-slide">' + text + '</div>');
+        $slideshowFull.append('<div class="slideshow-full-slide"></div>');
+        setTimeout(function () {
+            $slideshowFull.find('.slideshow-full-slide:last-child').remove();
+        }, 100);
 
         $slide[0].scrollIntoViewIfNeeded();
     };
