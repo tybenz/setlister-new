@@ -123,6 +123,15 @@ var SetlistsController = ApplicationController.extend({
                     songData.title_dashes = encodeURIComponent(songData.title.toLowerCase().replace(/ /g, '-').replace(/[\(\)\']/g, ''));
                     return songData;
                 });
+                songs = songs.sort(function (a, b) {
+                    if (a.position < b.position) {
+                        return -1;
+                    }
+                    if (a.position > b.position) {
+                        return 1;
+                    }
+                    return 0;
+                });
                 this.render( req, res, 'setlists/slideshow', {
                     page_title: setlist.get( 'title' ),
                     setlist_title: setlist.get( 'title' ),
