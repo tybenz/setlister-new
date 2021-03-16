@@ -21,3 +21,5 @@ dist/*
 !dist/favicon.ico
 
 db/*.db
+
+dump.rdb
