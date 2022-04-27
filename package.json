@@ -69,7 +69,7 @@
     "deploy": "PROFILE=setlister SERVER_ENV=prod scripts/deploy_assets"
   },
   "devDependencies": {
-    "grunt": "^1.0.4",
+    "grunt": "^1.5.2",
     "grunt-browserify": "^5.3.0",
     "grunt-cli": "^1.3.2",
     "grunt-contrib-compress": "^1.6.0",
