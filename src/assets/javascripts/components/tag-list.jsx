@@ -17,7 +17,11 @@ var tagColors = {
     'gathering': 'cyan',
     'testimony': 'green',
     'vertical': 'red',
-    'christmas': 'purple'
+    'christmas': 'purple',
+    'solid': 'green',
+    'e-flat': 'pink',
+    'drop-d': 'purple',
+    'jam': 'cyan'
 };
 
 var TagList = createReactClass({
