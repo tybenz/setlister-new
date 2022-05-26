@@ -29,7 +29,7 @@ var TagList = createReactClass({
         return {};
     },
 
-    tagColor: function (tag) {
+    tagColor: function (tag, posColors) {
         var color = tagColors[tag];
         if (!color) {
             if (tag.search(/week/) !== -1) {
@@ -39,15 +39,16 @@ var TagList = createReactClass({
             var usedColors = Object.keys(tagColors).map(function (tag) {
                 return tagColors[tag];
             });
-            var unusedColors = _.difference(possibleColors, usedColors);
+            var unusedColors = _.difference(posColors, usedColors);
             var colorsToChooseFrom = unusedColors;
             if (unusedColors.length) {
-                colorsToChooseFrom = possibleColors;
+                colorsToChooseFrom = posColors;
             }
             var lastIndex = colorsToChooseFrom.length - 1;
             var ran = Math.random();
             var index = Math.round(ran * lastIndex);
             var color = colorsToChooseFrom[index];
+            posColors.splice(index, 1);
             tagColors[tag] = color;
         }
         return color;
@@ -64,16 +65,25 @@ var TagList = createReactClass({
             if (a > b) return -1;
             return 0;
         });
+        var posColors = possibleColors.slice();
+        var tagsWithColors = tags.map(function (tag) {
+            return {
+                tag: tag,
+                color: this.tagColor(tag, posColors)
+            }
+        });
         return (
             <div className="setlister-react-tag-list">
-                {tags.map(function (tag, i) {
+                {tagsWithColors.map(function (tagData, i) {
+                    var tag = tagData.tag;
+                    var color = tagData.color;
                     var className = 'setlister-react-tag';
-                    className += ' ' + this.tagColor(tag);
+                    className += ' ' + color;
                     return <span
                         key={'tag-' + i}
                         className={className}
                         onClick={function () {
-                            this.props.onTagClick(tag, this.tagColor(tag))
+                            this.props.onTagClick(tag, tagData.color)
                         }.bind(this)}
                     >
                         {tag}
