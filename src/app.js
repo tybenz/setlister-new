@@ -27,8 +27,6 @@ var uuid = require( 'node-uuid' );
 var cookieParser = require( 'cookie-parser' );
 var sassMiddleware = require( 'node-sass-middleware' );
 var session = require( 'express-session' );
-var RedisStore = require( 'connect-redis' )( session );
-var redis = require( 'redis' );
 var passport = require( 'passport' );
 var LocalStrategy = require( 'passport-local' ).Strategy;
 var flash = require( 'flash' );
@@ -225,41 +223,24 @@ passport.use( new LocalStrategy(
 app.use( haltOnTimedout );
 
 if ( process.env.NODE_ENV == 'production' ) {
-    var redisUrl = url.parse( process.env.REDISTOGO_URL );
-    var client = redis.createClient( redisUrl.port, redisUrl.hostname );
-    var secret = 'gtfo, bruh';
-    client.auth( redisUrl.auth.split( ':' )[ 1 ] );
-
     app.use( cookieParser( secret ) );
     app.use( haltOnTimedout );
     app.use( session({
         secret: 'gtfo, bruh',
-        store: new RedisStore( { client: client } ),
         resave: true,
         saveUninitialized: true
     }));
     app.use( haltOnTimedout );
 } else if ( process.env.NODE_TEST ) {
-    var client = require( 'redis-mock' ).createClient();
     app.use( session({
         resave: true,
         saveUninitialized: true,
-        secret: 'gtfo, bruh',
-        store: new RedisStore( { client: client } )
+        secret: 'gtfo, bruh'
     }));
     app.use( haltOnTimedout );
 } else {
-    var client = redis.createClient({
-      host: 'localhost',
-      port: 6379,
-      db: 1,
-    });
-    client.unref();
-    client.on('error', console.log);
-
     app.use( session({
         secret: 'gtfo, bruh',
-        store: new RedisStore( { client: client } ),
         resave: true,
         saveUninitialized: true
     }));
