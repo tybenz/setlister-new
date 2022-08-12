@@ -223,10 +223,11 @@ passport.use( new LocalStrategy(
 app.use( haltOnTimedout );
 
 if ( process.env.NODE_ENV == 'production' ) {
+    var secret = 'gtfo, bruh';
     app.use( cookieParser( secret ) );
     app.use( haltOnTimedout );
     app.use( session({
-        secret: 'gtfo, bruh',
+        secret: secret,
         resave: true,
         saveUninitialized: true,
         cookie: { secure: true }
@@ -236,13 +237,13 @@ if ( process.env.NODE_ENV == 'production' ) {
     app.use( session({
         resave: true,
         saveUninitialized: true,
-        secret: 'gtfo, bruh',
+        secret: secret,
         cookie: { secure: true }
     }));
     app.use( haltOnTimedout );
 } else {
     app.use( session({
-        secret: 'gtfo, bruh',
+        secret: secret,
         resave: true,
         saveUninitialized: true,
         cookie: { secure: true }
