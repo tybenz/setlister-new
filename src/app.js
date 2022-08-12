@@ -228,21 +228,24 @@ if ( process.env.NODE_ENV == 'production' ) {
     app.use( session({
         secret: 'gtfo, bruh',
         resave: true,
-        saveUninitialized: true
+        saveUninitialized: true,
+        cookie: { secure: true }
     }));
     app.use( haltOnTimedout );
 } else if ( process.env.NODE_TEST ) {
     app.use( session({
         resave: true,
         saveUninitialized: true,
-        secret: 'gtfo, bruh'
+        secret: 'gtfo, bruh',
+        cookie: { secure: true }
     }));
     app.use( haltOnTimedout );
 } else {
     app.use( session({
         secret: 'gtfo, bruh',
         resave: true,
-        saveUninitialized: true
+        saveUninitialized: true,
+        cookie: { secure: true }
     }));
     app.use( haltOnTimedout );
 }
