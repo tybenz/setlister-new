@@ -225,7 +225,7 @@ app.use( haltOnTimedout );
 
 var client;
 if ( process.env.NODE_ENV == 'production' ) {
-    var redisUrl = url.parse( process.env.REDISTOGO_URL );
+    var redisUrl = url.parse( process.env.REDIS_URL );
     client = redis.createClient({ legacyMode: true, url: process.env.REDISTOGO_URL });
     var secret = 'gtfo, bruh';
     client.auth( redisUrl.auth.split( ':' )[ 1 ] );
