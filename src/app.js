@@ -225,10 +225,10 @@ app.use( haltOnTimedout );
 
 var client;
 if ( process.env.NODE_ENV == 'production' ) {
-    var redisUrl = url.parse( process.env.REDIS_URL );
+    var redisUrl = url.parse( process.env.REDIS_TLS_URL );
     var client = redis.createClient({
         legacyMode: true,
-        url: process.env.REDIS_URL,
+        url: process.env.REDIS_TLS_URL,
         socket: {
             tls: true,
             rejectUnauthorized: false
