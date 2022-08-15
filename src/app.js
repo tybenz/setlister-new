@@ -222,8 +222,8 @@ passport.use( new LocalStrategy(
 ));
 app.use( haltOnTimedout );
 
+var secret = 'gtfo, bruh';
 if ( process.env.NODE_ENV == 'production' ) {
-    var secret = 'gtfo, bruh';
     app.use( cookieParser( secret ) );
     app.use( haltOnTimedout );
     app.use( session({
