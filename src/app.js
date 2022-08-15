@@ -226,10 +226,13 @@ app.use( haltOnTimedout );
 var client;
 if ( process.env.NODE_ENV == 'production' ) {
     var redisUrl = url.parse( process.env.REDIS_URL );
-    client = redis.createClient({
+    var client = redis.createClient({
         legacyMode: true,
-        url: process.env.REDISTOGO_URL,
-        tls: {}
+        url: process.env.REDIS_URL,
+        socket: {
+            tls: true,
+            rejectUnauthorized: false
+        }
     });
     var secret = 'gtfo, bruh';
     client.auth( redisUrl.auth.split( ':' )[ 1 ] );
