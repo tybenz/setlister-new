@@ -40,7 +40,6 @@ var Router = require( 'paper-router' );
 var routes = require( './routes' );
 var ApplicationController = require( './controllers/application' );
 var applicationController = new ApplicationController();
-console.log(applicationController);
 
 global.logger = Logger.create();
 global.profile = require( 'paper-profiler' ).create();
@@ -224,9 +223,10 @@ passport.use( new LocalStrategy(
 ));
 app.use( haltOnTimedout );
 
+var client;
 if ( process.env.NODE_ENV == 'production' ) {
     var redisUrl = url.parse( process.env.REDISTOGO_URL );
-    var client = redis.createClient( redisUrl.port, redisUrl.hostname );
+    client = redis.createClient({ legacyMode: true, url: process.env.REDISTOGO_URL });
     var secret = 'gtfo, bruh';
     client.auth( redisUrl.auth.split( ':' )[ 1 ] );
 
@@ -240,7 +240,7 @@ if ( process.env.NODE_ENV == 'production' ) {
     }));
     app.use( haltOnTimedout );
 } else if ( process.env.NODE_TEST ) {
-    var client = require( 'redis-mock' ).createClient();
+    client = require( 'redis-mock' ).createClient();
     app.use( session({
         resave: true,
         saveUninitialized: true,
@@ -249,19 +249,26 @@ if ( process.env.NODE_ENV == 'production' ) {
     }));
     app.use( haltOnTimedout );
 } else {
-    var client = redis.createClient({
-      host: 'localhost',
-      port: 6379,
-      db: 1,
+    client = redis.createClient({
+        legacyMode: true,
+        host: 'localhost',
+        port: 6379,
     });
-    client.unref();
     client.on('error', console.log);
+    client.on('connect', function () {
+        logger({type: 'redisConnected'});
+    });
 
     app.use( session({
         secret: 'gtfo, bruh',
         store: new RedisStore( { client: client } ),
-        resave: true,
-        saveUninitialized: true
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            secure: false,
+            httpOnly: false,
+            maxAge: 1000 * 60 * 10
+        }
     }));
     app.use( haltOnTimedout );
 }
@@ -318,12 +325,17 @@ if ( !process.env.NODE_ENV || process.env.NODE_ENV == 'local' ) {
     server = http.createServer( app );
 }
 
-server.listen( process.env.PORT || 4567, function() {
-    var log = { type: 'serverStartup' };
-    if (assetVersionNumber) {
-        log.assetVersionNumber = assetVersionNumber;
-    }
-    logger(log);
-});
+client.connect().then(function () {
+    server.listen( process.env.PORT || 4567, function() {
+        var log = { type: 'serverStartup' };
+        if (assetVersionNumber) {
+            log.assetVersionNumber = assetVersionNumber;
+        }
+        logger(log);
+    });
+})
+.catch(function (err) {
+    console.error(err);
+})
 
 module.exports = server;

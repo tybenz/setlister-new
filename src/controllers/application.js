@@ -81,7 +81,7 @@ var ApplicationController = Class.extend({
             warning: []
         };
 
-        while ( res.locals.flash.length ) {
+        while ( res.locals && res.locals.flash && res.locals.flash.length ) {
             var message = res.locals.flash.shift();
             flashMessages[ message.type ].push( message.message );
         }
