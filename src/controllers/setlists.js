@@ -114,14 +114,7 @@ var SetlistsController = ApplicationController.extend({
             .then(function (setlist) {
                 var setlistSongs = setlist.related( 'setlist_songs' );
                 var songs = setlistSongs.map(function (setlistSong) {
-                    var song = setlistSong.related('song');
-                    var songData = song.toJSON();
-                    songData.slides = song.slides();
-                    songData.position = setlistSong.position;
-                    songData.setlist_song_id = setlistSong.id;
-                    songData.song_id = songData.id;
-                    songData.title_dashes = encodeURIComponent(songData.title.toLowerCase().replace(/ /g, '-').replace(/[\(\)\']/g, ''));
-                    return songData;
+                    return setlistSong.fullSong();
                 });
                 songs = songs.sort(function (a, b) {
                     if (a.position < b.position) {
