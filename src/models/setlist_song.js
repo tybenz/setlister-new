@@ -14,10 +14,12 @@ var SetlistSong = BaseModel.extend({
     },
 
     fullSong: function() {
-        var songData = this.related('song').toJSON();
+        var song = this.related('song');
+        var songData = song.toJSON();
         songData.start_key = songData && songData.data_key;
         songData.data_key = this.get( 'data_key' );
         songData.position = this.get( 'position' );
+        songData.slides = song.slides();
         songData.capo = this.get( 'capo' );
         songData.setlist_song_id = this.id;
         songData.song_id = songData && songData.id;
