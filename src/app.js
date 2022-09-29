@@ -234,6 +234,18 @@ if ( process.env.NODE_ENV == 'production' ) {
             rejectUnauthorized: false
         }
     });
+
+    client.on('error', err => console.error('client err', err));
+
+    setInterval(async () => {
+        try {
+            console.log(await client.ping());
+        } catch (err) {
+            console.error('command error', err);
+        }
+    }, 1000);
+
+
     var secret = 'gtfo, bruh';
     client.auth( redisUrl.auth.split( ':' )[ 1 ] );
 
