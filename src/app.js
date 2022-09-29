@@ -27,8 +27,6 @@ var uuid = require( 'node-uuid' );
 var cookieParser = require( 'cookie-parser' );
 var sassMiddleware = require( 'node-sass-middleware' );
 var session = require( 'express-session' );
-var RedisStore = require( 'connect-redis' )( session );
-var redis = require( 'redis' );
 var passport = require( 'passport' );
 var LocalStrategy = require( 'passport-local' ).Strategy;
 var flash = require( 'flash' );
@@ -252,10 +250,10 @@ if ( process.env.NODE_ENV == 'production' ) {
     app.use( cookieParser( secret ) );
     app.use( haltOnTimedout );
     app.use( session({
-        secret: 'gtfo, bruh',
-        store: new RedisStore( { client: client } ),
+        secret: secret,
         resave: true,
-        saveUninitialized: true
+        saveUninitialized: true,
+        cookie: { secure: true }
     }));
     app.use( haltOnTimedout );
 } else if ( process.env.NODE_TEST ) {
@@ -263,8 +261,8 @@ if ( process.env.NODE_ENV == 'production' ) {
     app.use( session({
         resave: true,
         saveUninitialized: true,
-        secret: 'gtfo, bruh',
-        store: new RedisStore( { client: client } )
+        secret: secret,
+        cookie: { secure: true }
     }));
     app.use( haltOnTimedout );
 } else {
