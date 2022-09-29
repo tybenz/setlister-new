@@ -40,7 +40,7 @@
     "newrelic": "^6.4.1",
     "node-sass-middleware": "^0.11.0",
     "node-uuid": "^1.4.8",
-    "nodemon": "^2.0.2",
+    "nodemon": "^2.0.20",
     "paper-api-client": "^1.1.1",
     "paper-profiler": "^1.0.2",
     "paper-router": "^0.5.9",
